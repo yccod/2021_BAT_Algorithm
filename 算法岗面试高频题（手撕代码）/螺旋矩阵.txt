@@ -1,0 +1,19 @@
+class Solution:
+    def spiralOrder(self, matrix):
+        result=[]
+        if not matrix:
+            return result
+        while matrix:
+            result.extend(matrix.pop(0))
+            if matrix:
+                matrix=self.turn(matrix)
+            else:
+                return result
+    def turn(self,mat):
+        m=len(mat)
+        n=len(mat[0])
+        newmat=[[0]*m for _ in range(n)]
+        for i in range(n):
+            for j in range(m):
+                newmat[i][j]=mat[j][i]
+        return newmat[::-1]

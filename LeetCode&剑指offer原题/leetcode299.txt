@@ -1,0 +1,55 @@
+*/c++
+*/
+class Solution {
+public:
+	string getHint(string secret, string guess) {
+		int m[256] = {0}, bulls = 0, cows = 0;
+		for(int i = 0; i < secret.size(); ++i) {
+			if (secret[i] == guess[i]) ++bills;
+			else ++m[secret[i]];
+		}
+		for (int i = 0; i < secret.size();++i) {
+			if (secret[i] != guess[i] && m[guess[i]]) {
+				++cows;
+				--m[guess[i]];
+			}
+		}
+	return to_string(bulls)+"A"+to_string(cows)+"B";
+	}
+};
+
+*/python
+class Solution:
+	def getHint(self,secret,guess):
+		A = 0
+		B = 0
+		for i in range(len(secret)):
+			if secret[i] == guess[i]:
+				A += 1
+		map1 = {}
+		map2 = {}
+		for i in range(len(secret)):
+			map1[secret[i]] = map1.get(secret[i],0)+1
+			map2[guess[i]] = map2.get(guess[i],0)+1
+		for key in map2.keys():
+			if key in map1.keys():
+				B += min(map1[key],map2[key])
+		return str(A)+"A"+str(B-A)+"B"
+		
+		
+		
+*/
+from collections import Counter
+class Solution:
+	def getHint(self,secret,guess):
+		ans, c1 ,c2 = [0,0],Counter(secret),Counter(guess)
+		for i, j in zip(secret,guess):	
+			if i==j:
+				ans[0] += 1
+		for i, j in c1.items():
+			ans[1] += min(j,c2.get(i,0))
+		return "{}A{}B".format(ans[0],ans[1]-ans[0])
+		
+			
+		
+

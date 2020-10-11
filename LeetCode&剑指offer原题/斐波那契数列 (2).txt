@@ -1,0 +1,67 @@
+*/Python 解法
+def fib_recur(n):
+    assert n >= 1, "n >=1"
+    if n <= 2:
+        return 1
+    return fib_recur(n-1) + fib_recur(n-2)
+    
+*/
+def fib_loop(n):
+    a, b = 0, 1
+    for i in range(n + 1):
+        a, b = b, a+b
+    return a
+
+    
+*/
+def fib_loop_while(max):
+    a, b = 0,1
+    while max > 0:
+        a, b = b, a + b
+        max -= 1
+        yield a
+for i in fib_loop_while(10):
+    print(i)
+
+    
+*/
+class Fibonacci(object):
+    """斐波那契数列迭代器"""
+
+    def __init__(self, n):
+        """
+        :param n:int 指 生成数列的个数
+        """
+        self.n = n
+        # 保存当前生成到的数据列的第几个数据，生成器中性质，记录位置，下一个位置的数据
+        self.current = 0
+        # 两个初始值
+        self.a = 0
+        self.b = 1
+
+    def __next__(self):
+        """当使用next()函数调用时，就会获取下一个数"""
+        if self.current < self.n:
+            self.a, self.b = self.b, self.a + self.b
+            self.current += 1
+            return self.a
+        else:
+            raise StopIteration
+
+    def __iter__(self):
+        """迭代器的__iter__ 返回自身即可"""
+        return self
+
+
+if __name__ == '__main__':
+    fib = Fibonacci(15)
+    for num in fib:
+        print(num)
+
+*/
+import numpy
+def fib_matrix(n):
+    res = pow((numpy.matrix([[1, 1], [1, 0]])), n) * numpy.matrix([[1], [0]])
+    return res[0][0]
+for i in range(10):
+    print(int(fib_matrix(i)), end=' ')

@@ -1,0 +1,99 @@
+/*
+struct ListNode {
+    int val;
+    struct ListNode *next;
+    ListNode(int x) :
+        val(x), next(NULL) {
+    }
+};
+*/
+class Solution {
+public:
+    ListNode* EntryNodeOfLoop(ListNode* pHead)
+    {
+        ListNode*fast = pHead, *low = pHead;
+        while(fast&&fast->next){
+            fast = fast->next->next;
+            low = low-> next;
+            if(fast == low)
+                break;
+        }
+        if (!fast || !fast->next) return NULL;
+        low = pHead;
+        while(fast!=low){
+            fast=fast->next;
+            low=low->next;
+        }
+    return low;
+    }
+};
+
+*/
+
+
+class Solution {
+public:
+    ListNode* EntryNodeOfLoop(ListNode* pHead){
+        if (!pHead->next)
+            return NULL;
+        ListNode* previous = pHead;
+        ListNode* front = pHead->next;
+        while(front){
+            previous->next = NULL;
+            previous = front;
+            front = front->next;
+        }
+        return previous;
+    }
+};
+    
+
+*/python
+# -*- coding:utf-8 -*-
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+class Solution:
+    def EntryNodeOfLoop(self, pHead):
+        # write code here
+        slow,fast=pHead,pHead
+        while fast and fast.next:
+            slow=slow.next
+            fast=fast.next.next
+            if slow==fast:
+                slow = pHead
+                while slow!=fast:
+                    slow=slow.next
+                    fast=fast.next
+                return slow
+                
+                
+*/                
+class Solution:
+    def  EntryNodeOfLoop(self,pHead):
+        linkls = []
+        while pHead:
+            if pHead in linkls:
+                return pHead
+            linkls.append(pHead)
+            pHead=pHead.next    
+        return None
+        
+                
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

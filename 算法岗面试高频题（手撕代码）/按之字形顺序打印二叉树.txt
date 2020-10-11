@@ -1,0 +1,96 @@
+*/c++
+class Solution {
+public:
+    vector<vector<int> > Print(TreeNode* pRoot) {
+        vector<vector<int>> res;
+        if(!pRoot)return res;
+        queue<TreeNode*> que;    //建立个单向队列，用于存放节点
+        bool flag=false;     //判断是否为偶数行,flag=false代表奇数行，flag=true代表偶数行
+        que.push(pRoot);
+        while(que.size()>0){
+            vector<int> vec;    //行容器，用于存入当前行输出的结果
+            int len=que.size();
+            for(int i=0;i<len;i++){
+                TreeNode* tmp=que.front();
+                vec.push_back(tmp->val);
+                que.pop();
+                if(tmp->left)que.push(tmp->left);
+                if(tmp->right)que.push(tmp->right);
+            }
+            if(flag) reverse(vec.begin(),vec.end());  //是偶数行就反转顺序
+            flag=!flag;     //改变flag的值
+            res.push_back(vec);
+        }
+        return res;
+    }
+};
+
+
+*/
+class Solution {
+public:
+    vector<vector<int> > Print(TreeNode* pRoot) {
+        vector<vector<int>> res;
+        if(!pRoot)return res;
+        stack<TreeNode*> sta1;    //建立两个栈，栈1用于存放奇数行节点，栈2用于存放偶数行节点
+        stack<TreeNode*> sta2;
+        sta1.push(pRoot);
+        vector<int> vec;    //行容器，用于存入当前行输出的结果
+        while(!sta1.empty()||!sta2.empty()){
+          if(sta2.empty()&&!sta1.empty()){
+               int len_1=sta1.size();
+             for(int i=0;i<len_1;i++){
+                TreeNode* tmp=sta1.top();
+                vec.push_back(tmp->val);
+                sta1.pop();
+                if(tmp->left)sta2.push(tmp->left);    //栈2存放偶数行节点，按照从左子节点到右子节点的顺序push
+                if(tmp->right)sta2.push(tmp->right);
+             }
+               res.push_back(vec);
+               vec.clear();
+          }
+           
+          if(sta1.empty()&&!sta2.empty()){
+                int len_2=sta2.size();
+             for(int i=0;i<len_2;i++){
+                TreeNode* tmp=sta2.top();
+                vec.push_back(tmp->val);
+                sta2.pop();
+                if(tmp->right)sta1.push(tmp->right);    //栈1存放奇数行节点，按照从右子节点到左子节点的顺序push
+                if(tmp->left)sta1.push(tmp->left);
+            }
+              res.push_back(vec);
+               vec.clear();
+         }
+        }
+        return res;
+    }
+};
+
+
+*/python
+class Solution:
+	def Print(self,pRoot):
+		if not pRoot:
+			return []
+		queue = [pRoot]
+		result = []
+		flag = 0
+		while queue:
+			res = []
+			i = 0
+			length = len(queue)
+			while i < length:
+				item = queue.pop(0)
+				res.append(item.val)
+				if item.left:
+					queue.append(item.left)
+				if item.right:
+					queue.append(item.right)
+				i = i+1
+			if flag:
+				res = res[::-1]
+			result.append(res)
+			falg ^= 1 
+			
+		return result

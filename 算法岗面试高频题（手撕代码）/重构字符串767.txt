@@ -1,0 +1,16 @@
+class Solution:
+    def reorganizeString(self, S: str):
+        dict1={}
+        for char in S:
+            dict1[char]=dict1.get(char,0)+1
+        max_count=max(dict1.values())
+        a=[]
+        dict1=sorted(dict1.items(),key=lambda x:-x[1])
+        for key,value in dict1:
+            a.extend([key]*value)
+        if max_count>(len(S)+1)//2:
+            return ""
+        ans=[""]*len(S)
+        ans[::2]=a[:(len(a)+1)//2]
+        ans[1::2]=a[(len(a)+1)//2:]
+        return "".join(ans)

@@ -1,0 +1,33 @@
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        dict_count={}
+        for num in nums:
+            dict_count[num]=dict_count.get(num,0)+1
+        a=sorted(dict_count.items(),key=lambda x:-x[1])
+        ans=[]
+        for i in range(k):
+            ans.append(a[i][0])
+        return ans
+
+
+
+
+import heapq
+class Solution:
+    def topKFrequent(self, nums, k):
+        dict_count={}
+        for num in nums:
+            dict_count[num]=dict_count.get(num,0)+1
+        heap=[]
+        for key,v in dict_count.items():
+            if len(heap)<k:
+                heapq.heappush(heap,(v,key))
+            else:
+                if v>heap[0][0]:
+                    heapq.heappop(heap)
+                    heapq.heappush(heap,(v,key))
+        ans=[]
+        for i in range(k):
+            a=heapq.heappop(heap)
+            ans.append(a[1])
+        return ans

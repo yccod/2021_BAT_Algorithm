@@ -1,0 +1,66 @@
+*/ C++ 解法
+class Solution {
+public:
+    string reverseStr(string s, int k) {
+        int n = s.size() , cnt = n / k;
+        for(int i = 0; i<= cnt;++i){
+            if(i % 2 == 0) {
+                if(i*k+k < n) {
+                    reverse(s.begin() + i*k, s.begin()+i*k+k);
+                }else {
+                    reverse(s.begin() + i *k, s.end());
+                }
+            }
+        }
+        return s;
+        
+    }
+};
+
+*/
+class Solution{
+public:
+    string reverseStr(string s, int k) {
+        for(int i = 0; i < s.size() ; i+=2*k){
+            reverse(s.begin() + i , min(s.begin()+i+k, s.end()));
+        }
+        return s; 
+    }
+
+};
+
+
+
+*/ Python 解法
+
+class Solution:
+    def reverseStr(self, s: str, k: int) -> str:
+        left ,mid , right = 0, k , 2*k
+        res=''
+        while(len(res) < len(s)):
+            res += s[left:mid][::-1] + s[mid:right]
+            left , mid , right = left + 2*k, mid + 2*k, right+2*k
+        return res
+        
+*/
+class Solution:
+    def reverseStr(self, s, k):
+        if len(s) <= k:
+            return s[::-1]
+        elif(k < len(s)) and (len(s) < 2*k):
+            return s[0:k][::-1] + s[k:]
+        else:
+            return s[0:k][::-1] + s[k:2*k] +self.reverseStr(s[2*k:],k)
+            
+            
+*/
+class Solution:
+    def reverseStr(self,s,k):
+        res = ''
+        for i in range(0,len(s),2*k):
+            res += s[i:i+k][::-1] + s[i+k:i+2*k]
+        return res
+           
+         
+        
+        

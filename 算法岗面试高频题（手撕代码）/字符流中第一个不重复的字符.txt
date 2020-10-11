@@ -1,0 +1,57 @@
+*/c++
+class Solution
+{
+public:
+  //Insert one char from stringstream
+    string s;
+    void Insert(char ch)
+    {
+         s.push_back(ch);      //输入字符到字符串s中
+    }
+  //return the first appearence once char in current stringstream
+    char FirstAppearingOnce()
+    {
+       int hash[256]={0};     //初始化所有的字符出现的次数为0
+       int length=s.length();
+       for(int i=0;i<length;i++)   //遍历字符串s，出现一次对应hash累加一次
+         {
+           hash[s[i]]++;
+         }
+       for(int i=0;i<length;i++)
+         {
+           if(hash[s[i]]==1)     //找到第一个出现次数为1的字符，返回结束
+               return s[i];
+         }
+       return '#';             //若遍历完未找到，则返回字符'#'。
+    }
+};
+
+*/python	
+class Solution:
+	def __init__(self):
+		self.s = ""
+	def FirstAppearingOnce(self):
+		res = list(filter(lambda c:self.s.count(c)==1,self.s))
+		return res[0] if res else "#"
+	def Insert(self,char):
+		self.s+=char
+		
+		
+*/		
+class Solution:
+	def __init__(self):
+		self.s =""
+		self.map = {}
+	def FirstAppearingOnce(self):
+		for key in self.s:
+			if self.map[key]== 1:
+				return key
+		return "#"
+	def Insert(self,char):
+		self.s += char
+		self.map[char]=self.map.get(char,0)+1
+			
+	
+
+
+

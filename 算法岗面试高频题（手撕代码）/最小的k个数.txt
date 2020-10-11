@@ -1,0 +1,46 @@
+*/c++
+class Solution {
+public:
+    vector<int> GetLeastNumbers_Solution(vector<int> input, int k) {
+        vector<int> res;
+        if(input.empty()||k>input.size()) return res;
+         
+        sort(input.begin(),input.end());
+         
+        for(int i=0;i<k;i++)
+            res.push_back(input[i]);
+         
+        return res;
+         
+    }
+};
+
+
+
+
+*/python		
+class Solution:
+	def GetLeastNumbers_Solution(self,tinput,k):
+		if tinput == [] or k > len(tinput):
+			return []
+		tinput.sort()
+		return tinput[:k]
+*/
+class Solution:
+	def GetLeastNumbers_Solution(self,tinput,k):
+		def quick_sort(lst):
+			if not lst:
+				return []
+			pivot = lst[0]
+			left = quick_sort([x for x in lst[1:] if x < pivot])
+			right= quick_sort([x for x in lst[1:] if x >= pivot])
+			return left + [pivot] + right
+		if tinput == [] or k > len(tinput):
+			return []
+		tinput = quick_sort(tinput)
+		return tinput[:k]
+		
+
+  
+		
+		

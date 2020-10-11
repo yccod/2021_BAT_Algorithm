@@ -1,0 +1,122 @@
+*/C++解法
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<string> binaryTreePaths(TreeNode* root) {
+        vector<string> res;
+        if (root) helper(root,"",res);
+        return res;
+    }
+    void helper(TreeNode* node,string out, vector<string> &res) {
+        if(!node->left && !node->right) res.push_back(out+to_string(node->val));
+        if(node->left) helper(node->left, out+to_string(node->val) + "->",res);
+        if(node->right) helper(node->right, out+to_string(node->val) +"->",res);
+    }
+};
+
+
+*/
+
+class Solution {
+public:
+    vector<string> binaryTreePaths(TreeNode* root) {
+        if(!root) return {};
+        if(!root->left && !root->right) return {to_string(root->val)};
+        vector<string> left = binaryTreePaths(root->left);
+        vector<string> right = binaryTreePaths(root->right);
+        left.insert(left.end(),right.begin(),right.end());
+        for (auto &a : left){
+            a = to_string(root->val) + "->" + a;
+        }
+    return left;
+    
+    }
+}; 
+
+*/
+class Solution {
+public:
+    vector<string> binaryTreePaths(TreeNode* root) {
+        if(!root) return {};
+        if(!root->left && !root->right) return {to_string(root->val)};
+        vector<string> res;
+        for (string str : binaryTreePaths(root->left)){
+            res.push_back(to_string(root->val) + "->" +str);
+        }
+        for (string str : binaryTreePaths(root->right)) {
+            res.push_back(to_string(root->val) + "->" +str);
+        }
+        return res;
+    }
+};
+
+
+*/Python 解法
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def binaryTreePaths(self, root: TreeNode) -> List[str]:
+        def construct_paths(root,path):
+            if root:
+                path += str(root.val)
+                if not root.left and not root.right:
+                    paths.append(path)
+                else:
+                    path+="->"
+                    construct_paths(root.left,path)
+                    construct_paths(root.right,path)
+        paths = []
+        construct_paths(root,'')
+        return paths
+        
+        
+        
+*/
+class Solution:
+    def binaryTreePaths(self,root):
+        if not root:
+            return []
+        paths = []
+        stack = [(root,str(root.val))]
+        while stack:
+            node,path = stack.pop()
+            if not node.left and not node.right:
+                paths.append(path)
+            if node.left:
+                stack.append((node.left,path+"->"+str(node.left.val)))
+            if node.right:
+                stack.append((node.right,path+"->"+str(node.right.val)))
+        return paths
+        
+        
+*/
+class Solution:
+    def binaryTreePaths(self,root):
+        if not root:
+            return []
+        if not root.left and not root.right:
+            return [str(root.val)]
+        else:
+            result = []
+            nodeNum = str(root.val)
+            left = self.binaryTreePaths(root.left)
+            right = self.binaryTreePaths(root.right)
+            for item in left+right:
+                result.append(nodeNum+"->"+item)
+            return result
+            
+            

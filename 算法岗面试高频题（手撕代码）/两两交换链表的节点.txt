@@ -1,0 +1,34 @@
+def swapPairs(self,head):
+	if not head or not head.next:
+		return head
+	first=head
+	second=head.next
+	first.next=self.swapPairs(second.next)
+	second.next=first
+	return second
+	
+	
+	
+	
+def swapPairs(self,head):
+	dummy=ListNode(-1)
+	dummy.next=head
+	pre_node=dummy
+	while head and head.next:
+		first_node=head
+		second_node=head.next
+		pre_node.next=second_node
+		first_node.next=second_node.next
+		second_node.next=first_node
+		pre_node=first_node
+		head=first_node.next
+	return dummy.next
+
+
+
+
+
+
+	
+	
+	

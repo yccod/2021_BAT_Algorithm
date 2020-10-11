@@ -1,0 +1,45 @@
+import heapq
+def find(nums):
+    k=len(nums)//2+1
+    heap=nums[:k]
+    heapq.heapify(heap)
+    for i in range(k,len(nums)):
+        if nums[i]>heap[0]:
+            heapq.heappop(heap)
+            heapq.heappush(heap,nums[i])
+    return heap[0] if len(nums)%2 else (heap[0]+min(heap[1],heap[2]))/2
+	
+	
+
+
+def find(nums):
+	k=len(nums)//2+1
+	heap=nums[:k]
+	for i in range(k//2-1,-1,-1):
+		sift(heap,i,k-1)
+		
+	for i in range(k,len(nums)):
+		if nums[i]>heap[0]:
+			heap[0]=nums[i]
+			sift(heap,0,k-1)
+	return heap[0] if len(nums)%2 else (heap[0]+min(heap[1],heap[2]))/2
+	
+	
+def sift(arr,left,right):
+	temp=arr[left]
+	i=left
+	j=2*i+1
+	while j<=right:
+		if j<right and arr[j]>arr[j+1]:
+			j=j+1
+		if temp>arr[j]:
+			arr[i]=arr[j]
+			i=j
+			j=2*i+1
+		else:
+			break
+	arr[i]=temp
+	
+		
+			
+	

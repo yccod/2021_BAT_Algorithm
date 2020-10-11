@@ -1,0 +1,15 @@
+杨超:
+最短描述数，10的最短描述数是3^2+1^2所以是2，求一个数的最短描述数
+
+(动态规划)
+f(i)=min(f(i),f(i-j**2)+1)
+1<=j<=i**0.5
+
+def min_count(num):
+	dp=[i for i in range(1,num+1)]
+	for i in range(num):
+		for j in range(1,int(i**0.5)+1):
+			dp[i]=min(dp[i],dp[i-j**2]+1)
+	return dp[-1]
+			
+	

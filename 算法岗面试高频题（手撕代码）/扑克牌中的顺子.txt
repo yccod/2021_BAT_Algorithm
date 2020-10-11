@@ -1,0 +1,19 @@
+class Solution:
+    def isStraight(self, nums: List[int]) -> bool:
+        num=[i for i in nums if i!=0]
+        return len(set(num))==len(num) and max(num)-min(num)<5
+		
+class Solution:
+    def isStraight(self, nums: List[int]) -> bool:
+        nums.sort()
+        count=0
+        for i in range(4):
+            if nums[i]==0:
+                continue
+            if nums[i+1]==nums[i]:
+                return False
+            count+=nums[i+1]-nums[i]
+        if count<5:
+            return True
+        else:
+            return False

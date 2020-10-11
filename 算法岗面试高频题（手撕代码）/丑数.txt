@@ -1,0 +1,46 @@
+*/c++
+class Solution {
+public:
+	int GetUglyNumber_Solution(int index) {
+		if(index < 7) return index;
+		vector<int> res(index);
+		res[0] = 1;
+		int t2 = 0, t3 = 0, t5 = 0,i;
+		for(i = 1; i < index; ++i)
+		{	res[i] = min(res[t2]*2,min(res[t3]*3,res[t5]*5));
+			if (res[i] == res[t2]*2) t2++;
+			if (res[i] == res[t3]*3) t3++;
+			if (res[i] == res[t5]*5) t5++;
+		}
+		return res[index-1];
+	}
+};
+
+*/python
+class Solution:
+	def GetUglyNumber_Solution(self,index):
+		if index < 7:
+			return index
+		nums = []
+		nums.append(1)
+		t2,t3,t5 = 0,0,0
+		for i in range(1,index):
+			min_value = min([nums[t2]*2,nums[t3]*3,nums[t5]*5])
+			nums.append(min_value)
+			if min_value == nums[t2]*2:
+				t2 +=1
+			if min_value == nums[t3]*3:
+				t3 +=1
+			if min_value == nums[t5]*5:
+				t5 +=1
+		return nums[-1]
+		
+		
+		
+		
+*/
+def GetUglyNumber_Solution(self, index):
+        res=[2**i*3**j*5**k  for i in range(30)  for j in range(20)   for k in range(15)]
+        res.sort()
+        return res[index-1] if index else 0
+				

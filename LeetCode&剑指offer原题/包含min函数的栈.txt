@@ -1,0 +1,50 @@
+*/C++解法
+
+class Solution {
+public:
+        stack<int> stack1,stack2;
+        void push(int value) {
+            stack1.push(value);
+            if (stack2.empty())
+                stack2.push(value);
+            else if (value<=stack2.top()){
+                stack2.push(value);
+            }
+        }
+    void pop() {
+        if (stack1.top() == stack2.top())
+            stack2.pop();
+        stack1.pop();
+    }
+    int top() {
+        return stack1.top();
+    }
+    int min() {
+        return stack2.top();
+      }
+    
+};
+
+*/Python解法
+# -*- coding:utf-8 -*-
+class Solution:
+    def __init__(self):
+        self.stack = []
+        self.assist = []
+    def push(self, node):
+        self.stack.append(node)
+        if len(self.assist) == 0:
+            self.assist.append(node)
+        elif (node<=self.assist[-1]):
+            self.assist.append(node)
+    def pop(self):
+        # write code here
+        if (self.stack[-1] == self.assist[-1]):
+            self.assist.pop()
+        self.stack.pop()
+    def top(self):
+        # write code here
+        return self.stack[-1]
+    def min(self):
+        # write code here
+        return self.assist[-1]

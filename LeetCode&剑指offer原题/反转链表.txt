@@ -1,0 +1,114 @@
+/*
+struct ListNode {
+	int val;
+	struct ListNode *next;
+	ListNode(int x) :
+			val(x), next(NULL) {
+	}
+};*/
+class Solution {
+public:
+    ListNode* ReverseList(ListNode* pHead) {
+        if(pHead == NULL) return NULL;
+        ListNode* pNode = pHead;
+        ListNode* pReverseHead = NULL;
+        ListNode* pPrev = NULL;
+        
+        while(pNode != NULL){
+            ListNode* pNext = pNode->next;
+            if (pNext == NULL)
+                pReverseHead = pNode;
+            
+            pNode ->next = pPrev;
+            pPrev = pNode;
+            pNode = pNext;
+            
+        }
+        return pReverseHead;
+
+    }
+};
+
+
+*/
+class Solution {
+public:
+    ListNode* ReverseList(ListNode* pHead) {
+        ListNode* h = NULL;
+        ListNode* p = pHead;
+        while(p != NULL){
+            ListNode* tmp = p ->next;
+            p->next = h;
+            h = p;
+            p = tmp;
+        }
+    return h;
+    }
+};
+
+*/递归方法
+class Solution {
+public:
+    ListNode* ReverseList(ListNode* pHead) {
+        if (pHead == NULL || pHead->next == NULL) return pHead;
+        
+        ListNode* pReverseHead=ReverseList(pHead->next);
+        
+        pHead->next->next = pHead;
+        pHead->next = NULL;
+        return pReverseHead;
+
+    }
+};
+
+
+*/栈方法
+class Solution{
+public:
+        ListNode* ReverseList(ListNode* pHead) {
+            if (pHead == NULL || pHead->next == NULL){
+                return pHead;
+            }
+            ListNode*p = pHead;
+            ListNode* newhead;
+            stack<ListNode*> stack1;
+            while(p->next != NULL){
+             stack1.push(p);
+             p = p->next;
+            }
+            newhead = p;
+            while(!stack1.empty())
+            {
+                p->next = stack1.top();
+                p = p->next;
+                stack1.pop();
+                
+            }
+        p->next = NULL;
+        return newhead;
+        }
+};
+
+
+
+
+*/Python解法
+# -*- coding:utf-8 -*-
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+class Solution:
+    # 返回ListNode
+    def ReverseList(self, pHead):
+        # write code here
+        if pHead==None or pHead.next==None:
+            return pHead
+        pre = None
+        cur = pHead
+        while cur != None:
+            tmp = cur.next
+            cur.next = pre
+            pre = cur
+            cur = tmp
+        return pre

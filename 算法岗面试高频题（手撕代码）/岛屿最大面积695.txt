@@ -1,0 +1,26 @@
+class Solution:
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+        m, n = len(grid), len(grid[0])
+        def dfs(gird, i, j):
+            if 0<=i<m and  0<=j<n and grid[i][j]:
+                grid[i][j] = 0
+                return 1 + dfs(grid, i+1,j) + dfs(grid, i-1, j) + dfs(grid, i, j+1) + dfs(grid, i, j-1)
+            return 0
+        result = 0
+        for x in range(m):
+            for y in range(n):
+                result = max(result, dfs(grid, x, y))
+        return result
+
+def maxAreaOfIsland(self,grid):
+	def dfs(i,j):
+		if i>=0 and j>=0 and i<len(gird) and j<len(grid[0]) and grid[i][j]:
+			grid[i][j]=0
+			return 1+dfs(i+1,j)+dfs(i-1,j)+dfs(i,j+1)+dfs(i,j-1)
+		return 0
+	area=0
+	for i in range(len(grid)):
+		for j in range(len(grid[0])):
+			area=max(area,dfs(i,j))
+	return area
+	

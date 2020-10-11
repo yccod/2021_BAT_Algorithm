@@ -1,0 +1,59 @@
+*/C++Ëã·¨
+
+class Solution {
+public:
+    int FindGreatestSumOfSubArray(vector<int> array) {
+        if (array.empty()) return 0;
+        int sum = array[0], tempsum = array[0];
+        for (int i = 1; i < array.size(); i++){
+            tempsum = (tempsum < 0) ? array[i] : tempsum + array[i];
+            sum = (tempsum > sum) ? tempsum : sum;
+        }
+       return sum; 
+    }
+};
+
+
+
+
+
+class Solution {
+public:
+    int FindGreatestSumOfSubArray(vector<int> array) {
+        int max = INT_MIN, sum = 0;
+        for(int i = 0; i < array.size(); ++i){
+            sum += array[i];         
+            if(sum > max) max = sum;
+            if(sum < 0) sum = 0;     
+        }
+        return max;
+    }
+};
+
+
+
+
+
+
+
+
+*/Python
+class Solution:
+    def FindGreatestSumOfSubArray(self,array):
+        n = len(array)
+        dp = [ i for i in array]
+        for i in range(1,n):
+            dp[i] = max(dp[i-1]+array[i],array[i])
+        return max(dp)
+        
+        
+        
+class Solution:
+    def FindGreatestSumOfSubArray(self,array):
+        res = -10000
+        temp=0
+        for i in array:
+            temp = max(i,temp+i)
+            res = max(res,temp)
+        return res
+        

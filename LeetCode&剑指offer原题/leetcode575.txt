@@ -1,0 +1,24 @@
+*/C++解法
+
+class Solution {
+public:
+    int distributeCandies(vector<int>& candies) {
+        unordered_set<int> s;
+        for ( int candy : candies) s.insert(candy);
+        return min(s.size() , candies.size() /2);
+    }
+};
+
+*/
+class Solution{
+public:
+    int distributeCandies(vector<int>& candies) {
+        return min(unordered_set<int>(candies.begin(), candies.end()).size(), candies.size() / 2);
+    }
+
+};
+
+*/Python 解法
+class Solution:
+    def distributeCandies(self, candies: List[int]) -> int:
+        return min(len(candies)//2, len(set(candies)))

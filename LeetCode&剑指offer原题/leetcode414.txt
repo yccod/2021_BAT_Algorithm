@@ -1,0 +1,45 @@
+*/ C++解法
+
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) {
+        long first = LONG_MIN, second = LONG_MIN, third = LONG_MIN;
+        for (int num : nums) {
+            if (num > first) {
+                third = second;
+                second = first;
+                first = num;
+            } else if (num > second && num < first) {
+                third = second;
+                second = num;
+            } else if (num > third && num < second) {
+                third = num;
+            }
+        }
+        return (third == LONG_MIN ) ? first : third;
+    }
+};
+
+*/
+
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) {
+        set<int> s;
+        for (int num : nums) {
+            s.insert(num);
+            if (s.size() > 3) {
+                s.erase(s.begin());
+            }
+        }
+        return s.size() == 3 ? *s.begin() : *s.rbegin();
+    }
+};
+
+*/ Python 解法
+class Solution:
+    def thirdMax(self, nums: List[int]) -> int:
+        a = sorted(list(set(nums)))
+        return a[-3] if len(a) >= 3 else a[-1] 
+        
+

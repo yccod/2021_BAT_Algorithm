@@ -1,0 +1,91 @@
+*/c++
+class Solution {
+public:
+    vector<string> findRelativeRanks(vector<int>& nums) {
+        int n = nums.size(), cnt = 1;
+        vector<string> res(n, "");
+        priority_queue<pair<int, int>> q;
+        for (int i = 0; i < n; ++i) {
+            q.push({nums[i], i});
+        }
+        for (int i = 0; i < n; ++i) {
+            int idx = q.top().second; q.pop();
+            if (cnt == 1) res[idx] = "Gold Medal";
+            else if (cnt == 2) res[idx] = "Silver Medal";
+            else if (cnt == 3) res[idx] = "Bronze Medal";
+            else res[idx] = to_string(cnt);
+            ++cnt; 
+        }
+        return res;
+    }
+};
+
+*/
+class Solution {
+public:
+    vector<string> findRelativeRanks(vector<int>& nums) {
+        int n = nums.size(), cnt = 1;
+        vector<string> res(n, "");
+        map<int, int> m;
+        for (int i = 0; i < n; ++i) {
+            m[nums[i]] = i;
+        }
+        for (auto it = m.rbegin(); it != m.rend(); ++it) {
+            if (cnt == 1) res[it->second] = "Gold Medal";
+            else if (cnt == 2) res[it->second] = "Silver Medal";
+            else if (cnt == 3) res[it->second] = "Bronze Medal";
+            else res[it->second] = to_string(cnt);
+            ++cnt;
+        }
+        return res;
+    }
+};
+
+
+*/python		
+class Solution:
+	def findRelativeRanks(self,nums):
+		sorted_nums = sorted(nums,reverse=True)
+		num_rank_mapping = {num:index+1 for index,num in enumerate(sorted_nums)}
+		rank_mapping = {1:"Gold Medal",2:'Silver Medal',3:'Bronze Medal'}
+		res = []
+		for num in nums:
+			rank = num_rank_mapping[num]
+			res.append(rank_mapping.get(rank,str(rank)))
+		return res
+		
+		
+		
+*/
+class Solution:
+	def findRelativeRanks(self,nums):
+		a = sorted(nums,reverse = True)
+		d = {}
+		for i,v in enumerate(a):
+			if i > 2:
+				d[v] = str(i+1)
+			elif i == 0:
+				d[v] = "Gold Medal"
+			elif i == 1:
+				d[v] = "Silver Medal"
+			elif i == 2:
+				d[v] = "Bronze Medal"
+		return [d[v] for v in nums]
+		
+*/
+class Solution:
+	def findRelativeRanks(self,nums):
+		nus = sorted(nums)[::-1]
+		nums = [str(nus.index(i)+1)for i in nums]
+		n = len(nums)
+		if n > 0:
+			nums[nums.index('1')] = "Gold Medal"
+		if n > 1:
+			nums[nums.index('2')] = "Silver Medal"
+		if n > 2:
+			nums[nums.index('3')] = "Bronze Medal"
+		retur nums
+		
+	
+		
+		

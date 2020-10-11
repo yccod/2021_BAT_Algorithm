@@ -1,0 +1,33 @@
+分三种情况：
+case 1：如果全是正数，返回第一个元素值。
+case 2：如果全是负数，返回最后一个元素值。
+case 3：有正有负，充分利用给定的条件——已排序的数组。因此考虑二分查找，找到 0 的插入位置，如果正好找到 0，0 就是绝对值最小的元素；如果没有找到 0，插入位置的左右元素比较绝对值大小 ，返回较小者就 OK 了。
+
+def min_Abs(num):
+	if num[-1]<=0:
+		return num[-1]
+	elif num[0]>=0:
+		return num[0]
+	else:
+		left=0
+		right=len(num)-1
+		while left<=right:
+			mid=(left+right)>>1
+			if num[mid]==0:
+				return 0
+			elif num[mid]>0:
+				right=mid-1
+			else:
+				left=mid+1
+		min_num=min(abs(num[left-1]),abs(num[left]),abs(num[left+1]))
+		if min_num==abs(num[left-1]):
+			return num[left-1]
+		elif min_num==abs(num[left]):
+			return num[left]
+		else:
+			return num[left+1]
+			
+		
+				
+			
+		

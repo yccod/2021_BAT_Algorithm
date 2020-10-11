@@ -1,0 +1,86 @@
+思路一：动态规划
+
+dp[i]表示以nums[i]结尾的最长上升子序列
+
+动态方程：dp[i] = max(dp[i], dp[j] + 1) j < i
+
+时间复杂度：O(n^2)O(n 
+2
+ )
+
+空间复杂度：O(1)O(1)
+
+
+class Solution:
+	def lengthOfLIS(self,nums):
+		if len(nums)<2:
+			return len(nums)
+		dp=[1]*len(nums)
+		for i in range(1,len(nums)):
+			for j in range(i):
+				if nums[i]>nums[j]:
+					dp[i]=max(dp[i],dp[j]+1)
+		return max(dp)
+		
+
+
+思路二：二分法
+
+我们建立一个数组有序(递增)arr，记录遍历的数组。
+
+当遍历的数比arr最后一个数还有大，添加到arr末尾
+
+当遍历的数比尾数小，有二分法找到arr的位置，覆盖
+
+最后返回arr的长度即可。arr数组不一定是真实的最长上升子序列。
+
+大家可以有例子模拟一下！
+
+时间复杂度：O(nlogn)O(nlogn)
+
+空间复杂度：O(n)O(n)
+
+
+import bisect
+class Solution:
+    def lengthOfLIS(self,nums):
+        if len(nums)<2:
+            return len(nums)
+        arr=[nums[0]]
+        for num in nums:
+            if num>arr[-1]:
+                arr.append(num)
+            else:
+                loc=bisect.bisect_left(arr,num)
+                arr[loc]=num
+        return len(arr)
+			
+
+
+
+
+class Solution:
+	def lengthOfLIS(self,nums):
+		if len(nums)<2:
+			return len(nums)
+		tail=[nums[0]]
+		for i in range(1,len(nums)):
+			if nums[i]>tail[-1]:
+				tail.append(nums[i])
+			else:
+				flag=False
+				left=0
+				right=len(tail)-1
+				while left<=right:
+					mid=(left+right)>>1
+					if tail[mid]==nums[i]:
+						flag=True
+						break
+					elif tail[mid]<nums[i]:
+						left=mid+1
+					else:
+						right=mid-1
+				if not flag:
+					tail[left]=nums[i]
+		return len(tail)
+		

@@ -1,0 +1,29 @@
+class Solution:
+    def multiply(self, num1: str, num2: str) -> str:
+        num1=num1[::-1]
+        num2=num2[::-1]
+        res=0
+        for i,v in enumerate(num1):
+            ans=0
+            for k,j in enumerate(num2):
+                ans+=int(v)*int(j)*(10**k)
+            res+=ans*(10**i)
+        return str(res)
+		
+		
+		
+		
+class Solution:
+    def multiply(self, num1: str, num2: str) -> str:
+        a=[]
+        b=[]
+        ans=0
+        for i in range(len(num1)):
+            a.append(int(num1[i])*10**(len(num1)-i-1))
+        for j in range(len(num2)):
+            b.append(int(num2[j])*10**(len(num2)-j-1))
+        for i in range(len(a)):
+            for j in range(len(b)):
+                ans+=a[i]*b[j]
+        return str(ans)
+

@@ -1,0 +1,20 @@
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        max_len=0
+        for i in range(len(nums)):
+            if max_len>=i and i+nums[i]>max_len:
+                max_len=i+nums[i]
+        return max_len>=len(nums)-1
+        
+
+
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        dp=[False]*len(nums)
+        dp[-1]=True
+        index=len(nums)-1
+        for i in range(len(nums)-2,-1,-1):
+            if i+nums[i]>=index:
+                dp[i]=True
+                index=i
+        return dp[0]

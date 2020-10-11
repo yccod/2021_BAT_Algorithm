@@ -1,0 +1,21 @@
+class Solution:
+    def subSort(self, array: List[int]) -> List[int]:
+        right=0
+        right_max=float("-inf")
+        left=len(array)-1
+        left_min=float("inf")
+        for i in range(len(array)):
+            if array[i]>right_max:
+                right_max=array[i]
+            if array[i]<right_max:
+                right=i
+        for i in range(len(array)-1,-1,-1):
+            if array[i]<left_min:
+                left_min=array[i]
+            if array[i]>left_min:
+                left=i
+        if left==len(array)-1:
+            return [-1,-1]
+        else:
+            return [left,right]
+

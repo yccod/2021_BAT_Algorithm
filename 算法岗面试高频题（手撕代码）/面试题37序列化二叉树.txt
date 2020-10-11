@@ -1,0 +1,69 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Codec:
+	def serialize(self,root):
+		if not root:
+			return 
+		node_queue=[root]
+		node_list=[]
+		while node_queue:
+			now_node=node_queue.pop(0)
+			if not now_node:
+				node_list.append(None)
+			else:
+				node_list.append(now_node.val)
+				node_queue.append(now_node.left)
+				node_queue.append(now_node.right)
+		return node_list
+	
+	def deserialize(self,data):
+		if not data:
+			return 
+		node_queue=[]
+		head=TreeNode(data[0])
+		node_queue.append(head)
+		i=1
+		while node_queue and i<len(data):
+			now_node=node_queue.pop(0)
+			if data[i] is not None:
+				now_node.left=TreeNode(data[i])
+				node_queue.append(now_node.left)
+			i+=1
+			if i<len(data) and data[i] is not None:
+				now_node.right=TreeNode(data[i])
+				node_queue.append(now_node.right)
+			i+=1
+		return head
+		
+*/		
+class Codec:
+	def serialize(self,root):
+		res=[]
+		stack=[root]
+		while stack:
+			node=stack.pop()
+			if node:
+				res.append(node.val)
+				stack.append(node.right)
+				stack.append(node.left)
+			else:
+				res.append(None)
+		return res
+	
+	def deserialize(self,data):
+		if not data or not data[0]:
+			return 
+		def dfs():
+			val=data.pop(0)
+			if val is None:
+				return None
+			node=TreeNode(val)
+			node.left=dfs()
+			node.right=dfs()
+			return node
+		return dfs()

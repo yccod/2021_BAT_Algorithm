@@ -1,0 +1,101 @@
+*/c++
+class Solution {
+public:
+	void FindNumsAppearOnce(vector<int> data, int* num1, int* num2) {
+		unordered_map<int,int> map;
+		for (int i = 0;i < data.size();i++)
+			map[data[i]]++;
+		vector<int> v;
+		for (int i = 0; i < data.size();i++){
+			if (map[data[i]]==1)
+				v.push_back(data[i]);
+		}
+		*num1 = v[0]; *num2 = v[1];
+	}
+}; 
+
+*/
+class Solution {
+public:
+	void FindNumsAppearOnce(vector<int> data,int* num1,int* num2) {
+		int size = data.size();
+		int temp = data[0];
+		for(int i=1;i<size;i++)
+			temp = temp^data[i];
+		int index = 0;
+		while((temp&1)==0){
+			++index;
+			temp = temp>>1;
+		}
+		*num1 = 0;
+		*num2 = 0;
+		for(int i=0;i<size;i++){
+			if (IsBit(data[i],index))
+				*num1^=data[i];
+			else
+				*num2^=data[i];
+		}
+	
+	}
+	bool IsBit(int num,int index){
+		num = num>>index;
+		return (num&1);
+	}
+};
+
+*/python
+class Solution:
+	def FindNumsAppearOnce(self,array):
+		map = {}
+		for i in array:
+			map[i] = map.get(i,0)+1
+		res = []
+		for k in map.keys():
+			if map[k] == 1:
+				res.append(k)
+		return res
+			
+*/
+class Solution:
+	def FindNumsAppearOnce(self,array):
+		if not array:
+			return []
+		temp = 0
+		for i in array:
+			temp ^= i
+		idx = 0
+		while (temp & 1) == 0:
+			temp = temp >> 1
+			idx = idx + 1
+		a,b = 0,0
+		for i in array:
+			if self.isBit(i,idx):
+				a ^= i
+			else:
+				b ^= i
+		return [a,b]
+	def isBit(self,num,idx):
+		num = num >> idx
+		return num & 1
+*/		
+class Solution:
+	def FindNumsAppearOnce(self,array):
+		if not array:
+			return []
+		nums = []
+		for i in array:
+			if i not in nums:
+				nums.append(i)
+			else:
+				nums.remove(i)
+		return nums
+		
+		
+*/		
+from collections import Counter
+class Solution:
+	def FindNumsAppearOnce(self,array):
+		return list(map(lambda c:c[0],Counter(array).most_common()[-2:]))
+  
+
+  

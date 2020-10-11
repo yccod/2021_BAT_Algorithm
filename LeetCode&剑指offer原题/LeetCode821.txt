@@ -1,0 +1,79 @@
+class Solution {
+public:
+    vector<int> shortestToChar(string S, char C) {
+		int n = S.size();
+		vector<int> res(n, n);
+		for (int i = 0; i < n ; ++i){
+			if(S[i] == C) { res[i] = 0; continue;}
+			int j = i + 1;
+			while( j <n && S[j] !=C) ++j;
+			if(j<n) res[i] = j - i;
+			j = i -1;
+			while (j>=0 && S[j] != C) --j;
+			if(j>=0) res[i] = min(res[i],i-j);
+		}
+        return res;
+    }
+};
+
+
+*/
+
+class Solution {
+public:
+    vector<int> shortestToChar(string S, char C) {
+		vector<int> res, idx;
+		for(int i = 0 ; i < S.size(); ++i){
+			if(S[i] == C) idx.push_back(i);
+		}
+        for( int i = 0; i < S.size(); ++i){
+			auto it = lower_bound(idx.begin() , idx.end(), i);
+			if(it == idex.end()) res.push_back(i-*(--it));
+			else if( it == idx.begin()) res.push_back(*it - i);
+			else{
+				int d1 = *it - i, d2 = i - *(--it);
+				res.push_back(min(d1,d2));
+			}
+		
+		}
+		return res;
+    }
+};
+
+*/
+
+class Solution {
+public:
+    vector<int> shortestToChar(string S, char C) {
+		int n = S.size();
+		vector<int> res(n,n);
+		for(int i = 0; i < n ; ++i){
+			if(S[i] != C) continue;
+			res[i] = 0;
+			for(int j = i +1; j < n && S[j]!=C;++j){
+				res[j] = min(res[j] , j-i);
+			}
+			for(int j = i -1; j>= 0&& S[j] != C; --j){
+				res[j] = min(res[j] ,i-j);
+			}
+		}
+        return res;
+    }
+};
+
+*/
+
+class Solution {
+public:
+    vector<int> shortestToChar(string S, char C) {
+		vector<int> res(S.size() ,S.size());
+		for(int i = 0 ; i < S.size() ;++i){
+			if(S[i] == C) res[i] = 0;
+			else if (i>0) res[i] = res[i-1]+1;
+		}
+        for(int i = (int)S.size() - 2; i>=0; --i){
+			res[i] = min(res[i] , res[i+1] + 1);
+		}
+		return res;
+    }
+};

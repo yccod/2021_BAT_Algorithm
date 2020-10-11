@@ -1,0 +1,18 @@
+class Solution:
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        candidates.sort()
+        paths=[]
+        def dfs(index,path):
+            if sum(path)==target and path not in paths:
+                paths.append(path)
+                return
+            if index==len(candidates):
+                return 
+            if candidates[index]+sum(path)>target:
+                return
+            path.append(candidates[index])
+            dfs(index+1,path[:])
+            path.pop()
+            dfs(index+1,path[:])
+        dfs(0,[])
+        return paths

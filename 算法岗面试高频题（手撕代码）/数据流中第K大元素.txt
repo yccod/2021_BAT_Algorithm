@@ -1,0 +1,31 @@
+
+import heapq
+class KthLargest(object):
+	def __init__(self,k,nums):
+		self.k=k
+		self.heap=nums
+		heapq.heapify(self.heap)
+		while len(self.heap) > k:
+			heapq.heappop(self.heap)
+	def add(self,val):
+		if len(self.heap)<self.k:
+			heapq.heappush(self.heap,val)
+		elif self.heap[0]<val:
+			heapq.heappop(self.heap)
+			heapq.heappush(self.heap,val)
+		return self.heap[0]
+
+#超出时间限制		
+import heapq
+class KthLargest(object):
+	def __init__(self,k,nums):
+		self.k=k
+		self.heap=nums
+		heapq.heapify(self.heap)
+	def add(self,val):
+		heapq.heappush(self.heap,val)
+		self.heap=heapq.nlargest(k,self.heap)
+		return self.heap[-1]
+
+
+			

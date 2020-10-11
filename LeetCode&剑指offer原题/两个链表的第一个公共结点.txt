@@ -1,0 +1,177 @@
+*/C++解法
+
+/*
+struct ListNode {
+	int val;
+	struct ListNode *next;
+	ListNode(int x) :
+			val(x), next(NULL) {
+	}
+};*/
+class Solution {
+public:
+    ListNode* FindFirstCommonNode( ListNode* pHead1, ListNode* pHead2) {
+        int len1 = findListLenth(pHead1);
+        int len2 = findListLenth(pHead2);
+        if (len1 > len2){
+            pHead1 = walkStep(pHead1,len1-len2);
+        }else{
+            pHead2 = walkStep(pHead2,len2-len1);
+        }
+        
+        while(pHead1 != NULL){
+            if (pHead1 == pHead2) return pHead1;
+            pHead1 = pHead1->next;
+            pHead2 = pHead2->next;
+        }
+        return NULL;
+    }
+    
+    int findListLenth(ListNode* pHead1){
+        if (pHead1 == NULL)
+            return 0;
+        int sum = 1;
+        while(pHead1->next){
+            pHead1 = pHead1->next;
+            sum++;    
+        }
+        return sum;
+    }
+    
+    ListNode* walkStep(ListNode* pHead1, int step){
+        while(step--){
+            pHead1 = pHead1->next;
+        }
+    return pHead1;
+    }
+};
+
+
+*/
+class Solution {
+public:
+    ListNode* FindFirstCommonNode(ListNode*pHead1,ListNode*pHead2) {
+        ListNode*p1 = pHead1;
+        ListNode*p2 = pHead2;
+        while(p1!=p2){
+            p1 = (p1==NULL ? pHead2 : p1->next);
+            p2 = (p2==NULL ? pHead1 : p2->next);
+        }
+        return p1;
+    }
+};
+
+
+class Solution {
+public:
+    ListNode* FindFirstCommonNode(ListNode*pHead1,ListNode*pHead2){
+        map<ListNode*, int> m;
+        ListNode*p = pHead1;
+        while (p != NULL){
+            m[p] = 1;
+            p = p->next;
+        }
+        p = pHead2;
+        while(p != NULL){
+            if (m[p]){
+                return p;
+            }
+        p = p->next;
+        }
+       return NULL;
+    }
+};
+
+
+
+
+
+
+
+*/
+# -*- coding:utf-8 -*-
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+class Solution:
+    def FindFirstCommonNode(self, pHead1, pHead2):
+        # write code here
+        p1,p2 = pHead1,pHead2
+        while p1!=p2:
+            p1 = p1.next if p1 else pHead2
+            p2 = p2.next if p2 else pHead1
+        return p1
+        
+*/两条相交的链表呈Y型。可以从两条链表尾部同时出发，最后一个相同的结点就是链表的第一个相同的结点。
+可以利用栈来实现。时间复杂度有O(m + n), 空间复杂度为O(m + n)
+class Solution:
+    def FindFirstCommonNode(self,pHead1,pHead2):
+        if not pHead1 or not pHead2:
+            return None
+        stack1 = []
+        stack2 = []
+        while pHead1:
+            stack1.append(pHead1)
+            pHead1= pHead1.next
+        while pHead2:
+            stack2.append(pHead2)
+            pHead2 = pHead2.next
+        first = None
+        while stack1 and stack2:
+            top1 = stack1.pop()
+            top2 = stack2.pop()
+            if top1 is top2:
+                first = top1
+            else:
+                break
+        return first
+        
+
+*/
+class Solution:
+    def FindFirstCommonNode(self, head1, head2):
+        if not head1 or not head2:
+            return None
+ 
+        p1, p2= head1, head2
+        length1 = length2 = 0
+ 
+        while p1:
+            length1 += 1
+            p1 = p1.next
+        while p2:
+            length2 += 1
+            p2 = p2.next
+ 
+        if length1 > length2:
+            while length1 - length2:
+                head1 = head1.next
+                length1 -= 1
+        else:
+            while length2 - length1:
+                head2 = head2.next
+                length2 -= 1
+ 
+        while head1 and head2:
+            if head1 is head2:
+                return head1
+            head1 = head1.next
+            head2 = head2.next
+        return None
+
+        
+*/
+class Solution:
+    def FindFirstCommonNode(self,pHead1,pHead2):
+        result_set = set()
+        while pHead1:
+            result_set.add(pHead1)
+            pHead1 = pHead1.next
+        while pHead2:
+            if pHead2 in result_set:
+                return pHead2
+            pHead2 = pHead2.next
+            
+            
+            

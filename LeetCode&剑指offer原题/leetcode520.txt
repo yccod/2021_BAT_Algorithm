@@ -1,0 +1,30 @@
+*/C++ 解法
+
+class Solution {
+public:
+    bool detectCapitalUse(string word) {
+		int cnt = 0, n = word.size();
+		for (int i = 0; i < n;++i){
+			if(word[i] <= 'Z') ++cnt;
+		}
+		return cnt == 0 || cnt == n || (cnt ==1 && word[0] <='Z');
+    }
+};
+
+
+*/
+class Solution{
+public:
+	bool detectCapitalUse(string word) {
+		int cnt = count_if(word.begin(), word.end(), [](char c ){return c<='Z';});
+		return cnt == 0 || cnt == word.size() || (cnt == 1 && word[0] <= 'Z');
+	}
+};
+
+
+*/ Python 解法
+
+
+class Solution:
+    def detectCapitalUse(self, word: str) -> bool:
+		return word.isupper() or word.islower() or word.istitle()

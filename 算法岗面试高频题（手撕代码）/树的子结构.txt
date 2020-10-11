@@ -1,0 +1,99 @@
+*/c++
+class Solution {
+public:
+    bool HasSubtree(TreeNode* pRoot1, TreeNode* pRoot2){
+		if (pRoot1 == NULL ||pRoot2 == NULL) return false;
+		return isSubtree(pRoot1,pRoot2) || HasSubtree(pRoot1->left,pRoot2) || HasSubtree(pRoot1->right,pRoot2);
+    }
+	
+	bool isSubtree(TreeNode* pRoot1, TreeNode* pRoot2){
+		if (pRoot2 == NULL) return true;
+		if (pRoot1 == NULL) return false;
+		if(pRoot1->val == pRoot2->val){
+			return isSubtree(pRoot1->left,pRoot2->left) && isSubtree(pRoot1->right,pRoot2->right);
+		}
+		else return false;
+	}
+};
+
+
+*/python
+class Solution:
+	def HasSubtree(self,pRoot1,pRoot2):
+		result = False
+		if pRoot1 != None and pRoot2 != None:
+			if pRoot1.val == pRoot2.val:
+				result = self.DoesTree1haveTree2(pRoot1,pRoot2)
+			if not result:
+				result = self.HasSubtree(pRoot1.left,pRoot2)
+			if not result:
+				result = self.HasSubtree(pRoot1.right,pRoot2)
+		return result
+	def DoesTree1haveTree2(self,pRoot1,pRoot2):
+		if pRoot2 == None:
+			reutrn True
+		if pRoot1 == None:
+			return False
+		if pRoot1.val != pRoot2.val:
+			return False
+		return self.DoesTree1haveTree2(pRoot1.left,pRoot2.left) and self.DoesTree1haveTree2(pRoot1.right,pRoot2.right)
+	 		
+*/
+class Solution:
+	def HasSubtree(self,pRoot1,pRoot2):
+		def convert(p):
+			if p:
+				return str(p.val)+convert(p.left)+convert(p.right)
+			else:
+				return ""
+		return convert(pRoot2) in convert(pRoot1) if pRoot2 else False
+		
+		
+*/	
+class Solution:
+	def HasSubtree(self,pRoot1,pRoot2):
+		def preorder(root):
+			if root:
+				res.append(str(root.val))
+			else:
+				return 
+			preorder(root.left)
+			preorder(root.right)
+		res = []
+		preorder(pRoot1)
+		s1 = "".join(res)
+		res = []
+		preorder(pRoot2)
+		s2 = "".join(res)	
+		return s2 in s1 if pRoot2 else False
+			
+*/
+class Solution:
+	def HasSubtree(self,pRoot1,pRoot2):
+		def preorder(root):
+			if root is None:
+				return []
+			stack = [root]
+			res = []
+			while stack:
+				node = stack.pop()
+				res.append(str(node.val))
+				if root.right:
+					stack.append(root.right)
+				if root.left:
+					stack.append(root.left)
+			return res
+
+		res = preorder(pRoot1)
+		s1 = "".join(res)
+		res = preorder(pRoot2)
+		s2 = "".join(res)
+		return s2 in s1 if pRoot2 else False
+		
+		
+		
+		
+		
+		
+		
+		

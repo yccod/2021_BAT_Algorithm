@@ -1,0 +1,44 @@
+class Solution:
+    def addBinary(self, a: str, b: str) -> str:
+        max_len=max(len(a),len(b))
+        a="0"*(max_len-len(a))+a
+        b="0"*(max_len-len(b))+b 
+        c=""
+        carry=0
+        i=max_len-1
+        while i>=0:
+            sum1=(int(a[i])+int(b[i])+carry)%2
+            carry=(int(a[i])+int(b[i])+carry)//2
+            c=str(sum1)+c
+            i-=1
+        if carry != 0:
+            c=str(carry)+c
+        return c
+
+
+
+
+
+class Solution:
+    def addBinary(self, a: str, b: str) -> str:
+        i=len(a)-1
+        j=len(b)-1
+        ans=""
+        carry=0
+        while i>=0 or j>=0 or carry:
+            if i<0:
+                add1="0"
+            else:
+                add1=a[i]
+            if j<0:
+                add2="0"
+            else:
+                add2=b[j]
+            sum1=(int(add1)+int(add2)+carry)%2
+            carry=(int(add1)+int(add2)+carry)//2
+            ans=str(sum1)+ans
+            i-=1
+            j-=1
+        return ans
+
+        

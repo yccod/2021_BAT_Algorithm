@@ -1,0 +1,12 @@
+"wer","erw"
+def CheckPermutation(s1,s2):
+    if len(s1)!=len(s2):
+        return False
+    s=s1+s2
+    ans=0
+    for char in s:
+        ans^=ord(char)
+    if ans==0:
+        return True
+    else:
+        return False

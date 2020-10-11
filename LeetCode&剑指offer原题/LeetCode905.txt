@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<int> sortArrayByParity(vector<int>& A) {
+		vector<int> even, odd;
+		for( int num : A){
+			if (num % 2==0)  even.push_back( num);
+			else odd.push_back(num);
+		}
+        even.insert(even.end(), odd.begin(), odd.end());
+		return even;
+    }
+};
+
+
+*/
+class Solution {
+public:
+    vector<int> sortArrayByParity(vector<int>& A) {
+		for (int i = 0, j = 0; j < A.size(); ++j) {
+			if(A[j] % 2==0) swap(A[i++], A[j]);
+		}
+        return A;
+    }
+};

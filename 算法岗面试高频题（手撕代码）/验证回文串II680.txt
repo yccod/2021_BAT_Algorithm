@@ -1,0 +1,20 @@
+class Solution:
+    def validPalindrome(self, s: str) -> bool:
+        def temp(s):
+            l=0
+            r=len(s)-1
+            while l<r:
+                if s[l]!=s[r]:
+                    return False
+                l+=1
+                r-=1
+            return True
+        l=0
+        r=len(s)-1
+        while l<r:
+            if s[l]==s[r]:
+                l+=1
+                r-=1
+            else:
+                return temp(s[l:r]) or temp(s[l+1:r+1])
+        return True

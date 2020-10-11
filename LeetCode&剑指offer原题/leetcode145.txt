@@ -1,0 +1,170 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> v;
+        if(root == NULL) return {};
+        postorder(root,v);
+        return v;
+    }
+    void postorder(TreeNode*root, vector<int> &v) {
+        if(root->left) postorder(root->left,v);
+        if(root->right) postorder(root->right,v);
+        v.push_back(root->val);
+    }
+};
+    
+*/
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        if(!root) return {};
+        vector<int> res;
+        stack<TreeNode*> s{{root}};
+        while(!s.empty()){
+            TreeNode*t = s.top(); s.pop();
+            res.insert(res.begin(), t->val);
+            if(t->left) s.push(t->left);
+            if(t->right) s.push(t->right);
+        }
+        return res;
+    }
+};
+
+*/
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root){
+        vector<int> res;
+        stack<TreeNode*> s;
+        TreeNode*p = root;
+        while(!s.empty() || p) {
+            if(p){
+                s.push(p);
+                res.insert(res.begin(),p->val);
+                p = p->right;
+                }
+                else {
+                    TreeNode *t = s.top(); s.pop();
+                    p = t->left;
+                }
+            }
+        return res;
+    }
+};
+
+*/
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        if(!root) return {};
+        vector<int> res;
+        stack<TreeNode*> s1,s2;
+        s1.push(root);
+        while(!s1.empty()) {
+            TreeNode*t = s1.top(); s1.pop();
+            s2.push(t);
+            if (t->left) s1.push(t->left);
+            if(t->right) s1.push(t->right);
+        }
+        while(!s2.empty()) {
+            res.push_back(s2.top()->val); s2.pop();
+        }
+        return res;
+    }
+};
+
+
+*/颜色标记法
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root){
+        vector<int> ans;
+        int white = 0;
+        int gray = 1;
+        stack<pair<int,TreeNode*>> s;
+        s.push(make_pair(white,root));
+        while(!s.empty()) {
+            int color = s.top().first;
+            TreeNode *t = s.top().second;
+            s.pop();
+            if(t==NULL) continue;
+            if(color == white){
+                s.push(make_pair(gray,t));
+                s.push(make_pair(white,t->right));
+                s.push(make_pair(white,t->left));
+            }
+            else
+                ans.push_back(t->val);
+        }
+        return ans;
+    }
+};
+
+
+*/python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def postorderTraversal(self, root: TreeNode) -> List[int]:
+        res = []
+        def helper(root):
+            if not root:
+                return
+            helper(root.left)
+            helper(root.right)
+            res.append(root.val)
+        helper(root)
+        return res
+        
+*/
+class Solution:
+    def postorderTraversal(self,root):
+        res = []
+        if not root:
+            return res
+        stack = [root]
+        while stack:
+            node = stack.pop()
+            res.append(node.val)
+            if node.left:
+                stack.append(node.left)
+            if node.right:
+                stack.append(node.right)
+        return res[::-1]
+        
+
+*/
+class Solution:
+    def postorderTraversal(self,root):
+        WHITE, GRAY = 0,1
+        res = []
+        stack = [(WHITE,root)]
+        while stack:
+            color,node = stack.pop()
+            if node is None: continue
+            if color == WHITE:
+                stack.append((GRAY,node))
+                stack.append((WHITE,node.right))
+                stack.append((WHITE,node.left))
+            else:
+                res.append(node.val)
+        return res
+        
+        
+
+            
+            

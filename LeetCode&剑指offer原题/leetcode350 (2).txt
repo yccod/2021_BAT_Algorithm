@@ -1,0 +1,74 @@
+*/C++解法
+
+class Solution {
+public:
+    vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
+        unordered_map<int , int> m ;
+        vector<int> res;
+        for(auto a : nums1) ++m[a];
+        for(auto a : nums2) {
+            if (m[a]-- > 0)  res.push_back(a);
+        
+        }
+        return res;
+    }
+};
+
+*/
+class Solution {
+public:
+    vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
+        vector<int> res;
+        int i = 0 , j = 0;
+        sort(nums1.begin() ,nums1.end());
+        sort(nums2.begin(), nums2.end());
+        while( i < nums1.size() && j < nums2.size()) {
+            if (nums1[i] == nums2[j]) {
+                res.push_back(nums1[i]);
+                ++i , ++j;
+            }
+        else if (nums1[i] > nums2[j])
+            ++j;
+        else 
+            ++i;
+        
+        }
+    return res;
+    
+    }
+};
+
+
+
+*/ Python 解法
+class Solution:
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        import collections
+        a , b = map(collections.Counter ,(nums1, nums2))
+        return list((a&b).elements())
+        
+        
+*/
+class Solution:
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        res = []
+        for k in nums1:
+            if k in nums2:
+                res.append(k)
+                nums2.remove(k)        
+        return res
+        
+        
+*/
+class Solution:
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        from collections import Counter
+        dict_nums1 = Counter(nums1)
+        res = []
+        for i in nums2:
+            if dict_nums1[i] > 0:
+                res.append(i)
+                dict_nums1[i] -=1
+        return res
+                
+    

@@ -1,0 +1,78 @@
+*/c++
+#include <iostream>
+#include <vector>
+using namespace std;
+struct TreeNode {
+	int val;
+	TreeNode *left;
+	TreeNode *right;
+	TreeNode(int x) : val(x), left(NULL),right(NULL) {} 
+};
+
+struct TreeNode* reConstructBinaryTree(vector<int> pre,vector<int> in)
+{
+	if (pre.size() == NULL)
+		return NULL;
+	TreeNode* root = new TreeNode(pre[0]);
+	int i;
+	for(i = 0; i < in.size()&&in[i] != pre[0];i++);
+	vector<int> pre_left, in_left,pre_right,in_right;
+	int pre_i = 1;
+	for(int j = 0; j < in.size();j++){
+		if (j < i)
+		{
+		int_left.push_back(in[j]);
+		pre_left.push_back(pre[pre_i]);
+		pre_i++;
+		}
+		else if (j>i){
+			int_right.push_back(in[j]);
+			pre_right.push_back(pre[pre[i]]);
+			pre_i++;
+		}
+	}
+	root->left = reConstructBinaryTree(pre_left ,in_left);
+	root->right = reConstructBinaryTree(pre_right,in_right);
+	return root;
+}
+
+int main()
+{
+	vector<int> pre = {1,2,4,7,3,5,6,8};
+	vector<int> in =  {4,7,2,1,5,3,8,6};
+	TreeNode* root = reConstructBinaryTree(pre,in);
+}
+
+*/python
+class Solution:
+    def reConstructBinaryTree(self, pre, tin):
+        if not pre or not tin:
+            return None
+        root = TreeNode(pre.pop(0))
+        index = tin.index(root.val)
+        root.left = self.reConstructBinaryTree(pre, tin[:index])
+        root.right = self.reConstructBinaryTree(pre, tin[index + 1:])
+        return root	
+		
+*/		
+class Solution:
+	def reConstructBinaryTree(self,pre,tin):
+		if not pre or not tin:
+			return None
+		root = TreeNode(pre[0])
+		index = tin.index(root.val)
+		pre_left = pre[1:index+1]
+		pre_right= pre[index+1:]
+		tin_left = tin[:index]
+		tin_right= tin[index+1:]
+		root.left = self.reConstructBinaryTree(pre_left,tin_left)
+		root.right = self.reConstructBinaryTree(pre_right,tin_right)
+		return root
+		
+		
+
+
+
+
+
+

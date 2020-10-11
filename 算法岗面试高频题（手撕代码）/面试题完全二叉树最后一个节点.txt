@@ -1,0 +1,116 @@
+1.题目描述
+给定一棵完全二叉树，返回最后一层的最右边的节点。
+2.思路分析
+层次遍历，输出最后一个节点，时间复杂度：O(N)
+递归，求子树的高度：如果左子树高度>右子树高度，则在左子树继续递归过程；
+否则在右子树继续递归。如果当前节点为叶子节点，则返回；由于是完全二叉树，
+求高度时只需一直往左遍历即可。每次递归都下降一层，每次都求树的高度，时间复杂度为O(lgN * lgN)。
+*/
+class TreeNode(object):
+	def __init__(self,x):
+		self.val=x
+		self.left=None
+		self.right=None
+class Solution:
+	def printlastnode(self,root):
+		if not root or not root.left:
+			return root
+		left_depth=0
+		left_root=root.left
+		while left_root:
+			left_root=left_root.left
+			left_depth+=1
+		right_depth=0
+		right_root=root.right
+		while right_root:
+			right_root=right_root.left
+			right_depth+=1
+		if left_depth>right_depth:
+			return printlastnode(root.left)
+		else：
+			return printlastnode(root.right)
+			
+
+
+
+
+class TreeNode(object):
+ 
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+ 
+class Solution(object):
+ 
+    def printlastnode(self, root):
+        if not root:
+            return None
+ 
+        depth = 0
+        tmp = root
+        # 首先先计算二叉树的高度
+        while tmp:
+            depth += 1
+            tmp = tmp.left
+ 
+        level = 0
+        tempdepth = 0
+ 
+        # 遍历二叉树
+        while root:
+            level += 1
+            if level == depth:
+                break
+ 
+            curnode = root
+ 
+            # 先遍历右孩子，若无右孩子，则玩根节点的左孩子遍历
+            if curnode.right:
+                parent = curnode
+                curnode = curnode.right
+ 
+                # 设置临时高度
+                tempdepth = level + 1
+ 
+                # 然后循环往左孩子遍历
+                while curnode.left:
+                    tempdepth = tempdepth + 1
+                    parent = curnode
+                    curnode = curnode.left
+ 
+                # 若临时统计高度小于二叉树高度，则往根节点的左孩子遍历
+                if tempdepth < depth:
+                    root = root.left
+                    
+                # 若当前节点无右孩子，且高度等于二叉树高度，则输出当前节点
+                elif not curnode.right or parent.right == curnode:
+                    return curnode
+                else:
+                    root = root.right
+ 
+            else:
+                root = root.left
+ 
+        return root
+ 
+ 
+if __name__ == "__main__":
+ 
+    sol = Solution()
+    t1 = TreeNode(1)
+    t2 = TreeNode(2)
+    t3 = TreeNode(3)
+    t4 = TreeNode(4)
+    t5 = TreeNode(5)
+ 
+    t1.left = t2
+    t1.right = t3
+    t2.left = t4
+    t2.right = t5
+ 
+    res = sol.printlastnode(t1)
+    if res:
+        print("res = %s" % res.val)
+		
+		

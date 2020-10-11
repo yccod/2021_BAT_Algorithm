@@ -1,0 +1,83 @@
+elf-attention
+
+contextual attention
+
+题目详情
+标题：平均延迟最大的调用链
+描述信息
+在微服务的架构下，公司内部会有非常多的独立服务。
+
+服务之间可以相互调用，往往大型应用调用链条很多也很长，我们需要找出耗时最大的链条进行优化。（假设服务同时调用其依赖的下游服务）
+
+
+例如：
+
+A服务依赖B服务，平均调用延迟100ms，记为(A, B, 100)
+
+其他依赖和延迟如下：
+
+(A, C, 200)
+
+(A, F, 100)
+
+(B, D, 100)
+
+(D, E, 50)
+
+(C, G, 300)
+
+那么服务A有三条调用链：A-B-D-E，A-C-G，A-F，平均延迟250，500，100
+
+延迟最大的调用链是A-C-G，延迟为500ms
+
+def max_response_time(call_graph, start_node):
+    pass
+
+输入：
+
+[(A, B, 100), (A, C, 200), (A, F, 100), (B, D, 100), (D, E, 50), (C, G, 300)]
+
+输出：
+
+500
+
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Jul 12 14:29:11 2020
+
+@author: AI_YC_CODER
+"""
+def max_response_time(list1,node):
+    node_list=[item[0] for item in list1]
+    max_time=[]
+    def dfs(node1,time):
+        print(time)
+        if node1 not in node_list:
+            max_time.append(time)
+            return 
+        else:
+            for item in list1:
+                if item[0]==node1:
+                   print(item[1],time+item[2])
+                   dfs(item[1],time+item[2])
+        
+   
+    for item in list1:
+        if item[0]==node:
+            time_start=item[2]
+            node1=item[1]
+            dfs(node1,time_start)
+        
+    return max_time
+   
+
+
+if __name__ == '__main__':
+    list1=[("A", "B", 100), ("A", "C", 200), ("A", "F", 100), ("B", "D", 100), ("D", "E", 50), ("C", "G", 300)]
+    print(max_response_time(list1, "A"))
+    
+
+
+
+
+

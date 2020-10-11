@@ -1,0 +1,44 @@
+复杂度分析
+时间复杂度:O(n)，遍历了一遍 s，哈希表中查找的时间复杂度为 \mathcal{O}(1)O(1)。
+空间复杂度:O(n)，使用了哈希表。
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        if not s:
+            return 0
+        max_len=1
+        dict1={}
+        j=-1
+        index=0
+        for i in range(len(s)):
+            if s[i] in dict1:
+                j=max(dict1[s[i]],j)
+            dict1[s[i]]=i
+            if i-j > max_len:
+                index=j
+				max_len=i-j
+        print(max_len,s[index:index+max_len])
+        return max_len,s[index:index+max_len]
+    
+    
+if __name__ == "__main__":
+    s=Solution()
+    s.lengthOfLongestSubstring("abcabc")
+            
+			
+时间复杂度:{O}(n^2)
+空间复杂度:O(1)，使用了 head，tail，res。			
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+       if len(s)<2:
+           return len(s)
+       left=0
+       right=1
+       max_len=1
+       while left<right and right<len(s):
+            if s[right] not in s[left:right]:
+                max_len=max(max_len,right-left+1)
+            else:
+                while s[right] in s[left:right] and left<right:
+                    left+=1
+            right+=1
+       return max_len

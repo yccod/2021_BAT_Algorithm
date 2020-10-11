@@ -1,0 +1,10 @@
+class Solution:
+    def removeDuplicateLetters(self, s: str) -> str:
+        stack=[]
+        c={v:i for i,v in enumerate(s)}
+        for i,v in enumerate(s):
+            if v not in stack:
+                while stack and stack[-1]>v and c[stack[-1]]>i:
+                    stack.pop()
+                stack.append(v)
+        return "".join(stack)

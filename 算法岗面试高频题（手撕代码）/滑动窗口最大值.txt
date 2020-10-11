@@ -1,0 +1,27 @@
+*/python
+class Solution:
+    def maxInWindows(self, num, size):
+        res = []
+        if size <= 0 or size > len(num):
+            return res
+        for i in range(len(num)+1-size):
+            res.append(max(num[i:i+size]))
+        return res
+		
+				
+		
+		
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        deque = collections.deque()
+        res = []
+        for i, num in enumerate(nums):
+            while deque and deque[0] <= i - k: deque.popleft() # outdate indices
+            while deque and num > nums[deque[-1]]: deque.pop()
+            deque.append(i)
+            if i >= k - 1:
+                res.append(nums[deque[0]])
+        return res
+
+
+

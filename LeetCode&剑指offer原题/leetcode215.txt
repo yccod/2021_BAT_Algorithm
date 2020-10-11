@@ -1,0 +1,106 @@
+*/C++解法
+
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        sort(nums.begin(), nums.end());
+        return nums[nums.size()-k];
+        
+    }
+};
+
+*/
+
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        priority_queue<int> q(nums.begin(), nums.end());
+        for (int i = 0; i < k -1;++i){
+            q.pop();
+        }
+        return q.top();
+    }
+};
+
+*/
+
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        int left = 0, right = nums.size() - 1;
+        while (true) {
+            int pos = partition(nums, left, right);
+            if (pos == k - 1) return nums[pos];
+            if (pos > k - 1) right = pos - 1;
+            else left = pos + 1;
+        }
+    }
+    int partition(vector<int>& nums, int left, int right) {
+        int pivot = nums[left], l = left + 1, r = right;
+        while (l <= r) {
+            if (nums[l] < pivot && nums[r] > pivot) {
+                swap(nums[l++], nums[r--]);
+            }
+            if (nums[l] >= pivot) ++l;
+            if (nums[r] <= pivot) --r;
+        }
+        swap(nums[left], nums[r]);
+        return r;
+    }
+};
+
+*/Python解法
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        return self.find(nums, k-1, 0,len(nums)-1)
+    def find(self, nums, k ,left ,right):
+        l = left
+        r = right
+        partition = nums[(left+right)//2]
+        while(left <= right):
+            while(nums[left] > partition):
+                left +=1
+            while(nums[right] < partition):
+                right-=1
+            if left <= right:
+                nums[left] ,nums[right] = nums[right], nums[left]
+                left +=1
+                right -=1
+        if right >= k and right > l:
+            return self.find(nums, k ,l ,right)
+        if left <= k and left < r:
+            return self.find(nums, k ,left, r)
+        return nums[k]
+            
+*/Python解法
+class Solution:
+    def findKthLargest(self,nums, k):
+        nums.sort()
+        return nums[-k]
+*/Python 解法
+class Solution:
+    def findKthLargest(self, nums, k):
+        low, high = 0, len(nums)-1
+        while low <= high:
+            pivot = self.partition(nums, low ,high)
+            if pivot == k-1:
+                return nums[pivot]
+            if pivot < k-1:
+                low = pivot + 1
+            else:
+                high = pivot -1
+    def partition(self, nums, low, high):
+        pivot_value = nums[high]
+        index = low
+        for i in range(low ,high):
+            if nums[i] >= pivot_value:
+                nums[i], nums[index] = nums[index], nums[i]
+                index+=1
+        nums[index], nums[high] = nums[high], nums[index]
+        return index
+            
+            
+            
+                
+    
+

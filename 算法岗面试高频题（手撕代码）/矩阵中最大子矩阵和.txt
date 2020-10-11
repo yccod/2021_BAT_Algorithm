@@ -1,0 +1,29 @@
+https://blog.csdn.net/mirocky/article/details/104158753
+最大子数组和
+def max_sum1(num):
+	if not num:
+		return 0
+	max_sum=num[0]
+	temp=num[0]
+	for i in num[1:]:
+		temp=max(temp+i,i)
+		max_sum=max(temp,max_sum)
+	return max_sum
+	
+	
+		
+二维最大子矩阵和	
+def max_sum2(num):
+	m=len(num)
+	n=len(num[0])
+	max_sum=float("-inf")
+	for i in range(m):
+		a=num[i]
+		max_sum=max(max_sum,max_sum1(a))
+		for j in range(i+1,m):
+			for k in range(n):
+				a[k]+=num[j][k]
+			max_sum=max(max_sum,max_sum1(a))
+	return max_sum
+			
+			

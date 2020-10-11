@@ -1,0 +1,32 @@
+两次交易，对于任意点i，划分左半边利润最大(pre)和右半边利润最大(post)，然后相加就是两次交易。
+O(n)
+一次正向 DP + 一次反向 DP
+
+class Solution:
+    def maxProfit(self, prices) -> int:
+        if not prices:
+            return 0
+        # left_max: [0,i] max profit
+        left_max = [0] * len(prices)
+        min_price = prices[0]
+        for i in range(1, len(prices)):
+            min_price = min(min_price, prices[i])
+            left_max[i] = max(left_max[i - 1], prices[i] - min_price)
+
+        # right_max: [i,len-1] max profit
+        right_max = [0] * len(prices)
+        max_price = prices[-1]
+        for i in range(len(prices)-2, -1, -1):
+            max_price = max(max_price, prices[i])
+            right_max[i] = max(right_max[i + 1], max_price-prices[i])
+
+        max_profit = 0
+        for i in range(0, len(prices)):
+            max_profit = max(max_profit, left_max[i]+right_max[i])
+        return max_profit
+
+
+
+
+
+

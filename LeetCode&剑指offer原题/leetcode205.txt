@@ -1,0 +1,95 @@
+
+*/c++
+class Solution {
+public:
+	bool isIsomorphic(string s, string t) {
+		int m1[256] = {0},m2[256] = {0},n = s.size();
+		for (int i = 0; i < n; ++i) {
+			if (m1[s[i]] != m2[t[i]]) return fasle;
+			m1[s[i]] = i + 1;
+			m2[t[i]] = i + 1;
+		}
+		return true;
+	}
+};
+
+*/
+class Solution {
+public:
+	bool isIsomorphic(string s, string t) {
+		unordered_map<char,char> map1,map2;
+		for(int i=0; i<s.size();i++){
+			map1[s[i]]=t[i];
+			map2[t[i]]=s[i];
+			}
+		for(int i=0; i<s.size();i++){
+			if(map1[s[i]]!=t[i] || map2[t[i]]!=s[i])
+				return false;
+			}
+		return true;
+}
+};
+
+*/
+class Solution {
+public:
+	bool isIsomorphic(string s, string t) {
+		if(s.size()!= t.size()) return false;
+		unordered_map<char,int> map1;
+		unordered_map<char,int> map2;
+		for(int i=0;i<s.size();i++){
+			map1[s[i]]=i;
+			map2[t[i]]=i;
+		}
+		for(int i=0;i<s.size();i++){
+			if(map1[s[i]]!=map2[t[i]]) return false;
+		}
+		reutrn true;
+	}
+	
+};
+
+
+*/python
+class Solution:
+	def isIsomorphic(self,s,t):
+		s_index = {}
+		t_index = {}
+		for i in range(len(s)):
+			if s[i] not in s_index:
+				s_index[s[i]] = i
+			if t[i] not in t_index:
+				t_index[t[i]] = i
+			if s_index[s[i]] != t_index[t[i]]:
+				return False
+		return True
+		
+*/
+		
+class Solution:
+	def isIsomorphic(self,s,t):
+		if len(s) != len(t) || len(set(s)) != len(set(t)):
+			return False
+		table = dict()
+		for i,x in enumerate(s):
+			if x in table:
+				if table[x] != t[i]:
+					return False
+			else:
+				table[x]=t[i]
+		return True
+*/
+class Solution:
+	def isIsomorphic(self,s,t):
+		hash_map ={}
+		for c1,c2 in zip(s,t):
+			if c1 in hash_map and c2 != hash_map[c1]:
+				return False
+			if c1 not in hash_map and c2 in hash_map.values():
+				return False
+			hash_map[c1] = c2
+		return True
+		
+
+
+		

@@ -1,0 +1,69 @@
+*/c++
+class Solution {
+public:
+	int longestPalindrome(string s) {
+		int res = 0;
+		bool mid = false;
+		unordered_map<char,int> m;
+		for(char c : s) ++m[c];
+		for(auto it = m.begin();it != m.end(); ++it) {
+			res += it->second;
+			if(it->second % 2 == 1) {
+				res -= 1;
+				mid = true;
+			}
+		}
+		return mid ? res+1:res;
+	}		
+};		
+			
+			
+*/
+class Solution {
+public:
+    int longestPalindrome(string s) {
+        unordered_set<char> t;
+        for (char c : s) {
+            if (!t.count(c)) t.insert(c);
+            else t.erase(c);
+        }
+        return s.size() - max(0, (int)t.size() - 1);
+    }
+};
+
+*/
+class Solution {
+public:
+	int longestPalindrome(string s) {
+		unordered_set<char> t;
+		for (char c : s){
+			if(!t.count(c)) t.insert(c);
+			else t.erase(c);
+		}
+	return s.size()-max(0,(int)t.size()-1);
+	
+	}
+};
+
+
+*/python
+class Solution:
+	def longestPalindrome(self,s):
+		return len(s)-max(0,sum([s.count(i)%2 for i in set(s)])-1)
+		
+		
+*/
+class Solution:
+	def longestPalindrome(self,s):
+		a = set(s)
+		b = list(a)
+		odd = 0
+		flag = 0
+		for i in range(len(b)):
+			c = s.count(b[i])
+			if c % 2 != 0:
+				odd += 1
+				flag = 1
+		l = len(s) - (odd-flag)
+		return l
+		

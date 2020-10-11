@@ -1,0 +1,22 @@
+def mid_lambda(s):
+	stack = []
+	stack.append(s[0])
+	i=1
+	while stack and i < len(s):
+		while i < len(s) and s[i] != ")":
+			stack.append(s[i])
+			i += 1
+		i +=1
+		num1=stack.pop()
+		str1=stack.pop()
+		num2=stack.pop()
+		stack.pop()
+		res=int(num1)+int(num2)
+		stack.append(res)
+	a = stack.pop()
+	return a
+
+
+if __name__ == "__main__":
+    mid_lambda('((1+2)+3)')
+		

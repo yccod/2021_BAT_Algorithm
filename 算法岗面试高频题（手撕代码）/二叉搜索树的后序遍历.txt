@@ -1,0 +1,86 @@
+*/c++
+class Solution {
+public:
+    bool VerifySquenceOfBST(vector<int> sequence)
+    {
+        if(sequence.empty()) return false;
+         
+        int root = sequence[sequence.size()-1]; // 找到根节点
+         
+        // 在二叉搜索树中左子树的结点小于根节点
+        vector<int> leftSequence;
+        int i = 0;
+        for(i = 0;i<sequence.size()-1;i++){
+            if(sequence[i] < root)
+                leftSequence.push_back(sequence[i]);
+            else
+                break;
+        }
+         
+        // 在二叉搜索树中右子树的结点大于根节点
+        vector<int> rightSequence;
+        for(int j = i;j<sequence.size()-1;j++){
+            if(sequence[j] > root)
+                rightSequence.push_back(sequence[j]);
+            else
+                return false;
+        }
+         
+        // 如果左子树不为空，则判断左子树是否满足
+        bool left = true;
+        if(!leftSequence.empty())
+            left = VerifySquenceOfBST(leftSequence);
+        // 如果右子树不为空，则判断右子树是否满足
+        bool right = true;
+        if(!rightSequence.empty())
+            right = VerifySquenceOfBST(rightSequence);
+         
+        return (left&&right);       
+    }
+};
+
+
+
+
+
+*/python
+class Solution:
+	def VerifySquenceOfBST(self,sequence):
+		if len(sequence)==0:
+			return False
+		length = len(sequence)
+		root = sequence[length-1]
+		for i in range(length):
+			if sequence[i]>root:
+				break
+		for j in range(i,length):
+			if sequence[j]<root:
+				return False
+		left=True
+		if i > 0:
+			left = self.VerifySquenceOfBST(sequence[0:i])
+		right=True
+		if i<length-1:
+			right=slf.VerifySquenceOfBST(sequence[i:-1])
+		return left and right
+		
+*/
+class Solution:
+	def VerifySquenceOfBST(self,sequence):
+		if not sequence:
+			return False
+		return self.helper(sequence)
+	def helper(self,sequence):
+		if not sequence:
+			return True
+		root = sequence[-1]
+		for i in range(len(sequence)):
+			if sequence[i] > root:
+				break
+		for right in sequence[i:-1]:
+			if right < root:
+				return False
+		return self.helper(sequence[:i]) and self.helper(sequence[i:-1])
+
+     
+ 

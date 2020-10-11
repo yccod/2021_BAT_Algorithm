@@ -1,0 +1,55 @@
+*/ C++解法
+
+class Solution {
+public:
+    bool hasAlternatingBits(int n) {
+        int bit = -1;
+        while( n > 0) {
+            if(n & 1 == 1) {
+                if (bit == 1) return false;
+                bit = 1;
+            }else {
+                if(bit == 0) return false;
+                bit = 0;
+            }
+            n >>= 1;  
+        }
+        return true;
+    }
+};
+
+*/
+class Solution{
+public:
+    bool hasAlternatingBits( int n) {
+        int d = n & 1;
+        while((n & 1)  == d) {
+            d^=1;
+            n >>=1;
+        }
+    return n == 0;
+    }
+};
+
+
+*/
+class Solution{
+public:
+    bool hasAlternatingBits(int n) {
+        return ((n + (n >>1)+1) & (n +(n >> 1))) == 0;
+    }
+};
+
+
+*/ Python 解法
+class Solution:
+    def hasAlternatingBits(self, n: int) -> bool:
+        flag = n % 2
+        n = n // 2
+        while n >0:
+            if n % 2 == flag:
+                return False
+            flag = n % 2
+            n = n // 2
+        return True
+        

@@ -1,0 +1,175 @@
+1、冒泡排序 O(N2)(加flag标志优化) 稳定
+*/从小到大
+def bubbleSort(arr):
+	for i in range(1,len(arr)):
+		flag = True
+		for j in range(0,len(arr)-i):
+			if arr[j] > arr[j+1]:
+				arr[j],arr[j+1] = arr[j+1],arr[j]
+				flag = False
+		if flag:
+			return arr
+	return arr
+	
+*/从大到小	
+def bubbleSort(arr):
+	for i in range(1,len(arr)):
+		flag = True
+		for j in range(0,len(arr)-i):
+			if arr[j] < arr[j+1]:
+				arr[j],arr[j+1] = arr[j+1],arr[j]
+				flag = False
+		if flag:
+			return arr
+	return arr
+	
+	
+*/ 选择排序 O(N2) [5 8 5 2 9] 不稳定
+def selectionSort(arr):
+	for i in range(0,len(arr)-1):
+		minIndex = i
+		for j in range(i+1,len(arr)):
+			if arr[j] < arr[minIndex]:
+				minIndex = j
+		if i != minIndex:
+			arr[i],arr[minIndex]=arr[minIndex],arr[i]
+	return arr
+		
+*/插入排序 O(N2) 稳定
+def insert_sort(arr):
+	for i in range(1,len(arr)):
+		curr = arr[i]
+		j = i - 1
+		while j >= 0 and arr[j]>curr:
+			arr[j+1] = arr[j]
+			j = j - 1
+		arr[j+1] = curr
+	return arr
+
+*/折半插入排序
+def binary_insert_sort(arr):
+	for i in range(1,len(arr)):
+		curr = arr[i]
+		left = 0
+		right = i - 1
+		flag = False
+		while left <= right:
+			mid = (left + right)>>1
+			if curr > arr[mid]:
+				left = mid+1
+			elif curr < arr[mid]:
+				right = mid-1
+			else:
+				index = mid
+				flag = True
+				break
+		if  not flag:
+			index = left
+		j = i-1
+		while j >= index:
+			arr[j+1]=arr[j]
+			j -= 1
+		arr[j+1] = curr
+	return arr
+			
+*/快速排序 不稳定
+def quick_sort(arr):
+	if not arr:
+		return []
+	mid = arr[0]
+	left_arr = [i for i in arr[1:] if i < mid]
+	right_arr = [j for j in arr[1:] if j >= mid]
+	return quick_sort(left_arr)+[mid]+quick_sort(right_arr)
+	
+	
+	
+	
+*/
+def quick_sort(arr,left,right):
+	if left < right:
+		mid = partition(arr,left,right)
+		quick_sort(arr,left,mid-1)
+		quick_sort(arr,mid+1,right)
+	return arr
+		
+def partition(arr,left,right):
+	tmp = arr[left]
+	while left < right:
+		while left < right and arr[right] >= tmp:
+			right -= 1
+		arr[left] = arr[right]
+		while left < right and arr[left] <= tmp:
+			left +=1
+		arr[right] = arr[left]
+	arr[left] = tmp
+	return left
+	
+	
+	
+*/归并排序 稳定
+def mergeSort(arr):
+	mid = len(arr)//2
+	if len(arr)<2:
+		reutrn arr
+	left,right = arr[0:mid],arr[mid:]
+	return merge(mergeSort(left),mergeSort(right))
+	
+def merge(left,right):
+	result = []
+	while left and right:
+		if left[0] <= right[0]:
+			result.append(left.pop(0))
+		else:
+			result.append(right.pop(0))
+	while left:
+		result.append(left.pop(0))
+	while right:
+		result.append(right.pop(0))
+	return result
+	
+	
+	
+*/堆排序 O(nlogn) 不稳定
+
+def sift(array,left,right):
+	i=left
+	j=2*i+1
+	tmp=array[i]
+	while j<=right:
+		if j<right and array[j]<array[j+1]:
+			j=j+1
+		if temp<array[j]:
+			array[i]=array[j]
+			i=j
+			j=2*i+1
+		else:
+			break
+	array[i]=tmp
+			
+		
+
+def heap(array):
+	n = len(array)
+	for i in range(n//2-1,-1,-1):
+		sift(array,i,n-1)
+	for i in range(n-1,-1,-1):
+		array[0],array[i]=array[i],array[0]
+		sift(array，0，i-1)
+	
+	
+	
+import heapq
+s=[5,3,7,1]
+heap=[]
+def heap_sort(tmp):
+	for i in s:
+		heapq.heappush(heap,i)
+	return [heapq.heappop(heap) for i in range(len(s))]
+heap = heap_sort(s)
+逆序：
+heap=heapq.nlargest(len(s),s)
+顺序
+heap=heapq.nsmallest(len(s),s)
+
+
+	

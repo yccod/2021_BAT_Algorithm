@@ -1,0 +1,16 @@
+from random import randint
+class Solution(object):
+
+    def __init__(self, nums):
+        self.nums=nums
+
+    def reset(self):
+        return self.nums
+        
+
+    def shuffle(self):
+        nums=self.nums[::]
+        for i in range(len(nums)-1):
+            rand=randint(i,len(nums)-1)
+            nums[i],nums[rand]=nums[rand],nums[i]
+        return nums

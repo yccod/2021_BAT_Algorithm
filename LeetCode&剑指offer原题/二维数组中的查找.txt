@@ -1,0 +1,60 @@
+*/C++解法
+
+class Solution {
+public:
+    bool Find(int target, vector<vector<int> > array) {
+        int rows = array.size();
+        int cols = array[0].size();
+        if (array.empty()) return false;
+        int row = 0;
+        int col = cols -1;
+        while(row < rows && col >=0){
+            if(array[row][col] == target) return true;
+            else if (array[row][col] > target) col--;
+            else row++;
+        }
+        return  false;
+    }
+};
+
+*/ Python 解法
+
+# -*- coding:utf-8 -*-
+class Solution:
+    # array 二维列表
+    def Find(self, target, array):
+        # write code here
+        flag = False
+        for index in range(len(array)):
+            if target in array[index]:
+                flag = True
+                break
+        return flag
+
+        
+*/
+# -*- coding:utf-8 -*-
+class Solution:
+    # array 二维列表
+    def Find(self, target, array):
+        # write code here
+        if array == None:
+            return False
+        for i in range(len(array)):
+            if target in array[i]:
+                left = 0
+                right = len(array[0])-1
+                while(left<=right):
+                    mid = (left + right)//2
+                    if array[i][mid] < target:
+                        left = mid +1
+                    elif array[i][mid] > target:
+                        right = mid -1
+                    else:
+                        return True
+        return False
+                        
+                
+                
+                
+    

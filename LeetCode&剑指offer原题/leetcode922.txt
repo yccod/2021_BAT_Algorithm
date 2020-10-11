@@ -1,0 +1,44 @@
+*/C++解法
+
+class Solution {
+public:
+    vector<int> sortArrayByParityII(vector<int>& A) {
+        int j = 1;
+        for (int i = 0; i <A.size(); i+=2){
+            if((A[i] & 1) == 0) continue;
+            else{
+                while((A[j] & 1) == 1){ j+=2;}
+                swap(A[i],A[j]);
+                j+=2;
+            }
+        }
+        return A;
+    }
+};
+
+*/Python 解法
+class Solution:
+    def sortArrayByParityII(self, A: List[int]) -> List[int]:
+        A_len , i , j =len(A),0,1
+        result = [0]*A_len
+        for a in A:
+            if a&1 == 0:
+                result[i] = a
+                i += 2
+            else:
+                result[j] = a
+                j+=2
+        return result
+        
+*/
+class Solution:
+    def sortArrayByParityII(self, A: List[int]) -> List[int]:
+        A_len, i , j = len(A), 0 , 1
+        while i < A_len:
+            if A[i] % 2 ==1:
+                while A[j] % 2 ==1:
+                    j+=2
+                A[i] , A[j] = A[j], A[i]
+            i += 2
+        return A
+        

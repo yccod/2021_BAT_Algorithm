@@ -1,0 +1,165 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        if(!root) return {};
+        vector<vector<int>> res;
+        queue<TreeNode*>q{{root}};
+        while(!q.empty()) {
+            vector<int> oneLevel;
+            for(int i= q.size(); i>0;--i) {
+                TreeNode*t = q.front();q.pop();
+                oneLevel.push_back(t->val);
+                if(t->left) q.push(t->left);
+                if(t->right) q.push(t->right);
+           }
+        res.push_back(oneLevel);
+        }
+        return res;
+    }
+};
+
+
+*/
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> res;
+        levelorder(root,0,res);
+        return res;
+        }
+        
+    void levelorder(TreeNode* node, int level, vector<vector<int>> & res) {
+        if (!node) return ;
+        if(res.size() == level) res.push_back({});
+        res[level].push_back(node->val);
+        if(node->left) levelorder(node->left,level+1,res);
+        if(node->right) levelorder(node->right,level+1,res);
+    }
+};
+
+
+*/python DFS
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def levelOrder(self, root: TreeNode) -> List[List[int]]:
+        levels=[]
+        if not root:
+            return levels
+        def helper(node,level):
+            if len(levels) == level:
+                levels.append([])
+            levels[level].append(node.val)
+            if node.left:
+                helper(node.left,level+1)
+            if node.right:
+                helper(node.right,level+1)
+        helper(root,0)
+        return levels
+        
+        
+*/BFS
+class Solution:
+    def levelOrder(self,root):
+        levels=[]
+        if not root:
+            return levels
+        level = 0
+        queue = [root]
+        while queue:
+            levels.append([])
+            len_queue=len(queue)
+            for i in range(len_queue):
+                node=queue.pop(0)
+                levels[level].append(node.val)
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+            level += 1
+        return levels
+
+
+*/BFS
+class Solution:
+    def levelOrder(self,root):
+        if not root:
+            return []
+        res = []
+        cur_level = [root]
+        while cur_level:
+            tmp = []
+            next_level=[]
+            for node in cur_level:
+                tmp.append(node.val)
+                if node.left:
+                    next_level.append(node.left)
+                if node.right:
+                    next_level.append(node.right)
+            res.append(tmp)
+            cur_level=next_level
+        return res
+        
+*/      
+class Solution:
+    def levelOrder(self, root: TreeNode) -> List[List[int]]:
+        WHITE, GRAY = 0, 1
+        stack = []
+        init_level = 0
+        stack.append((root, WHITE, init_level))
+        result = []
+        while stack:
+            node, color, level = stack.pop()
+            if node:
+                if color == WHITE:
+                    stack.append((node.right, WHITE, level+1))
+                    stack.append((node.left, WHITE, level+1))
+                    stack.append((node, GRAY, level))
+                else:
+                    if len(result) == level: result.append([])
+                    result[level].append(node.val)
+        return result
+
+
+        
+        
+        
+        
+        
+        
+
+
+
+        
+        
+        
+
+        
+        
+                
+            
+            
+        
+        
+        
+        
+        
+        
+            
+            
+            
+        

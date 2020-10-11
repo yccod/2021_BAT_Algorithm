@@ -1,0 +1,98 @@
+*/c++
+class Solution {
+public:
+	bool isAnagram(string s,string t){
+		if(s.size() != t.size()) return false;
+		int m[26] = {0};
+		for (int i=0; i<s.size();++i) ++m[s[i]-'a'];
+		for(int i=0;i < t.size();++i) {
+			if(--m[t[i]-'a'] < 0) return false;	
+		}
+		return true;
+	}
+};
+
+
+
+*/
+class Solution {
+public:
+	bool isAnagram(string s, string t) {
+		sort(s.begin(),s.end());
+		sort(t.begin(),t.end());
+		if (s==t)
+			return true;
+		else
+			return false;
+		}
+	};
+		
+		
+		
+class Solution {
+public:
+	bool isAnagram(string s,string t){
+		int num[26]={0};
+		if(s.length()!= t.length())
+			return false;
+		for(int i=0;s[i]!='\0';i++){
+			num[s[i]-'a']++;
+			num[t[i]-'a']--;
+		}
+		for(int i=0;i<26;i++)
+			if (num[i]!=0)
+				return false;
+		return true;
+	}
+};
+
+
+*/python
+class Solution:
+	def isAnagram(self,s,t):
+		if len(s) != len(t):
+			return False
+		else:
+			dic = {}
+			for i in s:
+				if i in dic:
+					dic[i] +=1
+				else:
+					dic[i] = 1
+			for i in t:
+				if i in dic:
+					dic[i] -=1
+				else:
+					return False
+			for i in dic:
+				if dic[i] != 0:
+					return False
+		return True
+*/
+class Solution:
+	def isAnagram(self,s,t):
+		return sorted(s) == sorted(t)
+*/		
+class Solution:
+	def isAnagram(self,s,t):
+		if len(s) != len(t):
+			return False
+		stas = {}
+		stat = {}
+		for ch in s:
+			stas[ch] = stas.get(ch,0)+1
+		for ch in t:
+			stat[ch] = stat.get(ch,0)+1
+		if stas == stat:
+			return True
+		else:
+			return False
+			
+*/python
+class Solution:
+	def isAnagram(self,s,t):
+		return collections.Counter(s) == collections.Counter(t)
+		
+		
+
+		

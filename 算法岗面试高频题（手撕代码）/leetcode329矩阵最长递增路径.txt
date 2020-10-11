@@ -1,0 +1,58 @@
+class Solution:
+    def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
+        if matrix is None or matrix == []:
+            return 0
+        dp = [[0 for i in range(len(matrix[0]))] for i in range(len(matrix))]
+        res = 1
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                res = max(res,self.process(matrix,i,j,dp))
+        return res
+    
+    def process(self,matrix,i,j,dp):
+        '''
+        以i，j开头的最长递增路径
+        '''
+        if dp[i][j] != 0:
+            return dp[i][j]
+        res = 1
+        p1,p2,p3,p4 = 1,1,1,1
+        if i-1 >=0 and matrix[i][j] < matrix[i-1][j]:
+            p1 += self.process(matrix,i-1,j,dp)
+        if j-1>=0 and matrix[i][j] <matrix[i][j-1]:
+            p2 += self.process(matrix,i,j-1,dp)
+        if i+1<len(matrix) and matrix[i][j]<matrix[i+1][j]:
+            p3 += self.process(matrix,i+1,j,dp)
+        if j+1 < len(matrix[0]) and matrix[i][j]<matrix[i][j+1]:
+            p4 += self.process(matrix,i,j+1,dp)
+        dp[i][j] =  max(res,p1,p2,p3,p4)
+        return dp[i][j]
+		
+		
+		
+		
+		
+class Solution:
+    def longestIncreasingPath(self,matrix):
+        if not matrix:
+            return 0
+        res=1
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                res=max(res,self.process(matrix,i,j))
+        return res
+        
+    def process(self,matrix,i,j):
+        p1,p2,p3,p4=1,1,1,1
+        if i-1>=0 and matrix[i-1][j]>matrix[i][j]:
+            p1=1+self.process(matrix,i-1,j)
+        if i+1<len(matrix) and matrix[i+1][j]>matrix[i][j]:
+            p2=1+self.process(matrix,i+1,j)            
+        if j-1>=0 and matrix[i][j-1]>matrix[i][j]:
+            p3=1+self.process(matrix,i,j-1)            
+        if j+1<len(matrix[0]) and matrix[i][j+1]>matrix[i][j]:
+            p4=1+self.process(matrix,i,j+1)    
+        return max(p1,p2,p3,p4)   
+
+                
+		

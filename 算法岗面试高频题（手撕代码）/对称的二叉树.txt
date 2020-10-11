@@ -1,0 +1,91 @@
+*/c++
+class Solution {
+public:
+	bool isSymmetricalCore(TreeNode* pRoot1,TreeNode* pRoot2){
+	if (pRoot1 == NULL && pRoot2 == NULL)
+		return true;
+	if (pRoot1 == NULL || pRoot2 == NULL)
+		return false;
+	if (pRoot1->val != pRoot2->val)
+		return false;
+	return isSymmetricalCore(pRoot1->left,pRoot2->right) && isSymmetricalCore(pRoot1->right,pRoot2->left);
+	}
+	bool isSymmetrical(TreeNode* pRoot)
+	{
+	if (pRoot == NULL)
+		return true;
+	return isSymmetricalCore(pRoot->left,pRoot->right);
+	}
+};
+*/
+class Solution {
+public:
+    bool isSymmetrical(TreeNode* root) {
+        if(root==NULL) return true;
+        queue<TreeNode*> q1,q2;
+        TreeNode *left,*right;
+        q1.push(root->left);
+        q2.push(root->right);
+        while(!q1.empty() and !q2.empty())
+        {
+            left = q1.front();
+            q1.pop();
+            right = q2.front();
+            q2.pop();
+            //两边都是空
+            if(NULL==left && NULL==right)
+                continue;
+            //只有一边是空
+            if(NULL==left||NULL==right)
+                return false;
+             if (left->val != right->val)
+                return false;
+            q1.push(left->left);
+            q1.push(left->right);
+            q2.push(right->right);
+            q2.push(right->left);
+        }
+         
+        return true;
+         
+    }
+};
+
+*/python
+class Solution:
+	def isSymmetrical(self,pRoot):
+		if pRoot is None:
+			return True
+		return self.isSymmetricalCore(pRoot.left,pRoot.right)
+	def isSymmetricalCore(self,pRoot1,pRoot2):
+		if pRoot1 is None and pRoot2 is None:
+			return True
+		if pRoot1 is None or pRoot2 is None:
+			return False
+		if pRoot1.val != pRoot2.val:
+			return False
+		return self.isSymmetricalCore(pRoot1.left,pRoot2.right) and self.isSymmetricalCore(pRoot1.right,pRoot2.left)
+		
+*/
+class Solution:
+	def isSymmetrical(self,pRoot):
+		if pRoot is None:
+			return True
+		list1,list2 = [],[]
+		list1.append(pRoot.left)
+		list2.append(pRoot.right)
+		while list1 and list2:
+			left = list1.pop(0)
+			right = list2.pop(0)
+			if left is None and right is None:
+				continue
+			if left is None or right is None:
+				return False
+			if left.val != right.val:
+				return False
+			list1.append(left.left)
+			list1.append(left.right)
+			list2.append(right.right)
+			list2.append(right.left)
+		return True
+			

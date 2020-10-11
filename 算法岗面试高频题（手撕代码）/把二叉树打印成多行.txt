@@ -1,0 +1,52 @@
+*/c++
+class Solution {
+public:
+        vector<vector<int> > Print(TreeNode* pRoot) {
+            vector<vector<int> > vec;
+            if(pRoot == NULL) return vec;
+ 
+            queue<TreeNode*> q;
+            q.push(pRoot);
+ 
+            while(!q.empty())
+            {
+                int lo = 0, hi = q.size();
+                vector<int> c;
+                while(lo++ < hi)
+                {
+                    TreeNode *t = q.front();
+                    q.pop();
+                    c.push_back(t->val);
+                    if(t->left) q.push(t->left);
+                    if(t->right) q.push(t->right);
+                }
+                vec.push_back(c);
+            }
+            return vec;
+        }
+};
+
+*/python
+class Solution:
+	def Print(self,pRoot):
+		if not pRoot:
+			return []
+		queue = [pRoot]
+		result = []
+		while queue:
+			res = []
+			i = 0
+			length = len(queue)
+			while i < length:
+				item = queue.pop(0)
+				res.append(item.val)
+				if item.left:
+					queue.append(item.left)
+				if item.right:
+					queue.append(item.right)
+				i = i+1
+			result.append(res)
+		return result
+				
+				
+

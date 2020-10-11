@@ -1,0 +1,9 @@
+class Solution:
+    def translateNum(self, num: int) -> int:
+        num=str(num)
+        dp=[1]*(len(num)+1)
+        for i in range(2,len(num)+1):
+            dp[i]=dp[i-1]
+            if 10<=int(num[i-2:i])<=25:
+                dp[i]+=dp[i-2]
+        return dp[-1]

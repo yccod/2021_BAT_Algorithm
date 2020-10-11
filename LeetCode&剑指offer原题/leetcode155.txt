@@ -1,0 +1,78 @@
+*/c++
+class MinStack {
+public:
+	MinStack() {}
+	void push(int x) {
+		s1.push(x);
+		if(s2.empty()|| x <= s2.top()) s2.push(x);
+	}
+	void pop() {
+		if(s1.top() == s2.top()) s2.pop();
+		s1.pop();
+	}
+	int top() {
+		return s1.top();
+	}
+	int getMin(){
+		return s2.top();
+	}
+private:
+	stack<int> s1, s2;
+};
+
+*/
+class MinStack {
+public:
+    MinStack() {
+        min_val = INT_MAX;
+    }  
+    void push(int x) {
+        if (x <= min_val) {
+            st.push(min_val);
+            min_val = x;
+        }
+        st.push(x);
+    }   
+    void pop() {
+        int t = st.top(); st.pop();
+        if (t == min_val) {
+            min_val = st.top(); st.pop();
+        }
+    }  
+    int top() {
+        return st.top();
+    }    
+    int getMin() {
+        return min_val;
+    }
+
+private:
+    int min_val;
+    stack<int> st;
+};
+
+
+*/python
+class MinStack:
+	def __init__(self):
+		self.data = []
+		self.helper = []
+	def push(self,x):
+		self.data.append(x)	
+		if len(self.helper)==0 or x <= self.helper[-1]:
+			self.helper.append(x)
+	def pop(self):
+		top = self.data.pop()
+		if self.helper and top == self.helper[-1]
+			self.helper.pop()
+		return top
+	def top(self):
+		if self.data:
+			return self.data[-1]
+	def getMin(self):
+		if self.helper:
+			return self.helper[-1]
+			
+		
+			
+			

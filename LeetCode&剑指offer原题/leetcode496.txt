@@ -1,0 +1,97 @@
+*/c++
+class Solution {
+public:
+	vector<int> nextGreaterElement(vector<int>& findNums,vector<int>& nums) {
+		vector<int> res(findNums.size());
+		for (int i = 0; i < findNums.size(); ++i) {
+			int j = 0, k = 0;
+			while(j < nums.size()){
+				if (nums[j] == findNums[i]) break;
+			}
+			while(k < nums.size()) {
+				if (nums[k] > nums[j]){
+					res[i] = nums[k];
+					break;
+				}
+			}
+			if (k == nums.size()) res[i] = -1;
+		}
+		return res;
+	}
+};
+
+*/
+class Solution {
+public:
+	vector<int> nextGreaterElement(vector<int>& findNums,vector<int>& nums) {
+		vector<int> res(findNums.size());
+		unordered_map<int,int> m;
+		for(int i = 0; i < nums.size();++i){
+			m[nums[i]] = i;
+		}
+		for (int i = 0; i < findNums.size();++i) {
+			res[i] = -1;
+			int start = m[findNums[i]];
+			for (int j = start+1; j<nums.size();++j){
+				if (nums[j] > findNums[i]) {
+					res[i] = nums[j];
+					break;
+				}
+			}
+		}
+		return res;
+	}
+};
+
+*/
+class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& findNums, vector<int>& nums) {
+        vector<int> res;
+        stack<int> st;
+        unordered_map<int, int> m;
+        for (int num : nums) {
+            while (!st.empty() && st.top() < num) {
+                m[st.top()] = num; st.pop();
+            }
+            st.push(num);
+        }
+        for (int num : findNums) {
+            res.push_back(m.count(num) ? m[num] : -1);
+        }        
+        return res;
+    }
+};
+
+
+*/python		
+class Solution:
+	def nextGreaterElement(self,nums1,nums2):
+		stack , hashmap = list(), dict()
+		for i in nums2:
+			while len(stack) != 0 and stack[-1] < i:
+				hashmap[stack.pop()] = i
+			stack.append(i)
+		return [hashmap.get(i,-1) for i in nums1]
+		
+
+*/		
+class Solution:
+	def nextGreaterElement(self,nums1,nums2):
+		res = []
+		for i in nums1:
+			index = nums2.index[i]
+			while index < len(nums2):
+				if nums2[index] > i:
+					res.append(nums2[index])
+					break
+				index += 1
+			if index == len(nums2):
+				res.append(-1)
+		return res
+		
+		
+			
+			
+			
+

@@ -1,0 +1,72 @@
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+		int sum = 0, n = nums.size();
+		for(auto a : nums) {
+			sum += a;
+		}
+		return 0.5*n*(n+1) - sum;
+    }
+};
+
+*/
+
+class Solution {
+public:
+	int missingNumber(vector<int>& nums){
+		int res = 0;
+		for(int i=0; i < nums.size();++i){
+			res^=(i+1)^nums[i];
+		}
+		return res;
+	}
+};
+
+
+*/
+class Solution {
+public:
+	int missingNumber(vector<int>& nums) {
+		sort(nums.begin(), nums.end());
+		int left=0, right=nums.size()-1;
+		while(left<=right){
+			int mid = (left + right)/2;
+			if(nums[mid]>mid) right=mid-1;
+			else left = mid+1;
+		}
+		return left;
+	}
+};
+
+*/
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+	    i = 0
+	    nums.sort()
+	    for item in nums:
+		    if item != i:
+			    return i
+		    else:
+			    i += 1
+	    return i
+		
+*/
+class Solution:
+	def missingNumber(self, nums: List[int]) -> int:
+		return (len(nums)*(len(nums)+1)//2-sum(nums))
+		
+		
+
+*/
+class Solution:
+	def missingNumber(self, nums: List[int]) -> int:
+		nums.sort()
+		for key, value in enumerate(nums):
+			if key != value:
+				return key
+		return key+1
+		
+		
+		
+		
+		

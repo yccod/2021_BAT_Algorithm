@@ -1,0 +1,29 @@
+最小的素数是2
+def countPrime(n):
+	count=0
+	for i in range(2,n+1):
+		temp = int(i**0.5+1)
+		flag=True
+		for j in range(2,temp):
+			if i % j == 0:
+				flag=False
+		if flag:
+			count +=1
+	return count
+	
+	
+	
+def countPrime(n):
+	temp=[True]*(n+1)
+	for i in range(2,n+1):
+		if temp[i]:
+			for j in range(2*i,n+1,i):
+				temp[j]=False
+	count = 0
+	for i in range(2,n+1):
+		if temp[i]:
+			count +=1
+	return count
+	
+				
+	

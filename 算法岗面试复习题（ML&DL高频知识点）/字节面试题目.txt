@@ -1,0 +1,128 @@
+字节data一面
+1. 现有正例200，负例800，计算下面模型的AUC。
+模型1：全部预测为正    0.5
+模型2：以0.5概率随机预测为正  0.5
+正负样本不均衡不影响AUC
+上下采样AUC不变
+https://www.zhihu.com/question/39840928?from=profile_question_card
+
+计算AUC
+from sklearn import metrics
+def aucfun(act,pred):
+	fpt,tpr,thresholds=metrics.roc_curve(act,pred,pos_label=1)
+	return metrics.auc(fpr,tpr)
+	
+def auc_comp(act,pred):
+    m=0
+    n=0
+    for i in act:
+        if i:
+            m+=1
+        else:
+            n+=1
+    l1=list(zip(pred,act))
+    l2=sorted(l1,key=lambda x:x[0])
+    index_sum=0
+    for i in range(len(l2)):
+        if l2[i][1]==1:
+            index_sum+=1+i
+    auc=(index_sum-m*(m+1)/2)/(m*n)
+    return auc
+
+if __name__ == "__main__":
+    act=[1,1,0,0,1]
+    pred=[0.5,0.6,0.55,0.4,0.7]
+    auc=auc_comp(act,pred)
+
+
+2. GBDT的公式h(x) = sum(hi(x))
+AdaBoost的公式h(x) = sum(wi*hi(x))
+为什么GBDT没有wi
+梯度下降法求线性拟合y = kx + b。
+
+import pandas as pd
+from sklearn import linear_model
+import matplotlib.pyplot as plt
+df=pd.read_csv("")
+regr=linear_model.LinearRegression()
+regr.fit(df["square_feet"],df["price"])
+w,b=regr.coef_,regr.intercept_
+
+最小二乘法求解权重系数
+def least_square(train_x,train_y):
+	weights=(train_x.T*train_x).I*train_x.T*train_y
+	return weights
+
+w=np.random.normal(0,1,10)
+#梯度下降法
+def gradient_decent(train_x,train_y,epoch=100,learning_rate=0.01):
+	numSample,numFeature=np.shape(train_x)
+	weights=np.zeros(numFeatures,1)
+	for i in range(epoch):
+		pred=train_x*weights
+		err=pred-train_y
+		weights=weights-2(learning_rate*err.T*train_x)
+	return weights
+
+def stochastic_gradient_descent(train_x, train_y, maxCycle, alpha):
+     numSamples, numFeatures = np.shape(train_x)
+     weights = np.zeros((numFeatures,1))
+     
+     for i in range(maxCycle):
+          for j in range(numSamples):
+               h = train_x[j,:] * weights
+               err = h - train_y[j,0]           
+               weights = weights - (alpha * err.T * train_x[j,:]).T  
+               
+     return weights
+
+y = [...]
+x = [...]
+def fun(x, y):
+    ...
+    return k, b 
+
+python 实现LR
+def sigmoid(z):
+	return 1/(1+np.exp(-z))
+def init_data():
+	data_=mp.loadtxt("data.csv")
+	data=data_[:0:-1]
+	label=data_[:,-1]
+	data=np.insert(data,0,1,axis=1)
+	return data,label
+	
+def grad_descent(data,label):
+	dataM=np.mat(data)
+	labelM=np.mat(label).transpose()
+	m,n=np.shape(dataM)
+	weights=np.ones((n,1))
+	learning_rate=0.001
+	epcho=1000
+	for i in range(epcho):
+		h=sigmoid(dataM*weights)
+		weights=weights+learning_rate*dataM.T(labelM-h)
+	return weights
+	
+
+
+
+
+if __name__ == "__main__":
+	data,label=init_data()
+	r = grad_descent(data,label)
+	print(r)
+
+
+
+from sklearn.linear_model import LogistRegression
+log_model=LogistRegression()
+log_model.fit(x_train,y_train)
+y_pred=log_model.predict(x_test)
+print(metrics.confusion_matrix(y_test, y_pred))
+print(metrics.classification_report(y_test, y_pred)
+
+
+1副扑克牌，13*4+2=54
+平均分3份，大小王一起的概率？
+17/53

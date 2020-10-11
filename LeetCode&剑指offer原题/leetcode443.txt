@@ -1,0 +1,110 @@
+*/C++
+class Solution {
+public:
+    int compress(vector<char>& chars) {
+        int n = chars.size();
+        int cur=0;
+        for (int i=0,j=0;i<n; i = j){
+            while(j<n && chars[j]==chars[i]) j++;
+            chars[cur++]=chars[i];
+            if(j-i == 1) continue;
+            for (char c : to_string(j-i))
+                chars[cur++]=c;
+        }
+        return cur;
+    }
+};
+
+
+class Solution {
+public:
+    int compress(vector<char>& chars) {
+        int len = 0;
+        for (int i = 0, cnt = 1; i < chars.size(); i++, cnt++) {
+            if (i + 1 == chars.size() || chars[i] != chars[i + 1]) {
+                chars[len++] = chars[i];
+                if (cnt > 1) {
+                    for (char ch : to_string(cnt)) {
+                        chars[len++] = ch;
+                    }
+                }
+                cnt = 0;
+            }
+        }
+        return len;
+    }
+};
+
+
+
+*/Python ½â·¨
+class Solution:
+    def compress(self, chars: List[str]) -> int:
+        cur = 0
+        i,j=0,0
+        n = len(chars)
+        while i < n :
+            while (j < n) and (chars[j] == chars[i]):
+                j = j + 1
+            chars[cur] = chars[i]
+            cur = cur + 1
+            if j-i == 1:
+                i = j
+                continue
+            for c in str(j-i):
+                chars[cur]=c
+                cur = cur + 1
+            i=j
+        return cur
+        
+        
+        
+*/
+class Solution:
+    def compress(self,chars:List[str]) ->int:
+        count = 1
+        length =len(chars)
+        for index in range(length-1,-1,-1):
+            if index > 0 and chars[index] == chars[index-1]:
+                count += 1
+            else:
+                end = index+count
+                chars[index:end] = [chars[index]] if count == 1 else [chars[index]] + list(str(count))
+                count = 1
+        return len(chars)
+        
+        
+        
+        
+*/
+class Solution:
+    def compress(self,chars:List[str]) ->int:
+        p=0
+        w=0
+        count=1
+        while p<len(chars):
+            if p==len(chars)-1 or chars[p] != chars[p+1]:
+                if count!=1:
+                    s = chars[p] + str(count)
+                else:
+                    s = chars[p]
+                for  i in s:
+                    chars[w] = i
+                    w += 1
+                count=1
+            else:
+                count += 1
+            p += 1
+        return w
+        
+               
+                   
+            
+            
+            
+            else:
+                
+            p +=1
+            
+        
+        

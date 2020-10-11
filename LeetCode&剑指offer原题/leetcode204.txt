@@ -1,0 +1,75 @@
+*/C++解法
+
+class Solution {
+public:
+    int countPrimes(int n) {
+		int res = 0;
+		vector<bool> prime(n, true);
+		for( int i = 2; i<n;i++){
+			if(!prime[i]) continue;
+			res++;
+			for(int j = 2; i*j < n; ++j){
+				prime[i * j] = false;
+			}
+		}
+        return res;
+    }
+};
+
+
+*/Python解法
+class Solution:
+    def countPrimes(self, n: int) -> int:
+	    res = 0
+	    if n <= 2:
+		    return 0
+	    for  i in range(2,n):
+		    flag=0
+		    for j in range(2,int(math.sqrt(i))+1):
+			    if i%j == 0:
+				    flag=1
+				    break
+		    if flag==0:
+			    res+=1
+	    return res
+		
+		
+*/
+class Solution:
+	def countPrimes(self , n):
+		if n <= 2:
+			return 0
+		else:
+			res = []
+		for i in range(2,n):
+			flag = 0
+			for j in res:
+				if i % j == 0:
+					flag = 1
+					break
+			if flag == 0:
+				res.append(i)
+		return len(res)
+
+		
+*/
+class Solution:
+	def countPrimes(self,n):
+		if n < 3:
+			return 0
+		prime = [1] *n
+		prime[0]=prime[1]=0
+		for i in range(2, int(n**0.5)+1):
+			if prime[i]==1:
+				prime[2*i:n:i] = [0]*len(prime[2*i:n:i])
+		return sum(prime)
+				
+			
+
+					
+					
+			
+			
+			
+				
+		

@@ -1,0 +1,22 @@
+*/ C++解法
+
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        for (int i = 0 , j = 0; i<nums.size() ; ++i ) {
+            if (nums[i]) 
+                swap(nums[i] , nums[j++]);
+        }
+        
+    }
+};
+
+*/ Python 解法
+
+class Solution:
+    def moveZeroes(self , nums):
+        point = 0
+        for i in range(len(nums)):
+            if nums[i]:
+                nums[point] , nums[i] = nums[i], nums[point]
+                point +=1

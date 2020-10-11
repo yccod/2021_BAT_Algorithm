@@ -1,0 +1,18 @@
+
+def split_t(txt, delimeter):
+    tempstr = []
+    lengstring = len(txt)
+    lengchar = len(delimeter)
+ 
+    for i in range(lengstring):
+        index = txt.find(delimeter)
+        if index == -1:
+            tempstr.append(txt)
+            return tempstr
+        else:
+            tempstr.append(txt[:index])
+            txt = txt[index + lengchar:]
+ 
+if __name__ == "__main__":
+    print(split_t("ABGHFTRRFDSHSYTSFSGAFDVR", "HF"))
+

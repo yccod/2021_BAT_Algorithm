@@ -1,0 +1,14 @@
+https://leetcode-cn.com/problems/number-of-digit-one/solution/gelthin-zhu-ge-shu-wei-ji-suan-by-gelthin/
+class Solution:
+    def countDigitOne(self, n: int) -> int:
+        if n<=0:
+            return 0
+        ## 用数学的方法， 逐个计算，个位，十位，百位 等数位上的 "1" 的个数
+        count = 0
+        k = 1
+        while k <= n:
+            count += (n//(10*k))*k + min(max(n%(10*k)-k+1, 0), k)  # 对个位也成立
+            k *= 10
+        return count
+
+

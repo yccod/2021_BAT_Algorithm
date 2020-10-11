@@ -1,0 +1,142 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        if(!root) return NULL;
+        TreeNode *tmp =root->left;
+        root->left = invertTree(root->right);
+        root->right = invertTree(tmp);
+        return root;
+    }
+};
+
+*/层序遍历BFS
+class Solution{
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        if(!root) return NULL;
+        queue<TreeNode*> q;
+        q.push(root);
+        while(!q.empty()) {
+            TreeNode *node = q.front(); q.pop();
+            TreeNode* tmp = node->left;
+            node->left = node->right;
+            node->right = tmp;
+            if(node->left) q.push(node->left);
+            if(node->right) q.push(node->right);
+           }
+           return root;
+    }
+};
+
+*/前序遍历
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        if(root==NULL) return NULL;
+        TreeNode* tmp = root->left;
+        root->left = root->right;
+        root->right = tmp;
+        invertTree(root->left);
+        invertTree(root->right);
+        return root;
+    }
+};
+
+
+*/中序遍历
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        if(root==NULL) return NULL;
+        invertTree(root->left);
+        TreeNode* tmp = root->left;
+        root->left = root->right;
+        root->right = tmp;
+        invertTree(root->left); //这里的root->left指的是翻转前的right
+        return root;
+    }
+};
+
+
+*/后序遍历
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        if(root==NULL) return NULL;
+        invertTree(root->left);
+        invertTree(root->right);
+        TreeNode* tmp = root->left;
+        root->left = root->right;
+        root->right = tmp;
+        return root;
+    }
+};
+
+
+*/python 解法
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+# 前序遍历
+class Solution:
+    def invertTree(self, root: TreeNode) -> TreeNode:
+        if root is None:
+            return 
+        root.left, root.right = root.right, root.left
+        self.invertTree(root.left)
+        self.invertTree(root.right)
+        return root
+        
+    
+# 中序遍历
+class Solution:
+    def invertTree(self, root: TreeNode) -> TreeNode:
+        if root is None:
+            return 
+        self.invertTree(root.left)
+        root.left, root.right = root.right, root.left
+        self.invertTree(root.left)
+        return root
+        
+# 后序遍历
+class Solution:
+    def invertTree(self, root: TreeNode) -> TreeNode:
+        if root is None:
+            return 
+        self.invertTree(root.left)
+        self.invertTree(root.right)
+        root.left, root.right = root.right, root.left
+        return root
+        
+# 层序遍历
+class Solution:
+    def  invertTree(self,root):
+        if root is None:
+            return None
+        queue = [root]
+        while queue:
+            cur_node = queue.pop(0)
+            cur_node.left, cur_node.right = cur_node.right, cur_node.left
+            if cur_node.left:
+                queue.append(cur_node.left)
+            if cur_node.right:
+                queue.append(cur_node.right)
+        return root
+            
+
+
+
+

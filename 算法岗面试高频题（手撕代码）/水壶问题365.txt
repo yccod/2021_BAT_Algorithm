@@ -1,0 +1,15 @@
+class Solution:
+    def canMeasureWater(self, x: int, y: int, z: int) -> bool:
+        if x+y<z:
+            return False
+        if z==0:
+            return True
+        if x==0 or y==0:
+            return z==x+y
+        big=max(x,y)
+        small=min(x,y)
+        while big%small:
+            tmp=small
+            small=big%small
+            big=tmp
+        return z%small==0

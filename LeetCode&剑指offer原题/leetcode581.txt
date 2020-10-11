@@ -1,0 +1,95 @@
+*/c++
+class Solution {
+public: 
+	int findUnsortedSubarray(vector<int>& nums) {
+		int n = nums.size(),i = 0, j = n - 1;
+		vector<int> t = nums;
+		sort(t.begin(),t.end());
+		while(i < n && nums[i] == t[i]) ++i;
+		while(j > i && nums[j] == t[j]) --j;
+		return j - i + 1;
+	}
+};
+
+
+*/
+class Solution {
+public:
+	int findUnsortedSubarray(vector<int>& nums) {
+		int n = nums.size(), start = -1, end = -2;
+		int mn = nums[n-1], mx = nums[0];
+		for (int i = 1; i < n; ++i) {
+			mx = max(mx,nums[i]);
+			mn = min(mn,nums[n-1-i]);
+			if (mx > nums[i]) end = i;
+			if (mn < nums[n-1-i]) start = n - 1 - i;
+		}
+		return end - start + 1;
+	}
+};
+
+
+*/python
+class Solution:
+    def findUnsortedSubarray(self, nums: List[int]) -> int:
+        n=len(nums)
+        max_num=nums[0]
+        right=0
+        for i in range(n):
+            if(nums[i]>=max_num):
+                max_num=nums[i]
+            else:
+                right=i
+        left=n
+        min_num=nums[-1]
+        for i in range(n-1,-1,-1):
+            if(nums[i]<=min_num):
+                min_num=nums[i]
+            else:
+                left=i
+        return right-left+1 if(right-left+1 >0) else 0
+		
+*/		
+class Solution:
+	def findUnsortedSubarray(self,nums):
+		n = len(nums)
+		max_num = nums[0]
+		right = 0
+		for i in range(n):
+			if(nums[i]>= max_num):
+				max_num = nums[i]
+			else:
+				right = i
+		left = n
+		min_num = nums[-1]
+		for i in range(n-1,-1,-1):
+			if (nums[i]<=min_num):
+				min_num=nums[i]
+			else:
+				left = i
+		return right-left+1 if(right-left+1>0) else 0
+		
+*/		
+class Solution:
+	def findUnsortedSubarray(self,nums):
+		nums_copy = nums[:]
+		nums_copy.sort()
+		left = 0
+		right = len(nums)-1
+		for i in range(len(nums)):
+			if nums[i] == nums_copy[i]:
+				left++
+		for j in range(len(nums)-1,-1,-1):
+			if nums[j] == nums_copy[j]:
+					right--
+		return right-left+1 if (right-left+1)>0 else 0
+		
+		
+*/		
+class Solution:
+	def findUnsortedSubarray(self,nums):
+		diff = [i for i, (a,b) in enumerate(zip(nums,sorted(nums))) if a != b]
+		return len(diff) and max(diff) - min(diff) + 1
+		
+		
+

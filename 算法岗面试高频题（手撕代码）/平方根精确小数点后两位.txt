@@ -1,0 +1,11 @@
+牛顿法
+https://zhuanlan.zhihu.com/p/46536960
+公式x1=x0/2+num/(2*x0)
+
+def sqrt_num(num):
+    xn=num//2
+    while abs(xn-num**0.5)>0.01:
+        print(xn)
+        xn=xn/2+num/(2*xn)
+    return xn
+

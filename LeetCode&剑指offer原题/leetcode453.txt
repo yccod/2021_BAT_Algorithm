@@ -1,0 +1,76 @@
+*/c++
+class Solution {
+public:
+	int minMoves(vector<int>& nums) {
+		int mn = INT_MAX, res = 0;
+		for(int num : nums) mn = min(mn,num);
+		for(int num : nums) res += num - mn;
+		return res;
+	}
+};
+
+
+
+*/
+class Solution {
+public:
+	int minMoves(vector<int>& nums) {
+		int sum = 0;
+		int count = 0;
+		for (int num : nums)
+			sum += num;
+		int temp = sum;
+		while(true){
+			temp +=nums.size()-1;
+			if (temp%3==0)
+				break;
+			count++;
+		}
+		return count;
+	}
+};
+
+*/
+class Solution {
+public:
+    int minMoves(vector<int>& nums) {
+        long mn = INT_MAX, sum = 0, res = 0;
+        for (long num : nums) {
+            mn = min(mn, num);
+            sum += num;
+        }
+        return sum - mn * nums.size();
+    }
+};
+
+
+*/
+class Solution {
+public:
+	int minMoves(vector<int>& nums) {
+		long mn = INT_MAX, sum = 0, res = 0;
+		for(long num : nums) {
+			mn = min(mn,num);
+			sum += num;
+		}
+		return sum - mn*nums.size();
+	}
+};
+
+*/python
+class Solution:
+	def minMoves(self,nums):
+		sum = 0
+		minnum = min(nums)
+		for i in nums:
+			sum += i - minnum
+		return sum
+		
+		
+*/
+class Solution:
+	def minMoves(self,nums):
+		return sum(nums) - min(nums)*len(nums)
+		
+		
+		

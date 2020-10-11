@@ -1,0 +1,22 @@
+class Solution:
+    def isFlipedString(self, s1: str, s2: str) -> bool:
+        if len(s1)!=len(s2):
+            return False
+        return sorted(s1)==sorted(s2)
+		
+class Solution:
+    def isFlipedString(self, s1: str, s2: str) -> bool:
+        if len(s1)!=len(s2):
+            return False
+        res=0
+        s=s1+s2
+        for char in s:
+            res ^=ord(char)
+        return res==0
+		
+class Solution:
+    def isFlipedString(self, s1: str, s2: str) -> bool:
+        if len(s1)!=len(s2):
+            return False
+        return s1 in s2*2
+        

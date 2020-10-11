@@ -1,0 +1,27 @@
+class Solution:
+    def findLengthOfLCIS(self, nums: List[int]) -> int:
+        if len(nums)<2:
+            return len(nums)
+        dp=[1]*len(nums)
+        for i in range(1,len(nums)):
+            if nums[i]>nums[i-1]:
+                dp[i]=1+dp[i-1]
+        return max(dp)
+		
+		
+		
+		
+class Solution:
+    def findLengthOfLCIS(self, nums):
+        if len(nums)<2:
+            return len(nums)
+        dp=[[i] for i in nums]
+        max_len=1
+        index=0
+        for i in range(1,len(nums)):
+            if nums[i]>nums[i-1]:
+                dp[i]=dp[i-1]+[nums[i]]
+                if len(dp[i])>max_len:
+                    max_len=len(dp[i])
+                    index=i
+        return max_len,dp[index]

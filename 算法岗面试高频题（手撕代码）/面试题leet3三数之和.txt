@@ -1,0 +1,54 @@
+
+给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。
+注意：答案中不可以包含重复的三元组。
+
+给定数组 nums = [-1, 0, 1, 2, -1, -4]，
+满足要求的三元组集合为：[[-1, 0, 1],[-1, -1, 2]]
+
+杨超:
+参考leetcode[1]两数之和的解法：先排序再使用对撞指针。再考虑剪枝操作。
+
+三数之和的解法：
+先对数组进行排序
+剪枝：
+
+剪枝优化，就是当遍历到正数的时候就break，为啥呢，因为我们的数组现在是有序的了，如果第一个要fix的数就是正数了，那么后面的数字就都是正数，就永远不会出现和为0的情况了。
+然后我们还要加上重复就跳过的处理，处理方法是从第二个数开始，如果和前面的数字相等，就跳过，因为我们不想把相同的数字fix两次。
+
+对于遍历到的数，用0减去这个fix的数得到一个target，然后只需要再之后找到两个数之和等于target即可。我们使用对撞指针。
+代码如下：注意代码块中的 这一句
+
+
+class Solution:
+	def threeSum(self,num):
+		num.sort()
+		result=[]
+		if len(num)<3:
+			return result
+		for i in range(len(num)-2):
+			if num[i]>0:
+				break
+			if i>0 and num[i]==num[i-1]:
+				continue
+			left=i+1
+			right=len(num)-1
+			while left<right:
+				if num[left]+num[right]==-num[i]:
+					result.append([num[i],num[left],num[right]])
+					while left<right and num[left]==num[left+1]:
+						left+=1
+					while left<right and num[right]==num[right-1]:
+						right-=1
+					left+=1
+					right-=1
+				elif num[left]+num[right]<-num[i]:
+					left+=1
+				else:
+					right-=1
+		return result
+						
+			
+			
+			
+		
+		

@@ -1,0 +1,108 @@
+*/  C++解法
+#include <cmath>
+class Solution {
+public:
+    int cutRope(int number) {
+        if (number==2){
+            return 1;
+        }
+        if (number==3){
+            return 2;
+        }
+        int x = number % 3;
+        int y = number / 3;
+        if (x==0){
+            return pow(3,y);        
+        }else if (x==1){
+            return 2*2*pow(3,y-1);
+        }else {
+            return 2*pow(3,y);
+        }
+        
+    }
+};
+
+*/dp
+
+class Solution {
+public:
+    int  cutRope(int number){
+        if (number == 2)
+            return 1;
+        if (number == 3)
+            return 2;
+        vector<int> dp(number+1,0);
+        dp[1] = 1;
+        dp[2] = 2;
+        dp[3] = 3;
+        for (int i = 4;i <= number; i++){
+            for(int j = 1; j<=i/2;j++)
+                dp[i] = max(dp[i],dp[j]*dp[i-j]);
+        }
+        return dp[number];
+    }
+};
+
+
+*/贪婪算法
+ class Solution {
+ public:
+    int cutRope(int number) {
+        if (number < 2)
+            return 0;
+        if (number == 2)
+            return 1;
+        if(number == 3)
+            return 2;
+        int timeOf3 = number/3;
+        if (number - timeOf3*3 == 1)
+            timeOf3--;
+        int timeOf2 = (number - timeOf3*3)/2;
+        return (int)(pow(3,timeOf3)*pow(2,timeOf2));
+    }
+ };
+ 
+ 
+ 
+ */Python 解法
+ */贪心
+class Solution:
+    def cutRope(self, number):
+        # write code here
+        res=1
+        if number<=1:
+            return 0
+        elif number<=2:
+            return 1
+        elif number<=3:
+            return 2
+        elif number>3:
+            if number%3==0:
+                res=3**(number//3)
+            elif number%3==1:
+                res=3**(number//3-1)*4
+            else:
+                res=3**(number//3)*(number%3)
+        return res
+
+        
+*/动态规划       
+class Solution:
+    def cutRope(self, number):
+        # write code here
+        res=1
+        if number<=1:
+            return 0
+        elif number<=2:
+            return 1
+        elif number<=3:
+            return 2
+        prod=[0,1,2,3]
+        for i in range(4,number+1):
+            max=0
+            for j in range(1,i//2+1):
+                pro=prod[j]*prod[i-j]
+                if pro>max:
+                    max=pro
+            prod.append(max)
+        return prod[number]

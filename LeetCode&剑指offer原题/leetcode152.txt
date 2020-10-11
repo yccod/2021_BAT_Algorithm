@@ -1,0 +1,68 @@
+*/C++解法
+
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        if (nums.empty()) return 0;
+        int res = nums[0], mn = nums[0], mx = nums[0];
+        for (int i = 1; i < nums.size(); i++){
+            int tmax = mx, tmin = mn;
+            mx = max(max(nums[i], tmax*nums[i]), tmin*nums[i]);
+            mn = min(min(nums[i], tmax*nums[i]), tmin*nums[i]);
+            res = max(res, mx);
+        }
+        return res;
+    }
+};
+
+*/
+
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        int res = nums[0], mx = res, mn = res;
+        for(int i = 1; i < nums.size() ; i++) {
+            if (nums[i] < 0) swap(mx, mn);
+            mx = max(nums[i], mx*nums[i]);
+            mn = min(nums[i], mn*nums[i]);
+            res = max(res, mx);
+        
+        }
+        return res;
+    }
+};
+
+*/
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        int res = nums[0], prod = 1, n = nums.size();
+        for (int i = 0; i < n; ++i){
+            res = max(res, prod*= nums[i]);
+            if (nums[i] == 0) prod = 1;
+        }
+        prod = 1;
+        for (int i = n -1; i >=0; --i){
+            res = max(res, prod*=nums[i]);
+            if(nums[i] == 0) prod = 1;
+        }
+    return res;
+    }  
+};
+
+*/Python 解法
+
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        maxvalue = minvalue = nums[0]
+        globalmax = nums[0]
+        for i in range(1, len(nums)):
+            lastvalue = maxvalue
+            maxvalue = max(minvalue*nums[i], lastvalue*nums[i], nums[i])
+            minvalue = min(lastvalue*nums[i], minvalue*nums[i], nums[i])
+            globalmax = max(globalmax, maxvalue)
+        return globalmax
+        
+        
+        
+        

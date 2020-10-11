@@ -1,0 +1,48 @@
+*/C++
+class Solution {
+public:
+	int findContentChildren(vector<int>& g, vector<int>& s) {
+		int res = 0, p = 0;
+		sort(g.begin(),g.end());
+		sort(s.begin(),s.end());
+		for(int i = 0; i < s.size(); ++i) {
+			if(s[i] >= g[p]) {
+				++res;
+				++p;
+				if (p >= g.size()) break;
+			}
+		}	
+		return res;	
+	}	
+};
+
+*/
+class Solution {
+public:
+	int findContentChildren(vector<int>& g, vector<int>& s) {
+		int j = 0;
+		sort(g.begin(),g.end());
+		sort(s.begin(),s.end());
+		for(int i = 0; i < s.size() && j < g.size();++i) {
+			if(s[i] >= g[j]) ++j;
+		}
+		return j;
+	}
+};
+
+*/python
+class Solution:
+	def findContentChildren(self,g,s):
+		g = sorted(g)
+		s = sorted(s)
+		j = 0
+		for i in range(len(s)):
+			if s[i] >= g[j]:
+				j = j + 1
+				if j > len(g)-1:
+					break
+		return j
+		
+		
+
+

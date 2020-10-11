@@ -1,0 +1,63 @@
+*/C++解法
+
+class Solution {
+public:
+    int minimumTotal(vector<vector<int>>& triangle) {
+        for (int i = 1, i < triangle.size(); ++i) {
+            for (int j = 0, j < triangle[i].size(); ++j){
+                if(j == 0) {
+                    triangle[i][j] += triangle[i-1][j];
+                }else if (j = triangle[i].size()-1){
+                    triangle[i][j] += triangle[i-1][j-1];
+                }else  {
+                    triangle[i][j] += min(triangle[i-1][j-1], triangle[i-1][j]);
+                }
+            }
+        }
+        return *min_element(triangle.back().begin(), triangle.back().end());
+    }
+};
+
+*/
+class Solution {
+public:
+    int minimumTotal(vector<vector<int>>& triangle) {
+        vector<int> dp(triangle.back());
+        for (int i = triangle.size()-2; i >=0; --i){
+            for(int j = 0; j <= i; ++j){
+                dp[j] = min(dp[j], dp[j+1]) + triangle[i][j];
+                
+            }
+        }
+        return dp[0];
+    }
+};
+
+*/Python 解法
+class Solution:
+    def minimumTotal(self, triangle: List[List[int]]) -> int:
+        LenDp = len(triangle)
+        if LenDp == 0:
+            return 0
+        Dp = [0] * LenDp
+        Dp[0] = triangle[0][0]
+        for i in range(1, LenDp):
+            j = i
+            while j>=0:
+                if j==0:
+                    Dp[j] = Dp[j] + triangle[i][j]
+                elif j == i:
+                    Dp[j] = Dp[j-1] + triangle[i][j]
+                else:
+                    Dp[j] = triangle[i][j] + min(Dp[j-1], Dp[j])
+                j = j - 1
+        return sorted(Dp)[0]
+                    
+            
+            
+        
+        
+    
+
+
+

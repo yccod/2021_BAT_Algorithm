@@ -1,0 +1,11 @@
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        res=[]
+        def helper(begin,k,ans):
+            if k==0:
+                res.append(ans)
+            for i in range(begin,n+1):
+                helper(i+1,k-1,ans+[i])
+
+        helper(1,k,[])
+        return res

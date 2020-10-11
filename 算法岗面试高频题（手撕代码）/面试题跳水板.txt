@@ -1,0 +1,26 @@
+class Solution:
+    def divingBoard(self, shorter: int, longer: int, k: int) -> List[int]:
+        if k==0:
+            return []
+        if k==1:
+            return [shorter,longer]
+        ans=set()
+        for i in self.divingBoard(shorter,longer,k-1):
+            ans.add(i+shorter)
+            ans.add(i+longer)
+        return sorted(list(ans))
+
+
+
+class Solution:
+    def divingBoard(self, shorter: int, longer: int, k: int) -> List[int]:
+        if k==0:
+            return []
+        if shorter==longer:
+            return [shorter*k]
+        if k==1:
+            return [shorter,longer]
+        ans=[0]*(k+1)
+        for i in range(k+1):
+            ans[i]=shorter*(k-i)+longer*i
+        return ans

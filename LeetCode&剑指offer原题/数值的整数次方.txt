@@ -1,0 +1,44 @@
+*/ C++解法
+
+class Solution {
+public:
+    double Power(double base, int exponent) {
+        int res = 1.0;
+        for(int i = 0; i < abs(exponent) ;i++)
+            res = res*base;
+        return exponent < 0 ? 1.0/res : res;
+    }
+};
+
+*/
+
+class Solution {
+    double Power(double base , int exponent) {
+        if(exponent == 0) return 1;
+        if(exponent < 0) 
+            return 1/base*(Power(base, exponent+1));
+        else
+            return base*(Power(base,exponent-1));
+             
+    }
+};
+
+*/Python 解法
+# -*- coding:utf-8 -*-
+class Solution:
+    def Power(self, base, exponent):
+        return base**exponent
+        # write code here
+
+
+*/
+class Solution:
+    def Power(self , base ,exponent):
+        result = 1.0;
+        for i in range(abs(exponent)):
+            result *= base
+        return 1.0/result if exponent < 0 else result
+
+                        
+
+

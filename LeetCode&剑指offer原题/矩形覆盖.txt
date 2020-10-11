@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int rectCover(int number) {
+        if ( number <= 0)
+            return 0;
+        else if (number <= 2)
+            return number;
+        else
+            return rectCover(number-1) + rectCover(number-2);
+    }
+};
+
+class Solution {
+public:
+    int rectCover(int number) {
+        if (number < 1)
+            return 0;
+        int g=1, f=2;
+        while(--number){
+            f = f + g;
+            g = f - g;
+        }
+        return g;
+    }
+};
+
+*/Python ½â·¨
+
+# -*- coding:utf-8 -*-
+class Solution:
+    def rectCover(self, number):
+        # write code here
+        res = [0,1,2]
+        while len(res) <= number:
+            res.append(res[-1] + res[-2])
+        return res[number]
+        
+        

@@ -1,0 +1,18 @@
+rand2生成rand4(等概率)
+（1,2）->(1,2,3,4)
+(rand2-1)*2+rand2
+rand4 生产 rand2
+rand4()%2+1
+rand6 生产 rand2
+rand6()%2+1
+
+
+def rand10(self)
+	num = (rand7-1)*7+rand7
+	while num > 40:
+		num = (rand7-1)*7+rand7
+	return num%10+1
+	
+	
+
+

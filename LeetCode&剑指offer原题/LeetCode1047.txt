@@ -1,0 +1,65 @@
+class Solution {
+public:
+    string removeDuplicates(string S) {
+		int i=0;
+		for (int j = 1; j < S.size();){
+			if (S[i] == S[j]){
+				S.erase(i,2);
+				if(i != 0)
+					i=i-1;
+				j=i+1;
+			} 		
+			else
+			{
+				i=j;
+				j++;		
+			}
+		}
+		return S;      
+    }
+};
+
+*/
+class Solution{
+public:
+	string removeDuplicates(string S){
+		int i=0;
+		stack<char> ret;
+		while(i<S.length())
+		{
+			if(ret.empty() || S[i] != ret.top())
+				ret.push(S[i++]);
+			else
+			{
+				ret.pop();
+				i++;
+			}
+		}
+		string tmp;
+		while(!ret.empty())
+		{
+			tmp.insert(tmp.begin(),ret.top());
+			ret.pop();
+		}
+		return tmp;
+	}
+};
+ 
+ */
+
+ class Solution{
+ public:
+	string removeDuplicates(string S){
+		int top = 0;
+		for(char ch :S){
+			if(top==0 || S[top-1]!=ch){
+				S[top++] = ch;
+				}else{
+				top--;
+				}
+			}
+			S.resize(top);
+			return S;
+		}
+ };
+ 

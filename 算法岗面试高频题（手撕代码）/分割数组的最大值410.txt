@@ -1,0 +1,18 @@
+class Solution:
+    def splitArray(self, nums: List[int], m: int) -> int:
+        left=max(nums)
+        right=sum(nums)
+        while left<=right:
+            mid=(left+right)>>1
+            sum1=0
+            count=1
+            for i in nums:
+                sum1+=i
+                if sum1>mid:
+                    sum1=i
+                    count+=1
+            if count>m:
+                left=mid+1
+            else:
+                right=mid-1
+        return left

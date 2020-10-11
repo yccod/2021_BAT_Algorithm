@@ -1,0 +1,125 @@
+# -*- coding:utf-8 -*-
+*/C++解法
+/*
+struct ListNode {
+	int val;
+	struct ListNode *next;
+	ListNode(int x) :
+			val(x), next(NULL) {
+	}
+};*/
+class Solution {
+public:
+    ListNode* FindKthToTail(ListNode* pListHead, unsigned int k) {
+        if(pListHead==NULL || k==0)
+            return NULL;
+        ListNode *pTail = pListHead, *pHead = pListHead;
+        for(int i=1;i<k;++i){
+            if (pHead->next != NULL)
+                pHead = pHead->next;
+            else
+                return NULL;
+        }
+        while (pHead->next != NULL){
+            pHead = pHead->next;
+            pTail = pTail->next;
+        }
+    return pTail;
+    }
+};
+
+
+
+
+
+*/栈存储
+
+class Solution {
+public:
+    ListNode* FindKthToTail(ListNode* pListHead, unsigned int k) {
+        if(pListHead == NULL || k<=0)
+            return NULL;
+        stack<ListNode*> stk;
+        ListNode *p = pListHead;
+        while(p != NULL){
+            stk.push(p);
+            p = p->next;
+        }
+        if (stk.size()>=k){
+            while((--k)>0){
+                stk.pop();
+            }
+            return stk.top();
+        }else
+            return NULL;
+    }
+};
+
+*/Vector 存储
+class Solution {
+public:
+    ListNode* FindKthToTail(ListNode* pListHead, unsigned int k) {
+        if (pListHead == NULL || k <= 0)
+            return NULL;
+        vector<ListNode*> vec;
+        ListNode* pNode = pListHead;
+        while(pNode != NULL){
+            vec.push_back(pNode);
+            pNode = pNode->next;
+        }
+        if (vec.size() < k){
+            return NULL;
+        }
+        return vec[vec.size()-k];
+    
+    }
+};
+
+
+
+
+
+
+
+
+*/Python 解法
+
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def FindKthToTail(self, head, k):
+        # write code here
+        if head == None or k<=0:
+            return None
+        p2 = head
+        p1 = head
+        while k>1:
+            if p2.next != None:
+                p2 = p2.next
+                k -= 1
+            else:
+                return None
+        while p2.next != None:
+            p1 = p1.next
+            p2 = p2.next
+        return p1
+
+        
+*/
+class Solution:
+    def FindKthToTail(self,head,k):
+        res = []
+        while head:
+            res.append(head)
+            head = head.next
+        if k>len(res) or k<1:
+            return None
+        return res[-k]
+        
+        
+        
+
+        

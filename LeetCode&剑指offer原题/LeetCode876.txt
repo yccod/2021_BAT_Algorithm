@@ -1,0 +1,66 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+		ListNode *cur = head;
+		int cnt = 0;
+		while(cur){
+			++cnt;
+			cur = cur->next;
+		
+		}
+        cnt /=2;
+		while(cnt>0){
+			--cnt;
+			head = head->next;
+		
+		}
+		return head;
+    }
+	
+};
+
+/*
+*/
+class Solution{
+public:
+	ListNode *middleNode(ListNode* head){
+		vector<ListNode*> vec(100);
+		int cur = 0;
+		while(head){
+			vec[cur++] = head;
+			head = head->next;
+			
+				
+		}
+		return vec[cur/2];
+	
+	}
+};
+
+
+
+/*
+*/
+class Solution{
+public:
+	ListNode *middleNode(ListNode* head){
+		ListNode *slow = head, *fast = head;
+		while(head && head->next){
+			slow = slow->next;
+			head = head->next->next;
+		
+		}
+		return slow;
+	}
+};
+
+
+

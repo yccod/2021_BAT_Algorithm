@@ -1,0 +1,92 @@
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+
+This is a temporary script file.
+"""
+
+
+#def temp(list1):
+#    left = 0
+#    i = 0
+#    right = len(list1)-1
+#    j = len(list1)-1
+#    while right > i:
+#        if list1[right]==1 and list1[i]!=1:
+#            list1[right],list1[i]=list1[i],list1[right]
+#            right -= 1
+#            i += 1
+#        elif list1[right]==1 and list1[i]==1:
+#            while list1[i] == 1:
+#                i +=1
+#            list1[right],list1[i]=list1[i],list1[right]
+#            i +=1
+#            right -=1
+#        else:
+#            right -=1
+#    print(list1)
+#    while left < j:
+#        if list1[left]==0 and list1[j]!=0:
+#            list1[left],list1[j]=list1[j],list1[left]
+#            left += 1
+#            j -= 1
+#        elif list1[left]==0 and list1[j]==0:
+#            while list1[j] == 0:
+#                j -=1
+#            list1[left],list1[j]=list1[j],list1[left]
+#            j -=1
+#            left +=1
+#        else:
+#            left +=1
+#            
+#    return list1
+        
+
+
+def temp(list1):
+    left = 0
+    i = 0
+    right = len(list1)-1
+    j = len(list1)-1
+    while right > i and left < j:
+        if list1[right]==1 and list1[i]!=1:
+            list1[right],list1[i]=list1[i],list1[right]
+            right -= 1
+            i += 1
+        elif list1[right]==1 and list1[i]==1:
+            while list1[i] == 1:
+                i +=1
+            list1[right],list1[i]=list1[i],list1[right]
+            i +=1
+            right -=1
+        else:
+            right -=1
+   
+        if list1[left]==0 and list1[j]!=0:
+            list1[left],list1[j]=list1[j],list1[left]
+            left += 1
+            j -= 1
+        elif list1[left]==0 and list1[j]==0:
+            while list1[j] == 0:
+                j -=1
+            list1[left],list1[j]=list1[j],list1[left]
+            j -=1
+            left +=1
+        else:
+            left +=1
+            
+    return list1
+            
+			
+def temp(list1):
+	i=0
+	j=0
+	while j<len(list1):
+		if list1[j]==1:
+			list1[j],list[i]=list[i],list[j]
+			i+=1
+		j+=1
+            
+            
+        
+			

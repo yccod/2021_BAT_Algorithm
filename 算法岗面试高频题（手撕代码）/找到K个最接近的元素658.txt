@@ -1,0 +1,29 @@
+class Solution:
+    def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+        if x<=arr[0]:
+            return arr[:k]
+        if x>=arr[-1]:
+            return arr[-k:]
+        def bin_sear(arr,x):
+            left=0
+            right=len(arr)-1
+            while left<=right:
+                mid=(left+right)>>1
+                if arr[mid]>x:
+                    right=mid-1
+                elif arr[mid]==x:
+                    return mid
+                else:
+                    left=mid+1
+            return left
+        index=bin_sear(arr,x)
+        left=max(0,index-k)
+        right=min(index+k,len(arr)-1)
+        while right-left>k-1:
+            if arr[right]-x<x-arr[left]:
+                left+=1
+            else:
+                right-=1
+        return arr[left:right+1]
+
+

@@ -1,0 +1,90 @@
+*/C++解法
+
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        int left = 0, right = nums.size()-1;
+        while(left <= right){
+            int mid = (left + right)/2, cnt = 0;
+            for(int num : nums) {
+                if(num <= mid) ++cnt;
+            }
+        if(cnt <= mid) left = mid + 1;
+        else right = mid - 1;
+        }
+        return left;
+    
+    }
+};
+
+*/
+class Solution{
+public:
+    int findDuplicate(vector<int>& nums) {
+        int slow = 0, fast = 0, t = 0;
+        while(true) {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+            if(slow == fast) break;
+        }
+        while(true){
+            slow = nums[slow];
+            t = nums[t];
+            if (slow == t) break;
+        }
+    return slow;
+    }
+
+};
+
+
+*/
+class Solution{
+public:
+    int findDuplicate(vector<int>& nums){
+        int res = 0, n = nums.size();
+        for(int i = 0; i < 32 ;++i){
+            int bit =(1 << i), cnt1 = 0, cnt2 = 0;
+            for(int k = 0; k<n; k++){
+                if((k & bit) > 0) ++cnt1;
+                if ((nums[k] & bit) >0) ++cnt2;
+            }
+            if (cnt2 > cnt1) res += bit;
+        
+        }
+        return res;
+    }
+
+};
+
+*/Python 解法
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        left = 0
+        right = len(nums)-1
+        while(left <= right):
+            mid = (left+right)//2
+            count = 0
+            for i in range(len(nums)):
+                if nums[i] <= mid:
+                    count+=1
+            if count > mid:
+                right = mid -1
+            else:
+                left = mid +1
+        return left
+        
+        
+*/
+class Solution:
+    def findDuplicate(self,nums):
+        slow = nums[0]
+        fast = nums[nums[0]]
+        while(slow != fast):
+            slow = nums[slow]
+            fast = nums[nums[fast]]
+        fast = 0
+        while(fast != slow):
+            slow = nums[slow]
+            fast = nums[fast]
+        return slow

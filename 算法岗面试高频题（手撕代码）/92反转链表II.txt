@@ -1,0 +1,78 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+
+class Solution:
+    def reverseBetween(self, head: ListNode, m: int, n: int) -> ListNode:
+        dummy = ListNode(-1)
+        dummy.next = head
+        pre = dummy
+        # 找到翻转链表部分的前一个节点, 1->2->3->4->5->NULL, m = 2, n = 4 指的是 节点值为1
+        for _ in range(m-1):
+            pre = pre.next
+        # 用双指针,进行链表翻转
+        node = None
+        cur = pre.next
+        for _ in range(n-m+1):
+            tmp = cur.next
+            cur.next = node
+            node = cur
+            cur = tmp
+        # 将翻转部分 和 原链表拼接
+        pre.next.next = cur
+        pre.next = node
+        return dummy.next
+
+
+
+
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+
+
+
+class Solution:
+    def reverseBetween(self, head: ListNode, m: int, n: int) -> ListNode:
+        dummy = ListNode(-1)
+        dummy.next = head
+        pre = dummy
+         # 找到翻转链表部分的前一个节点, 1->2->3->4->5->NULL, m = 2, n = 4 指的是 节点值为1
+        for _ in range(m - 1):
+            pre = pre.next
+        # 用 pre, start, tail三指针实现插入操作
+        # tail 是插入pre,与pre.next的节点
+        start = pre.next
+        tail = start.next
+        for _ in range(n - m):
+            start.next = tail.next
+            tail.next = pre.next
+            pre.next = tail
+            tail = start.next
+        return dummy.next
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

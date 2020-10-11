@@ -1,0 +1,26 @@
+import heapq
+class Solution:
+    def getLeastNumbers(self, arr: List[int], k: int) -> List[int]:
+        res=[]
+        heapq.heapify(arr)
+        for i in range(k):
+            res.append(heapq.heappop(arr))
+        return res
+
+
+import heapq
+class Solution:
+    def getLeastNumbers(self, arr: List[int], k: int) -> List[int]:
+        res=[]
+        if k==0:
+            return []
+        if not arr:
+            return []
+        for i in range(k):
+            heapq.heappush(res,-arr[i])
+        for i in range(k,len(arr)):
+            if arr[i]<-res[0]:
+                heapq.heappop(res)
+                heapq.heappush(res,-arr[i])
+        return [-i for i in res]
+        

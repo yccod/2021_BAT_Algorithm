@@ -1,0 +1,138 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        if(!root) return {};
+        vector<int> res;
+        stack<TreeNode*> s{{root}};
+        while(!s.empty()) {
+            TreeNode*t = s.top(); s.pop();
+            res.push_back(t->val);
+            if (t->right) s.push(t->right);
+            if (t->left) s.push(t->left);
+        }
+        return res;
+    }
+};
+
+*/
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> res;
+        stack<TreeNode*> s;
+        TreeNode*p = root;
+        while(!s.empty() || p) {
+            if(p) {
+                s.push(p);
+                res.push_back(p->val);
+                p = p->left;
+            } else {
+                TreeNode*t = s.top();s.pop();
+                p = t->right;
+            }
+        }
+        return res;
+    }
+};
+
+
+*/
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> res;
+        helper(root,res);
+        return res;
+    }
+    void helper(TreeNode* root, vector<int> &res){
+        if (root == NULL) return ;
+        res.push_back(root->val);
+        helper(root->left,res);
+        helper(root->right,res);
+    }
+};
+
+*/python
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def preorderTraversal(self, root: TreeNode) -> List[int]:
+        if root is None:
+            return []
+        stack, output = [root,],[]
+        while stack:
+            root = stack.pop()
+            if root is not None:
+                output.append(root.val)
+                if root.right is not None:
+                    stack.append(root.right)
+                if root.left is not None:
+                    stack.append(root.left)
+        return output
+
+*/
+class Solution:
+    def preorderTraversal(self, root: TreeNode) -> List[int]:
+        res = []
+        self.helper(root, res)
+        return res
+    def helper(self, root, res):
+        if root:
+            res.append(root.val)
+            if root.left:
+                self.helper(root.left, res)            
+            if root.right:
+                self.helper(root.right, res)
+                
+*/              
+class Solution:
+    def preorderTraversal(self, root: TreeNode) -> List[int]:
+        res = []
+        def helper(root):
+            if not root:
+                return 
+            res.append(root.val)
+            helper(root.left)
+            helper(root.right)
+        helper(root)
+        return res
+        
+*/
+class Solution:
+    def preorderTraversal(self,root):
+        if not root:
+            return []
+        return [root.val] + self.preorderTraversal(root.left) + self.preorderTraversal(root.right)
+*/
+class Solution:
+    def preorderTraversal(self,root):
+        WHITE, GRAY = 0,1
+        res = []
+        stack = [(WHITE,root)]
+        while stack:
+            color,node = stack.pop()
+            if node is None: continue
+            if color == WHITE:
+                stack.append((WHITE,node.right))
+                stack.append((WHITE,node.left))
+                stack.append((GRAY,node))
+            else:
+                res.append(node.val)
+        return res
+        
+ 

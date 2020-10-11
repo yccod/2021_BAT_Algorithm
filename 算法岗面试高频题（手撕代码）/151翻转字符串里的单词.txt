@@ -1,0 +1,21 @@
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        return " ".join(s.split()[::-1])
+		
+		
+		
+def reverseWords(s):
+    word=""
+    ans=""
+    n=len(s)
+    i=0
+    while i<n:
+        if s[i]==" ":
+            i+=1
+            continue
+        while i<n and s[i] != " ":
+            word+=s[i]
+            i +=1
+        ans=word+" "+ans
+        word=""
+    return ans[:-1]

@@ -1,0 +1,42 @@
+class SortedStack:
+
+    def __init__(self):
+        self.stack=[]
+
+
+    def push(self, val: int) -> None:
+        if not self.stack:
+            self.stack.append(val)
+        else:
+            num=[]
+            while self.stack and self.stack[-1]<val:
+                num.append(self.stack.pop())
+            self.stack.append(val)
+            while num:
+                self.stack.append(num.pop())
+
+
+
+    def pop(self) -> None:
+        if not self.stack:
+            return -1
+        return self.stack.pop()
+
+
+    def peek(self) -> int:
+        if not self.stack:
+            return -1
+        return self.stack[-1]
+
+
+
+    def isEmpty(self) -> bool:
+        return not self.stack
+
+
+# Your SortedStack object will be instantiated and called as such:
+# obj = SortedStack()
+# obj.push(val)
+# obj.pop()
+# param_3 = obj.peek()
+# param_4 = obj.isEmpty()

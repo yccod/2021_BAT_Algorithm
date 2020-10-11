@@ -1,0 +1,23 @@
+class Solution{
+public:
+	vector<int> sortedSquares(vector<int>& A){
+		int length = A.size();
+		vector<int> ans(length);
+		int i = 0 , j = length-1 , k = length-1;
+		while(k >=0){
+			int a = A[i] * A[i];
+			int b = A[j] * A[j];
+			if(a>b){
+				ans[k] = a;
+				i++;
+			}
+			else{
+				ans[k] = b;
+				j--;
+			}
+			k--;
+		}
+		return ans;
+	}
+
+};

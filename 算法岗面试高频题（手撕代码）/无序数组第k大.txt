@@ -1,0 +1,56 @@
+O(nlog(n))
+def klargest(num,k):
+	return sorted(nums)[-k]
+	
+	
+import heapq	
+def klargest(num,k):
+	return heapq.nlargest(k,num)[-1]
+
+
+
+O(nlogk)
+import heapq
+def klargest(num,k):
+	if k>len(nums):
+		return None
+	heap=[]
+	for x in num:
+		heapq.heappush(heap,x)
+		if len(heap)>k:
+			heapq.heappop(heap)
+	return heap[0] (heapq.heappop(heap))
+	
+
+
+
+def sift(num,left,right):
+	i=left
+	j=2*i+1
+	temp=num[left]
+	while j<=right:
+		if j<right and num[j]<num[j+1]:
+			j=j+1
+		if num[j]>temp:
+			num[i]=num[j]
+			i=j
+			j=2*i+1
+		else:
+			break
+	num[i]=temp
+
+	
+def heap_sort(num):
+	n=len(num)
+	for i in range(n//2-1,-1,-1):
+		sift(num,i,n-1)
+	for j in range(n-1,-1,-1):
+		if j==n-k:
+			return num[0]
+		num[0],num[j]=num[j],num[0]
+		sift(num,0,j-1)
+
+
+
+		
+			

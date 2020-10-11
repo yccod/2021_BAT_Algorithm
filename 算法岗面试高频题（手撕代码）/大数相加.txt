@@ -1,0 +1,24 @@
+s1="12345678"
+s2="67840934987"
+def max_num_add(s1,s2):
+	max_len=max(len(s1),len(s2))
+	if len(s1)==max_len:
+		s2='0'*(max_len-len(s2))+s2
+	else:
+		s1='0'*(max_len-len(s1))+s1
+	a1=list(s1)
+	a2=list(s2)
+	a3=[0]*max_len
+	carry=0
+	for i in range(max_len-1,-1,-1):
+		sum=(int(a1[i])+int(a2[i])+carry)%10
+		carry=(int(a1[i])+int(a2[i])+carry)//10
+		a3[i]=sum
+	if carry!=0:
+		a3=[1]+a3
+	return "".join([str(i) for i in a3])
+	
+		
+		
+		
+		

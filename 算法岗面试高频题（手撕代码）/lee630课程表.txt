@@ -1,0 +1,43 @@
+import heapq
+
+
+class Solution:
+    def scheduleCourse(self, courses):
+        """
+        :type courses: List[List[int]]
+        :rtype: int
+        """
+        totalLen = 0
+        heap = []
+        for t, d in sorted(courses, key=lambda x: x[1]):
+            if totalLen + t <= d:
+                totalLen += t
+                heapq.heappush(heap, -t)
+            elif heap and t < -heap[0]:
+                totalLen += t + heapq.heappop(heap)
+                heapq.heappush(heap, -t)
+
+        return len(heap)
+
+
+if __name__ == '__main__':
+    courses = [[100, 200], [200, 1300], [1000, 1250], [2000, 3200]]
+    print(Solution().scheduleCourse(courses))
+	
+	
+	
+	
+class Solution:
+    def scheduleCourse(self, courses: List[List[int]]) -> int:
+        import heapq
+        total_len=0
+        heap=[]
+        for i,d in sorted(courses,key=lambda x:x[1]):
+            if total_len+i<=d:
+                total_len+=i
+                heapq.heappush(heap,-i)
+            elif heap and i<-heap[0]:
+                total_len+=i+heap[0]
+                heapq.heappop(heap)
+                heapq.heappush(heap,-i)
+        return len(heap)

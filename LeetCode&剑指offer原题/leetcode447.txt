@@ -1,0 +1,36 @@
+*/c++
+class Solution{
+public: 
+	int numberOfBoomerangs(vector<pair<int,int>>& points) {
+		int res = 0;
+		for(int i = 0; i < points.size();++i) {
+			unordered_map<int,int> m;
+			for (int j = 0; j < points.size();++j) 
+				int a = points[i].first-points[j].first;
+				int b = points[i].second-points[j].second;
+				++m[a*a + b*b];
+			}
+			for (auto it = m.begin();it != m.end();++it){
+				res += it->second*(it->second-1);
+			}
+		}
+		return res;
+	}
+};
+
+*/python
+class Solution:
+	def numberOfBoomerangs(self,points):
+		result=0
+		for m in points:
+			dic = {}
+			for j in points:
+				distance = (m[0]-j[0])**2+(m[1]-j[1])**2
+				if distance not in dic:
+					dic[distance] = 1
+				else:
+					dic[distance] +=1
+			for val in dic.values():
+				if val >=2:
+					result += val*(val-1)
+		return result

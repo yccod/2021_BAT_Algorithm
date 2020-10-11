@@ -1,0 +1,38 @@
+class TreeNode(object):
+	def __init__(self,value):
+		self.value=value
+		self.left=None
+		self.right=None
+	def treeWidth(self,root):
+		if not root:
+			return root
+		queue=[root]
+		max_width=1
+		while queue:
+			next_queue=[]
+			while queue:
+				node=queue.pop(0)
+				if node.left:
+					next_queue.append(node.left)
+				if node.right:
+					next_queue.append(node.right)
+			max_width=max(len(next_queue),max_width)
+			queue=next_queue
+		return max_width
+		
+	def treeWidth(self,root):
+		if not root:
+			return root
+		queue=[root]
+		max_width=1
+		while queue:
+			i=0
+			length=len(queue)
+			max_width=max(length,max_width)
+			while i<length:
+				node=queue.pop(0)
+				if node.left:
+					queue.append(node.left)
+				if node.right:
+					queue.append(node.right)
+		return max_width

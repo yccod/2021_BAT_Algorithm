@@ -1,0 +1,66 @@
+import itertools
+num=[1,7,8,3]
+all_num_list=[]
+for each_list in itertools.permutations(num,4):
+	str_list=[str(num) for num in each_list]
+	all_num_list.append(str_list)
+	
+	
+op=["+","-","*","/"]
+all_op=[[x,y,z] for x in op for y in op for z in op]
+
+num_op_list=[]
+for str_list in all_num_list:
+	for op_list in all_op:
+		op_list.append("")
+		num_op_list.append(list(zip(str_list,op_list)))
+
+num_op_list1=[]
+for str_list in num_op_list:
+    s=""
+    for x in str_list:
+        s+=x[0]+x[1]
+    num_op_list1.append(s)
+
+num_op_list2=[]   
+for str_list in num_op_list1:
+    for i in range(len(str_list)+1):
+        list_=[char for char in str_list]
+        list_.insert(i,"(")
+        num_op_list2.append("".join(list_))
+        
+        
+num_op_list3=[]   
+for str_list in num_op_list2:
+    for i in range(len(str_list)+1):
+        list_=[char for char in str_list]
+        list_.insert(i,")")
+        num_op_list3.append("".join(list_))
+        
+        
+num_op_list4=[]   
+for str_list in num_op_list3:
+    for i in range(len(str_list)+1):
+        list_=[char for char in str_list]
+        list_.insert(i,"(")
+        num_op_list4.append("".join(list_))
+        
+        
+num_op_list5=[]   
+for str_list in num_op_list4:
+    for i in range(len(str_list)+1):
+        list_=[char for char in str_list]
+        list_.insert(i,")")
+        num_op_list5.append("".join(list_))
+        
+res=[]       
+for i,str_ in enumerate(num_op_list5):
+    try:
+        if eval(str_)==24:
+            res.append(str_)
+    except:
+        print(i,"error")
+        
+        
+        
+        

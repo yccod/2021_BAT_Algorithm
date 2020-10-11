@@ -1,0 +1,38 @@
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+        count=1
+        nums.sort()
+        cur=nums[0]
+        max_len=1
+        for num in nums[1:]:
+            if num==cur+1:
+                count+=1
+                max_len=max(count,max_len)
+                cur=num
+            elif num==cur:
+                continue
+            else:
+                cur=num
+                count=1
+        return max_len
+		
+		
+		
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+        max_len=1
+        nums=set(nums)
+        for num in nums:
+            if num-1 in nums:
+                continue
+            elif num+1 in nums:
+                count=1
+                while num+1 in nums:
+                    count+=1
+                    num=num+1
+                max_len=max(max_len,count)
+        return max_len

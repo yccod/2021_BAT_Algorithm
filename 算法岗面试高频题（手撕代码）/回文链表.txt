@@ -1,0 +1,25 @@
+class Solution:
+    def isPalindrome(self, head: ListNode) -> bool:
+        if not head or not head.next:
+            return True
+        fast=head
+        slow=head
+        pre=None
+        while fast and fast.next:
+            fast=fast.next.next
+            mid=slow
+            slow=slow.next
+        if fast:
+            slow=slow.next  
+        mid.next=None
+        while slow:
+            tmp=slow.next
+            slow.next=pre
+            pre=slow
+            slow=tmp
+        while pre and head:
+            if pre.val != head.val:
+                return False
+            pre=pre.next
+            head=head.next
+        return True

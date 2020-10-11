@@ -1,0 +1,13 @@
+class Solution:
+    def CheckPermutation(self, s1: str, s2: str) -> bool:
+        s=s1+s2
+        res=0
+        for char in s:
+            res ^=ord(char)
+        return res==0
+		
+		
+		
+		
+		
+		

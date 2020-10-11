@@ -1,0 +1,13 @@
+class Solution:
+    def getPermutation(self, n: int, k: int) -> str:
+        s="".join([str(i) for i in range(1,n+1)])
+        def helper(s):
+            if not s:
+                return [""]
+            res=[]
+            for i in range(len(s)):
+                for temp_str in helper(s[:i]+s[i+1:]):
+                    res.append(s[i]+temp_str)
+            return res
+        res=helper(s)
+        return sorted(res)[k-1]

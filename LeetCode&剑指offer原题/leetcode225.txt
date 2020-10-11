@@ -1,0 +1,47 @@
+*/c++
+class MyStack {
+public:
+	MyStack() {}
+	void push(int x) {
+		q.push(x);
+		for(int i=0; i<(int)q.size()-1;++i) {
+			q.push(q.front());q.pop();
+		}
+	}
+	int pop() {
+		q.pop();
+	}
+	
+	int top() {
+		return q.front();
+	}
+	bool empty() {
+		return q.empty();
+	}
+private:
+	queue<int> q;
+};
+
+*/python
+class MyStack:
+	def __init__(self):
+		self.stack=[]
+	def push(self,x):
+		self.stack.append(x)
+	def pop()
+		if self.stack:
+			return self.stack.pop()
+		else:
+			return None
+	def top(self):
+		if self.stack:
+			return self.stack[-1]
+		else:
+			return None
+	def empty(self):
+		if len(self.stack)==0:
+			return True
+		else:
+			return False
+			
+		

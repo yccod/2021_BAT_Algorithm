@@ -1,0 +1,44 @@
+class Solution:
+	def delteDuplicates(head):
+		if head == None or head.next == None:
+			return head
+		if head.val==head.next.val:
+			while head.next and head.val==head.next.val:
+				head=head.next
+		head->next=delteDuplicates(head->next)
+		return head
+			
+			
+class Solution:
+	def delteDuplicates(head):
+		if head == None or head.next == None:
+			return head
+		dummy=ListNode(-1)
+		dummy.next=head
+		pre=dummy
+		while head.next:
+			if head.val==head.next.val:
+				while head.next and head.val==head.next.val:
+					head=head.next
+				pre.next=head
+			pre=head
+			head=head.next
+		return dummy.next
+		
+class Solution:
+	def delteDuplicates(head):
+		if head == None or head.next == None:
+			return head
+		pHead=head
+		while pHead.next:
+			if pHead.val==pHead.next.val:
+				pHead.next=pHead.next.next
+			else:
+				pHead=pHead.next
+		return head
+		
+		
+		
+				
+			
+		

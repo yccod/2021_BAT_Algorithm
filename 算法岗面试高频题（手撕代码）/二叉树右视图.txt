@@ -1,0 +1,40 @@
+class Solution:
+    def rightSideView(self, root: TreeNode) -> List[int]:
+        if not root: return []
+        res = []
+
+        def bfs(root):
+            queue = [root]
+            while queue:
+                nxt = []
+                res.append(queue[-1].val)
+                for node in queue:
+                    if node.left:
+                        nxt.append(node.left)
+                    if node.right:
+                        nxt.append(node.right)
+                queue = nxt
+        
+        bfs(root)
+        return res
+
+class Solution:
+	def rightSideView(self,root):
+		if not root:
+			return []
+		res=[]
+		
+		def bfs(root):
+			queue=[root]
+			while queue:
+				nxt=[]
+				res.append(queue[-1].val)
+				for node in queue:
+					if node.left:
+						nxt.append(node.left)
+					if node.right:
+						nxt.append(node.right)
+				queue=nxt
+		bfs(root)
+		return res
+		

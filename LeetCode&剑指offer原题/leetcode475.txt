@@ -1,0 +1,99 @@
+*/c++
+class Solution {
+public:
+	int findRadius(vector<int>& houses, vector<int>& heaters) {
+		int n = heaters.size(), j = 0, res = 0;
+		sort(houses.begin(),houses.end());
+		sort(heaters.begin(),heaters.end());
+		for (int i = 0; i < houses.size(); ++i) {
+			int cur = houses[i];
+			while(j< n-1 && abs(heaters[j+1]-cur) <= abs(heaters[j]-cur)) {
+				++j;
+			}
+			res = max(res,abs(heaters[j]-cur));
+		}
+		return res;
+	}
+};
+
+*/
+class Solution {
+public:
+	int findRadius(vector<int>& houses, vector<int>& heaters) {
+		int res = 0, n = heaters.size();
+		sort(heaters.begin(),heaters.end());
+		for(int house : houses) {
+			int left = 0,right = n;
+			while(left < right) {
+				int mid = left + (right-left)/2;
+				if (heaters[mid] < house) left = mid + 1;
+				else right = mid;
+				}
+			if (right == n)
+				dist = house - heaters[right-1];
+			else if (right == 0)
+				dist = heaters[right]-house;
+			else
+				dist = min(house-heaters[right-1],heaters[right]-house)
+			res = max(res,dist);
+			}
+		
+		return res;
+		}
+};
+
+
+*/
+class Solution {
+public:
+	int findRadius(vector<int>& houses, vector<int>& heaters) {
+		int res = 0;
+		sort(heaters.begin(),heaters.end());
+		for(int house : houses) {
+			auto pos = lower_bound(heaters.begin(),heaters.end(),house);
+			int dis1 = (pos == heaters.end()) ? INT_MAX :*pos - house;
+			int dis2 = (pos == heaters.begin()) ? INT_MAX:house-*(--pos);
+			res = max(res,min(dist1,dist2));
+			}
+			return res;
+	}
+};
+
+
+*/python
+class Solution:
+	def findRadius(self,houses,heaters):
+		house.sort()
+		heaters.sort()
+		res = 0
+		j = 0
+		for house in houses:
+			while (j < len(heaters)-1) and (abs(heaters[j+1]-house) <= abs(heaters[j]-cur)): 
+				j +=1
+			res = max(res,abs(heaters[j]-house))
+		return res
+
+
+
+*/
+class Solution:
+	def findRadius(self,houses,heaters):
+		heaters.sort()
+		for house in houses:
+			left = 0
+			right = len(heaters)
+			while left<right:
+				mid = left + (right-left)/2;
+				if heaters[mid] < house:
+					left = mid + 1
+				else right = mid
+			if right == n:
+				dist = house - heaters[right-1]
+			else if right == 0:
+				dist = heaters[right]-house
+			else:
+				dist = min(house - heaters[right-1],heaters[right]-house)
+			res = max(res,dist)
+		return res
+		
+			

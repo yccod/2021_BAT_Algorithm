@@ -1,0 +1,168 @@
+*/C++解法
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        if (s.size() < 2) return s;
+        int n = s.size(), maxlen = 0, start = 0;
+        for(int i = 0; i < n - 1; ++i){
+            searchPalindrome(s,i,i,start,maxlen);
+            searchPalindrome(s,i,i+1,start,maxlen);
+        }
+        return s.substr(start,maxlen);
+    }
+    
+    void searchPalindrome(string s, int left, int right, int& start, int& maxlen) {
+        while(left >= 0 && right < s.size() && s[left] == s[right]) {
+            --left; ++right;
+        }
+        if (maxlen < right - left - 1){
+            start = left + 1;
+            maxlen = right - left -1;
+        }
+    }
+};
+
+*/
+
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        if(s.size() < 2) return s;
+        int n = s.size(), maxlen = 0, start = 0;
+        for(int i = 0, i < n; i++) {
+            if (n-i <= maxlen/2) break;
+            int left = i, right = i;
+            while(right < n-1 && s[right + 1] == s[right] ) ++right;
+            while(right < n-1 && left > 0 && s[right+1] == s[left-1]) {
+                ++right;
+                --left;
+            }
+        if (maxlen < right - left + 1) {
+            maxlen = right - left + 1;
+            start = left;
+        }
+        }
+        return s.substr(start,maxlen);
+    }
+};
+
+*/
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        if (s.empty()) return "";
+        int n = s.size(), dp[n][n] = {0}, left = 0, len = 1;
+        for(int i = 0; i < n ; i++){
+            dp[i][i] = 1;
+            for (int j=0 ;j<i ;j++){
+                dp[j][i] = (s[i] == s[j] && (i-j < 2 || dp[j+1][i-1]));
+                if (dp[j][i] && len < i-j+1) {
+                    len = i -j + 1;
+                    left = j;
+                }
+            }
+        }
+    return s.substr(left,len);
+    }
+};
+
+*/
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        string t = "$#";
+        for (int i = 0; i < s.size(); i++) {
+            t  += s[i];
+            t += "#";
+        }
+        int p[t.size()] = {0}, id = 0, mx =0,resId = 0, resMx = 0;
+        for (int i = 1; i < t.size(); ++i) {
+            p[i] = mx > i ? min(p[2*id - i],mx-i) : 1;
+            while (t[i+p[i]] == t[i-p[i]]) ++p[i];
+            if (mx < i + p[i]) {
+                mx = i + p[i];
+                id = i;
+            }
+        if (resMx < p[i]){
+            resMx = p[i];
+            resId = i;
+        }
+        
+      }
+    return s.substr((resId - resMx)/2,resMx-1);
+    }
+};
+
+*/python 解法
+
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        self.start = 0
+        self.max_len = 0
+        n = len(s)
+        if n < 2:
+            return s
+        def helper(i,j):
+            while i >=0 and j < n and s[i] == s[j]:
+                i -= 1
+                j +=1
+            
+            if self.max_len < j-i-1:
+                self.max_len = j - i - 1
+                self.start = i + 1
+        for k in range(n-1):
+            helper(k,k)
+            helper(k,k+1)
+            
+        return s[self.start:self.start + self.max_len]
+        
+
+*/
+class Solution:
+    def longestPalindrome(self,s):
+        n = len(s)
+        if n < 2 or s == s[::-1]:
+            return s
+        dp = [[0]*n for _ in range(n)]
+        max_len = 0
+        res = ""
+        for i in range(n):
+            for j in range(i,-1,-1):
+                if s[i] == s[j] and (i - j < 2 or dp[i-1][j+1]):
+                    dp[i][j] = 1
+                
+                if dp[i][j] and i - j + 1>max_len:
+                    max_len = i - j + 1
+                    res = s[j:i+1]
+        return res 
+                    
+*/
+class Solution:
+    def longestPalindrome(self,s):
+        if len(s) < 2:
+            return s
+        max_len = 1
+        res = s[0]
+        for i in range(len(s)-1):
+            for j in range(i+1,len(s)):
+                if j - i + 1 >max_len and s[i:j+1] == s[i:j+1][::-1]:
+                    max_len = j - i + 1
+                    res = s[i:j+1]
+        return res
+        
+                
+        
+            
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+

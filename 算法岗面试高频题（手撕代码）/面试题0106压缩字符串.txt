@@ -1,0 +1,35 @@
+class Solution:
+    def compressString(self, S: str) -> str:
+        l1=list(S)
+        i=len(S)-1
+        count=1
+        while i>=0:
+            if i>=1 and l1[i]==l1[i-1]:
+                while i>=1 and l1[i]==l1[i-1]:
+                    count+=1
+                    i-=1
+                l1[i:i+count]=[l1[i]]+[str(count)]
+                i-=1
+                count=1
+            else:
+                l1[i:i+count]=[l1[i]]+[str(count)]
+                i-=1
+        return "".join(l1) if len(l1)<len(S) else S
+		
+		
+class Solution:
+    def compressString(self, S: str) -> str:
+       if not S:
+           return S
+       res=S[0]
+       count=1
+       for char in S[1:]:
+           if char != res[-1]:
+               res = res+str(count)+char
+               count=1
+           else:
+               count+=1
+       res=res+str(count)
+       return res if len(res)<len(S) else S
+
+                

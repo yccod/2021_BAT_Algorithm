@@ -1,0 +1,47 @@
+class Solution:
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        ans=[]
+        for i in nums1:
+            if i in nums2:
+                ans.append(i)
+                nums2.remove(i)
+        return ans
+		
+		
+		
+class Solution:
+    def intersect(self, nums1, nums2):
+        dict1={}
+        dict2={}
+        ans=[]
+        for i in nums1:
+           dict1[i]=dict1.get(i,0)+1
+        for j in nums2:
+            dict2[j]=dict2.get(j,0)+1
+        for key in dict1:
+            if key in dict2:
+                count=min(dict1[key],dict2[key])
+                ans.extend([key]*count)
+        return ans
+		
+		
+		
+class Solution:
+    def intersect(self, nums1, nums2):
+        nums1.sort()
+        nums2.sort()
+        ans=[]
+        l1=l2=0
+        while l1<len(nums1) and l2<len(nums2):
+            if nums1[l1]<nums2[l2]:
+                l1+=1
+            elif nums1[l1]==nums2[l2]:
+                ans.append(nums1[l1])
+                l1+=1
+                l2+=1
+            else:
+                l2+=1
+        return ans
+
+
+        

@@ -1,0 +1,129 @@
+*/c++
+class Solution {
+public:
+	int MoreThanHalfNum_Solution(vector<int> numbers)
+	{
+		if(numbers.empty()) return 0;
+		sort(numbers.begin(),numbers.end());
+		int middle = numbers[numbers.size()/2];
+		int count = 0;
+		for(int i=0;i<numbers.size();++i)
+		{
+			if(numbers[i]==middle) ++count;
+		}
+		return (count>numbers.size()>>1)? middle : 0;
+	}
+};
+
+*/
+class Solution {
+public:
+	int MoreThanHalfNum_Solution(vector<int> numbers) {
+		int n = numbers.size();
+		if (n == 0) return 0;
+		int num = numbers[0],count = 1;
+		for (int i=1;i<n;i++){
+			if (numbers[i] == num)
+				count++;
+			else count--;
+			if (c	ount==0){
+				num = numbers[i];
+				count = 1;
+			}
+		}
+		count = 0;
+		for(int i = 0; i < n; i++){
+			if (numbers[i] == num) count++;
+		}
+		if (count*2 > n) return num;
+		return 0;
+	}
+};
+
+*/
+class Solution {
+public:
+    int MoreThanHalfNum_Solution(vector<int> numbers) {
+        int n = numbers.size();
+        //map 记录出现次数
+        map<int, int> m;
+        int count;
+        for (int i = 0; i < n; i++) {
+            count = ++m[numbers[i]];
+            if (count > n/2) return numbers[i];
+        }
+        return 0;
+    }
+};
+
+*/
+class Solution {
+public:
+	int MoreThanHalfNum_Solution(vector<int> numbers){
+		if(numbers.empty()) return 0;
+		unordered_map<int,int> map;
+		for(int i = 0; i < numbers.size();i++){
+			map[numbers[i]]++;
+		}
+		int len = numbers.size()>>1;
+		for (auto &it : map){
+			if(it.second > len)
+				return it.first;
+		}
+
+	return 0;
+	}
+};
+
+
+*/python
+class Solution:
+	def MoreThanHalfNum_Solution(self,numbers):
+		temp = [i for i in numbers if numbers.count(i) > len(numbers)/2]
+		return temp[0] if temp else 0
+*/		
+class Solution:
+	def MoreThanHalfNum_Solution(self,numbers):
+		dict = {}
+		for no in numbers:
+			dict[no] = dict.get(no,0)+1
+			if dict[no] > len(numbers)/2:
+				return no
+		return 0
+*/		
+class Solution:
+	def MoreThanHalfNum_Solution(self,numbers):
+		numbers.sort()
+		mid = numbers[len(numbers)>>1]
+		return mid if numbers.count(mid)>(len(numbers)>>1) else 0
+		
+*/		
+class Solution:
+	def MoreThanHalfNum_Solution(self,numbers):
+		from collections import Counter
+		count = Counter(numbers).most_common()
+		if count[0][1] > (len(numbers)>>1):
+			return count[0][0]
+		return 0
+		
+
+*/		
+class Solution:
+	def MoreThanHalfNum_Solution(self,numbers):
+		if not numbers:
+			return 0
+		num = numbers[0]
+		count = 1
+		for i in range(1,len(numbers)):
+			if numbers[i] == num:
+				count += 1
+			else:
+				count -= 1
+			if count == 0:
+				num = numbers[i]
+				count = 1
+		count = 0
+		for i in numbers:
+			if i == num:
+				count += 1
+		return num if count > len(numbers)>>1 else 0

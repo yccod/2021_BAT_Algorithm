@@ -1,0 +1,79 @@
+*/c++
+class Solution {
+public:
+	int sumOfLeftLeaves(TreeNode* root) {
+		if (!root) return 0;
+		if (root->left && !root->left->left && !root->left->right) {
+			return root->left->val + sumOfLeftLeaves(root->right);
+		}
+		return sumOfLeftLeaves(root->left) + sumOfLeftLeaves(root->right);
+	}
+};
+
+*/
+class Solution {
+public:
+	int sumOfLeftLeaves(TreeNode* root) {
+		if(!root || (!root->left && !root->right)) return 0;
+		int res = 0;
+		queue<TreeNode*> q;
+		q.push(root);
+		while(!q.empty()) {
+			TreeNode *t = q.front();q.pop();
+			if(t->left && !t->left->left && !t->left->right) res += t->left->val;
+			if (t->left) q.push(t->left);
+			if (t->right) q.push(t->right);
+		}
+		return res;
+	}
+};
+
+*/
+class Solution {
+public:
+	int sumOfLeftLeaves(TreeNode* root) {
+		if(!root || (!root->left && !root->right)) return 0;
+		int res = 0;
+		stack<TreeNode*> s;
+		s.push(root);
+		while(!s.empty()) {
+			TreeNode *t = s.top();s.pop();
+			if(t->left && !t->left->left && !t->left->right) res += t->left->val;
+			if (t->right) s.push(t->right);
+			if (t->left) s.push(t->left);
+		}
+		return res;
+	}
+};
+
+*/python
+class Solution:
+	def sumOfLeftLeaves(self,root):
+		if root==None:
+			return 0
+		if root.left and root.left.left==None and root.left.right==None:
+			return root.left.val+self.sumOfLeftLeaves(root.right)
+		else:
+			return self.sumOfLeftLeaves(root.left) + self.sumOfLeftLeaves(root.right)
+			
+			
+*/
+class Solution:
+	def sumOfLeftLeaves(self,root):
+		sum=0
+		if not root:
+			return 0
+		ans = [root]
+		while ans:
+			r = ans.pop()
+			if r.left and not r.left.left and not r.left.right:
+				sum += r.left.val
+			if r.right:
+				ans.append(r.right)
+			if r.left:
+				ans.append(r.left)
+		return sum
+		
+			
+			
+

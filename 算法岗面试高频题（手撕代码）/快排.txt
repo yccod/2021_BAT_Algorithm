@@ -1,0 +1,28 @@
+def quicksort(arr,left,right):
+	if left<right:
+		mid = partition(arr,left,right)
+		quicksort(arr,left,mid-1)
+		quicksort(arr,mid+1,right)
+	return arr
+	
+def partition(arr,left,right):
+	temp = arr[left]
+	i = left+1
+	j = left+1
+	while i <= right:
+		if arr[i]< temp:
+			arr[i],arr[j] = arr[j],arr[i]
+			j += 1
+		i += 1
+	arr[left],arr[j-1] = arr[j-1],arr[left]
+	return j-1
+		
+		
+		
+def quick_sort(arr):
+	if not arr:
+		return []
+	mid = arr[0]
+	left_arr = [i for i in arr[1:] if i < mid]
+	right_arr = [j for j in arr[1:] if j >= mid]
+	return quick_sort(left_arr)+[mid]+quick_sort(right_arr)

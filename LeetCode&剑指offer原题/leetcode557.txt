@@ -1,0 +1,55 @@
+*/ C++解法
+
+class Solution {
+public:
+    string reverseWords(string s) {
+		string res="", t="";
+		istringstream is(s);
+		while(is >> t) {
+			reverse(t.begin() , t.end());
+			res += t + " ";
+		}
+        res.pop_back();
+		return res;
+    }
+};
+
+
+*/
+class Solution{
+public:
+	string reverseWords(string s) {
+		int start = 0, end = 0, n = s.size();
+		while(start < n && end < n) {
+			while(end < n && s[end] != ' ') ++end;
+			for(int i = start, j = end-1;i<j; ++i, --j){
+				swap(s[i],s[j]);
+			}
+		start = ++end;
+		}
+	return s;
+	}
+};
+
+
+*/ Python 解法
+
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        ans = s.split()
+        res=[]
+        for item in ans:
+            res = res.append(item[::-1])
+        return ' '.join(res)
+        
+*/
+
+class Solution:
+    def reverseWords(self ,s: str):
+        slist = s.split()
+        return ' '.join(list(map(lambda x : x[::-1], slist)))
+        
+
+			
+ 
+  

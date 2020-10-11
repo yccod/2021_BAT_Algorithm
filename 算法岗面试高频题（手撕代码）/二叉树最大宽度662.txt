@@ -1,0 +1,18 @@
+class Solution:
+    def widthOfBinaryTree(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        queue=[(root,1)]
+        ans=1
+        while queue:
+            tmp=[]
+            if len(queue)>1:
+                ans=max(ans,queue[-1][1]-queue[0][1]+1)
+            while queue:
+                node,i=queue.pop(0)
+                if node.left:
+                    tmp.append((node.left,2*i))
+                if node.right:
+                    tmp.append((node.right,2*i+1))
+            queue=tmp
+        return ans

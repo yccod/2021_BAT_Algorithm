@@ -1,0 +1,11 @@
+class Solution:
+    def wordBreak(self,s,wordDict):
+        n=len(s)
+        dp=[False]*n
+        for i in range(n):
+            for j in range(i+1):
+                if s[j:i+1] in wordDict and (j==0 or dp[j-1]):
+                    dp[i]=True
+                    break
+        return dp[-1]
+

@@ -1,0 +1,52 @@
+*/C++ 解法
+
+class Solution {
+public:
+    bool uniqueOccurrences(vector<int>& arr) {
+        map<int, int> occurence;
+        set<int> set;
+        for (int i = 0; i < arr.size(); i++){
+            occurence[arr[i]] +=1;
+        }
+        for (auto it = occurence.begin(); it != occurence.end(); it++)
+        {
+            set.insert(it->second);
+        }
+        return occurence.size() == set.size();
+    }
+    
+};
+
+*/
+class Solution {
+public:
+    bool uniqueOccurrences(vector<int>& arr) {
+        unordered_map<int,int>map;
+        for (auto a:arr){
+            map[a]++;
+        }
+        unordered_map<int,int> set;
+        for(auto & iter:map){
+        set[iter.second]++;
+        }
+        return map.size() == set.size();
+    }
+};
+
+*/Python 解法
+class Solution:
+    def uniqueOccurrences(self, arr: List[int]) -> bool:
+        import collections
+        cnt = collections.Counter(arr)
+        return len(cnt) == len(set(cnt.values()))
+*/
+class Solution:
+    def uniqueOccurrences(self,arr):
+        re =  []
+        for a in set(arr):
+            count = 0
+            for i in arr:
+                if a == i:
+                    count+=1
+            re.append(count)
+        return len(re) == len(set(re))

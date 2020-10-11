@@ -1,0 +1,29 @@
+def inves(head):
+	if head is None or head.next is None:
+		return head
+	prev=None
+	while head:
+		temp=head.next
+		head.next=prev
+		prev=head
+		head=temp
+	return prev
+	
+def inves(head):
+	l1=[]
+	while head:
+		l1.append(head)
+		head=head.next
+	newhead=l1.pop()
+	temp=newhead
+	while l1:
+		temp.next=l1.pop()
+		temp=temp.next
+	return newhead
+	
+def inves(head):
+	temp=head.next
+	newhead=inves(temp)
+	head.next.next=head
+	head.next=None
+	return newhead

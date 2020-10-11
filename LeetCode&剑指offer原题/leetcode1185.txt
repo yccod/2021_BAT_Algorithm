@@ -1,0 +1,48 @@
+*/C++解法
+class Solution {
+public:
+    string dayOfTheWeek(int day, int month, int year) {
+        int days = 5;
+        string week[7] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+        for (int i = 1971; i < year; i++) {
+            if((i%400==0) || (i%4==0 && i%100!=0)) {
+                days+=366;
+            }else {
+            days+=365;
+            }
+        }
+        int m[12] ={31,28,31,30,31,30,31,31,30,31,30,31};
+        for (int i = 0; i <month -1; i++){
+            days+=m[i];
+        }
+        days += day -1;
+        if(((year%400==0) || (year%4==0 && year%100!=0)) && month>=3)
+            return week[(days+1)%7];
+        else
+            return week[days%7];
+    }
+};
+
+
+*/Python解法
+class Solution:
+    def dayOfTheWeek(self, day: int, month: int, year: int) -> str:
+        from datetime import datetime
+        days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+        return days[datetime(year, month, day).weekday()]
+        
+*/
+class Solution:
+    def dayOfTheWeek(self, day: int, month: int, year: int) -> str:
+        # 1971 1.1 is Friday
+        num2day={0:'Thursday',1:'Friday',2:'Saturday',3:'Sunday',4:'Monday',5:'Tuesday',6:'Wednesday'}
+        mon2num=[0,31,28,31,30,31,30,31,31,30,31,30,31]
+        count=0
+        for i in range(1971,year):  
+            if i%400==0 or (i%4==0 and i%100!=0):
+                count+=366
+            else :
+                count+=365
+        if year%400==0 or (year%4==0 and year%100!=0):
+                mon2num[2]+=1
+        return num2day[(count+sum(mon2num[:month])+day)%7]

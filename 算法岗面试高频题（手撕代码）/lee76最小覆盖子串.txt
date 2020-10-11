@@ -1,0 +1,33 @@
+解题思路
+l 和 r 是当前目标串的最左下标和最右下标。
+
+r 不断向前进。
+
+l 在保证当前字母没有必要保留时向前进（没有必要指：这个字母不在目标字符串里 或者 这个字母当前数量已经超过要求），这是一个贪心策略
+
+cnt 统计了目标字母还需要多少。
+
+n 是 cnt 中的字母有几种的数量已经满足了。
+
+ans 则是最终的答案
+
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        import collections
+        cnt = collections.Counter(t)
+        ans = ''
+        n = 0 # 当前我满足了 t 中的字母的种数
+        l = 0
+        for r, ch in enumerate(s):
+            if ch not in cnt: 
+                continue
+            cnt[ch] -= 1
+            if cnt[ch] == 0:
+                n += 1
+            while s[l] not in cnt or cnt[s[l]] < 0: # 看看当前 l 处的字母是否必要，没必要 l 就加以
+                if s[l] in cnt: cnt[s[l]] += 1
+                l += 1
+            if n == len(cnt):
+                if not ans or len(ans) > r - l + 1:
+                    ans = s[l: r+1]
+        return ans

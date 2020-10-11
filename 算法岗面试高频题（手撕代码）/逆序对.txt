@@ -1,0 +1,73 @@
+def InverPairs(list):
+	len = len(list)
+	count = 0
+	for i in range(len-1):
+		for j in range(i+1,len):
+			if list[i]>list[j]:
+				count +=1
+	return count
+	
+	
+def InverPairs(list):
+	list1 = sorted(list)
+	count = 0
+	for i in list1:
+		count += list.index(i)
+		list.remove(i)
+	return count
+	
+	
+def InverPairs(list):
+	count = 0
+	def merge_sort(list):
+		if len(list)<2:
+			return list
+		length = len(list)
+		left = list[:length//2]
+		right = list[length//2:]
+		return merge(merge_sort(left),merge_sort(right)) 
+	def merge(left,right):
+		nonlocal count
+		result = []
+		while left and right:
+			if left[0] < right[0]:
+				result.append(left.pop(0))
+			else:
+				result.append(right.pop(0))
+				count = count + len(left)
+		result += left+right
+		return result
+	list1 = merge_sort(list)
+	return count
+
+if __name__ == "__main__":
+    list1 = [1,2,4,3]
+    count = InverPairs(list1)
+	
+	
+	
+def InverPairs(list):
+	def merge_sort(list):
+		if len(list)<2:
+			return list
+		length = len(list)
+		left = list[:length//2]
+		right = list[length//2:]
+		return merge(merge_sort(left),merge_sort(right)) 
+	def merge(left,right):
+		global count
+		result = []
+		while left and right:
+			if left[0] < right[0]:
+				result.append(left.pop(0))
+			else:
+				result.append(right.pop(0))
+				count = count + len(left)
+		result += left+right
+		return result
+	list1 = merge_sort(list)
+
+if __name__ == "__main__":
+    list1 = [1,2,4,3]
+    count = 0
+    InverPairs(list1)

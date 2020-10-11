@@ -1,0 +1,26 @@
+class Solution:
+    def islandPerimeter(self, grid: List[List[int]]) -> int:
+        length = len(grid)
+        width = len(grid[0])
+        prm = 0
+        for i in range(length):
+            for j in range(width):
+                if grid[i][j] == 1:
+                    if j == 0 or grid[i][j - 1] == 0:
+                        prm += 1
+                    if i == 0 or grid[i - 1][j] == 0:
+                        prm += 1
+        return prm * 2
+
+
+def islandPerimeter(self,grid):
+	prm=0
+	for i in range(len(grid)):
+		for j in range(len(grid[0])):
+			if grid[i][j]==1:
+				if j==0 or grid[i][j-1]==0:
+					prm+=1
+				if i==0 or grid[i-1][j]==0:
+					prm+=1
+	return prm*2
+	

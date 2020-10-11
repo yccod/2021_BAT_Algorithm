@@ -1,0 +1,97 @@
+*/C++解法
+
+class Solution {
+public:
+    vector<int> printMatrix(vector<vector<int> > matrix) {
+        int row = matrix.size();
+        int col = matrix[0].size();
+        vector<int> res;
+        if (row==0 || col==0) return res;
+        int left = 0, top =0, right = col-1,bottom = row-1;
+        while(left<=right && top <= bottom){
+            for (int i = left; i<= right;++i)
+                res.push_back(matrix[top][i]);
+            for (int i = top + 1; i<= bottom; ++i)
+                res.push_back(matrix[i][right]);
+            if (top != bottom)
+            for (int i = right-1; i >= left; --i)
+                res.push_back(matrix[bottom][i]);
+            if (left != right)
+            for(int i = bottom-1;i>top;--i)
+                res.push_back(matrix[i][left]);
+            left++,top++,right--,bottom--;
+        }
+        return res;
+        
+    }
+};
+
+
+/*解题思路：顺时针打印就是按圈数循环打印，一圈包含两行或者两列，在打印的时候会出现某一圈中只包含一行，要判断从左向右打印和从右向左打印的时候是否会出现重复打印，同样只包含一列时，要判断从上向下打印和从下向上打印的时候是否会出现重复打印的情况*/
+class Solution {
+public:
+    vector<int> printMatrix(vector<vector<int> > matrix) {
+        vector<int>res;
+        res.clear();
+        int row=matrix.size();//行数
+        int collor=matrix[0].size();//列数
+        //计算打印的圈数
+        int circle=((row<collor?row:collor)-1)/2+1;//圈数
+        for(int i=0;i<circle;i++){
+            //从左向右打印
+            for(int j=i;j<collor-i;j++)
+                res.push_back(matrix[i][j]);         
+            //从上往下的每一列数据
+            for(int k=i+1;k<row-i;k++)
+                res.push_back(matrix[k][collor-1-i]);
+            //判断是否会重复打印(从右向左的每行数据)
+            for(int m=collor-i-2;(m>=i)&&(row-i-1!=i);m--)
+                res.push_back(matrix[row-i-1][m]);
+            //判断是否会重复打印(从下往上的每一列数据)
+            for(int n=row-i-2;(n>i)&&(collor-i-1!=i);n--)
+                res.push_back(matrix[n][i]);}
+        return res;
+    }
+};
+
+
+
+*/python 解法
+# -*- coding:utf-8 -*-
+class Solution:
+    # matrix类型为二维列表，需要返回列表
+    def printMatrix(self, matrix):
+        # write code here
+        res = []
+        while matrix:
+            res += matrix.pop(0)
+            if matrix and matrix[0]:
+                for row in matrix:
+                    res.append(row.pop())
+            if matrix:
+                res += matrix.pop()[::-1]
+            if matrix and matrix[0]:
+                for row in matrix[::-1]:
+                    res.append(row.pop(0))
+        return res
+        
+           
+   
+*/
+class Solution:
+    def printMatrix(self,matrix):
+        result = []
+        while matrix:
+            result += matrix.pop(0)
+            if not matrix:
+                break
+            matrix = self.turn(matrix)
+        return result
+        
+    def turn(self,matrix):
+        col = len(matrix[0])
+        newmat = []
+        for i in range(col,0,-1):
+            newmat.append([x[i-1] for x in matrix])
+        return newmat
+        

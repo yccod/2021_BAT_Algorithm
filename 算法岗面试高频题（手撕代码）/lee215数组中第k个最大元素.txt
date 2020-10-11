@@ -1,0 +1,39 @@
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        heap = []
+        for x in nums:
+            heapq.heappush(heap, x)
+            if len(heap) > k: 
+                heapq.heappop(heap)
+        return heapq.heappop(heap) # [5,6]  从堆中弹出最小的元素
+
+
+
+
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        def quick_sort(arr,left,right,k):
+            def partion(arr,left,right):
+                temp=arr[left]
+                i=left+1
+                j=left+1
+                while i<=right:
+                    if arr[i]>temp:
+                        arr[i],arr[j]=arr[j],arr[i]
+                        j+=1
+                    i+=1
+                arr[left],arr[j-1]=arr[j-1],arr[left]
+                return j-1
+
+            if left<=right:
+                mid=partion(arr,left,right)
+                if mid==k-1:
+                    return arr[mid]
+                elif mid>k-1:
+                    return quick_sort(arr,left,mid-1,k)
+                else:
+                    return quick_sort(arr,mid+1,right,k)
+        num=quick_sort(nums,0,len(nums)-1,k)
+        return num
+        
+

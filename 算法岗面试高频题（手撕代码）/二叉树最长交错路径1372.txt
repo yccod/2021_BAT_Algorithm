@@ -1,0 +1,22 @@
+class Solution:
+    def longestZigZag(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        ans=0
+        def helper(node,dire,length):
+            nonlocal ans
+            if node:
+                ans=max(ans,length)
+                if dire==0:
+                    helper(node.left,0,1)
+                    helper(node.right,1,length+1)
+                if dire==1:
+                    helper(node.left,0,length+1)
+                    helper(node.right,1,1)
+
+
+
+        helper(root.left,0,1)
+        helper(root.right,1,1)
+
+        return ans

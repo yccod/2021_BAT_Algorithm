@@ -1,0 +1,33 @@
+class Solution:
+    def pathSum(self, root: TreeNode, val: int) -> List[List[int]]:
+        def temp(root,path):
+            if root:
+                path.append(root.val)
+                if root.left is None and root.right is None and sum(path)==val:
+                    paths.append(path)
+                else:
+                    path1=path[:]
+                    temp(root.left,path)
+                    temp(root.right,path1)
+        paths=[]
+        path=[]
+        temp(root,path)
+        return paths
+		
+		
+		
+class Solution:
+    def pathSum(self, root: TreeNode, val: int) -> List[List[int]]:
+        def temp(root):
+            if root:
+                path.append(root.val)
+                if root.left is None and root.right is None and sum(path)==val:
+                    paths.append(path)
+                else:
+                    temp(root.left)
+                    temp(root.right)
+                path.pop()
+        paths=[]
+        path=[]
+        temp(root)
+        return paths

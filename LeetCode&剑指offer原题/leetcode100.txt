@@ -1,0 +1,165 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+        if(!p && !q) return true;
+        if((p && !q) || (!p && q) || (p->val != q->val)) return false;
+        return isSameTree(p->left,q->left) && isSameTree(p->right, q->right);
+    }
+};
+
+
+*/前序遍历
+class Solution {
+public:
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+        stack<TreeNode*> s1,s2;
+        if(p) s1.push(p);
+        if(q) s2.push(q);
+        while(!s1.empty() && !s2.empty()){
+            TreeNode *t1 = s1.top(); s1.pop();
+            TreeNode *t2 = s2.top(); s2.pop();
+            if(t1->val != t2->val) return false;
+            if(t1->right) s1.push(t1->right);
+            if(t2->right) s2.push(t2->right);
+            if(s1.size() != s2.size()) return false;
+            if(t1->left) s1.push(t1->left);
+            if(t2->left) s2.push(t2->left);
+            if(s1.size() != s2.size()) return false;
+        
+        }
+        return s1.size() == s2.size();
+    }
+};
+
+
+*/先序遍历
+class Solution {
+public:
+    bool isSameTree(TreeNode *p, TreeNode *q) {
+        stack<TreeNode *> sta;
+        sta.push(p),sta.push(q);
+        while(!sta.empty()){
+            q=sta.top(),sta.pop();
+            p=sta.top(),sta.pop();
+            if(!p && !q) continue;
+            if((!p && q) || (p && !q) || (p->val != q->val))return 0;
+            sta.push(p->right),sta.push(q->right);
+            sta.push(p->left),sta.push(q->left);
+        }
+        return 1;
+    }
+};
+
+
+*/层序遍历
+class Solution {
+public:
+    bool isSameTree(TreeNode *p, TreeNode *q) {
+        queue<TreeNode *>que;
+        que.push(p);
+        que.push(q);
+        while(!que.empty()) {
+            p = que.front(),que.pop();
+            q = que.front(),que.pop();
+            if(!p && !q) continue;
+            if((!p && q) || (p && !q) || p->val != q->val) return 0;
+            que.push(p->left);
+            que.push(q->left);
+            que.push(p->right);
+            que.push(q->right);
+        }
+        return 1;
+    }
+};
+
+
+
+
+
+*/python 解法
+
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
+        if not p and not q:
+            return True
+        if not q or not p:
+            return False
+        if p.val != q.val:
+            return False
+        return self.isSameTree(p.right,q.right) and self.isSameTree(p.left,q.left)
+        
+
+*/
+class Solution:
+    def isSameTree(self,p,q):
+        def check(p,q):
+            if not p and not q:
+                return True
+            if not q or not p:
+                return False
+            if p.val != q.val:
+                return False
+            return True
+        
+        queue = [(p,q)]
+        while len(queue):
+            p,q = queue.pop(0)
+            if not check(p,q):
+                return False
+            if p and q:
+                queue.append((p.left,q.left))
+                queue.append((p.right,q.right))
+        return True
+                
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

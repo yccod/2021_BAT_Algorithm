@@ -1,0 +1,71 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        if(!root) return 0;
+        return 1 + max(maxDepth(root->left),maxDepth(root->right));
+    }
+};
+
+
+*/
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        if(!root) return 0;
+        int res = 0;
+        queue<TreeNode*> q;
+        q.push(root);
+        while(!q.empty()){
+            ++res;
+            for(int i = q.size(); i > 0; i--) {
+                TreeNode *t = q.front(); q.pop();
+                if(t->left) q.push(t->left);
+                if(t->right) q.push(t->right);
+            }
+        }
+        return res;
+    }
+};
+
+
+*/python  ½â·¨
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def maxDepth(self, root: TreeNode) -> int:
+        return 0 if root is None else max(self.maxDepth(root.left),self.maxDepth(root.right))+1
+        
+*/DFS
+class Solution:
+    def maxDepth(self,root):
+        stack=[]
+        if root is not None:
+            stack.append((1,root))
+        depth=0
+        while stack != []:
+            current_depth, root = stack.pop()
+            if root is not None:
+                depth = max(depth,current_depth)
+                stack.append((current_depth+1,root.left))
+                stack.append((current_depth+1,root.right))
+        return depth
+       
+        
+
+
+
+

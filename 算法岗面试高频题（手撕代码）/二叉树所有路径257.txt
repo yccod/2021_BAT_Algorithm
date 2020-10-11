@@ -1,0 +1,64 @@
+class Solution:
+    def binaryTreePaths(self, root: TreeNode) -> List[str]:
+        if not root:
+            return []
+        def helper(root,path):
+            path+=str(root.val)
+            if not root.left and not root.right:
+                paths.append(path)
+            path+='->'
+            path1=path
+            if root.left:
+                helper(root.left,path)
+            if root.right:
+                helper(root.right,path1)
+
+
+
+        paths=[]
+        helper(root,"")
+        return paths
+		
+		
+		
+ 
+class Solution:
+    def binaryTreePaths(self, root: TreeNode) -> List[str]:
+        if not root:
+            return []
+        stack=[(root,'')]
+        paths=[]
+        while stack:
+            node,s=stack.pop()
+            s+=str(node.val)
+            if not node.left and not node.right:
+               paths.append(s)
+            if node.right:
+               stack.append((node.right,s+'->'))
+            if node.left:
+                stack.append((node.left,s+'->'))
+
+        return paths  
+
+ 
+ 
+ 
+ class Solution:
+    def binaryTreePaths(self, root: TreeNode) -> List[str]:
+        if not root:
+            return []
+        stack=[(root,'')]
+        paths=[]
+        while stack:
+            node,s=stack.pop()
+            s+=str(node.val)
+            if not node.left and not node.right:
+               paths.append(s)
+            if node.right:
+               stack.append((node.right,s+'->'))
+            if node.left:
+                stack.append((node.left,s+'->'))
+
+        return paths  
+
+ 

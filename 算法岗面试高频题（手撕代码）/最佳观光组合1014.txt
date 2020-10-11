@@ -1,0 +1,9 @@
+class Solution:
+    def maxScoreSightseeingPair(self, A: List[int]) -> int:
+        buff=A[0]
+        ans=0
+        for num in A[1:]:
+            buff-=1
+            ans=max(ans,buff+num)
+            buff=max(buff,num)
+        return ans

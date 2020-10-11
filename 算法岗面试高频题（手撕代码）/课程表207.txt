@@ -1,0 +1,50 @@
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        dict_class={}
+        for class_node in prerequisites:
+            if class_node[0] not in dict_class:
+                dict_class[class_node[0]]=[class_node[1]]
+            else:
+                dict_class[class_node[0]].append(class_node[1])
+        if not prerequisites:
+            return True
+        def dfs(class_node,l1):
+            if class_node in l1:
+                return False
+            l1.append(class_node)
+            if class_node not in dict_class:
+                return True
+            else:
+                for class_node in dict_class[class_node]:
+                    if not dfs(class_node,l1[::]):
+                        return False
+                return True
+
+        for i in range(len(prerequisites)):
+            if not dfs(prerequisites[i][0],[]):
+                return False
+        return True
+		
+		
+		
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        flag=[0]*numCourses
+        class_list=[[] for _ in range(numCourses)]
+        for item in prerequisites:
+            class_list[item[0]].append(item[1])
+        def dfs(i):
+            if flag[i]==1:
+                return False
+            if flag[i]==-1:
+                return True
+            flag[i]=1
+            for j in class_list[i]:
+                if not dfs(j):
+                    return False
+            flag[i]=-1
+            return True
+        for i in range(numCourses):
+            if not dfs(i):
+                return False
+        return True

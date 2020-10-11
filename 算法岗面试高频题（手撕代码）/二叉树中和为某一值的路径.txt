@@ -1,0 +1,44 @@
+*/c++
+class Solution {
+public:
+     vector<vector<int>> res;
+     vector<int> path;
+    void find(TreeNode* root,  int sum)
+    {
+        if (root == NULL)return;
+        path.push_back(root->val);
+        if (!root->left && !root->right && sum == root->val)
+            res.push_back(path);
+        else
+        {
+            if (root->left)
+                find(root->left, sum - root->val);
+            if (root->right)
+                find(root->right, sum - root->val);
+        }
+        path.pop_back();
+    }
+    vector<vector<int>> FindPath(TreeNode* root,int expectNumber) {
+        find(root, expectNumber);
+        return res;
+    }
+};
+
+		
+*/python
+class Solution:
+	def FindPathMain(self,root,expectNumber):
+		def subFindPath(root):
+			if root:
+				b.append(root.val)
+				if not root.right and not root.left and sum(b) == expectNumber:
+					a.append(b)
+				else:
+					subFindPath(root.left),subFindPath(root.right)
+				b.pop()
+		a,b= [],[]
+		subFindPath(root)
+		return a
+		
+		
+

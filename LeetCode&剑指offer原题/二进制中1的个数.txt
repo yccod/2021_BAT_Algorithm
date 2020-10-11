@@ -1,0 +1,62 @@
+*/C++解法
+
+class Solution {
+public:
+     int  NumberOf1(int n) {
+        int count = 0;
+        for (int i = 0; i < 32; i++){
+            if(((n >> i)&1) == 1)
+                count ++;
+     
+        }
+     return count;    
+     }
+};
+
+*/
+class Solution {
+public:
+     int  NumberOf1(int n) {
+        int m = n, count = 0;
+        while(m) {
+            m = m & (m-1);
+            count++;
+        }
+         return count;
+     }
+};
+
+*/
+class Solution {
+public:
+    int NumberOf1(int n) {
+    int sum = 0;
+    if(n < 0){
+        n = n & 0x7FFFFFFF;
+        sum++;}
+    while(n!=0){
+        sum+=n&1;
+        n=n>>1;
+    }
+    return sum;
+    
+    }
+};
+
+
+
+*/Python 解法
+class Solution:
+    def NumberOf1(self,n):
+        sum = 0;
+        if n < 0:
+            n = n&0xFFFFFFFF
+        while n:
+            sum +=1
+            n &=n-1
+        return sum
+        
+*/
+class Solution:
+    def NumberOf1(self,n):
+        return bin(n).replace("0b","").count("1") if n>=0 else bin(2**32+n).replace("0b","").count("1")

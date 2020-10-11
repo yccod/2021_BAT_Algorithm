@@ -1,0 +1,7 @@
+class Solution:
+    def superPow(self, a: int, b: List[int]) -> int:
+        if not b:
+            return 1
+        part1=a**b.pop()
+        part2=self.superPow(a,b)**10
+        return part1*part2%1337

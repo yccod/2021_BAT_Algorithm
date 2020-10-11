@@ -1,0 +1,6 @@
+def canPermutePalindrome(s):
+    mark=0
+    for char in s:
+        movebit=ord(char)-ord("a")
+        mark^=1<<movebit
+    return mark==0 or mark&(mark-1)==0

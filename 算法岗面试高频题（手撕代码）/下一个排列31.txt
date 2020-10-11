@@ -1,0 +1,25 @@
+class Solution:
+    def nextPermutation(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        for i in range(len(nums)-1,0,-1):
+            if nums[i-1] >= nums[-1]:
+                #注意这里有坑不能用  nums = nums[:i-1] + nums[i:] + [nums[i-1]]
+                nums[:] = nums[:i-1] + nums[i:] + [nums[i-1]]
+            else:
+                l = i
+                r = len(nums)-1
+                #二分查找模板查找最后一个大于目标值的数
+                while l < r:
+                    m = l + (r-l) // 2
+                    if nums[m] <= nums[i-1]:
+                        l = m + 1
+                    else:
+                        r = m
+                tmp = nums[i-1]
+                nums[i-1] = nums[l]
+                nums[l] = tmp
+                break
+        return
+

@@ -1,0 +1,131 @@
+*/c++
+class Solution {
+public:
+	vector<int> findMode(TreeNode* root) {
+		vector<int> res;
+		int mx = 0;
+		unordered_map<int,int> m;
+		inorder(root,m,mx);
+		for (auto a : m) {
+			if (a.second == mx) {
+				res.push_back(a.first);
+			}
+		}
+	return res;
+	}
+	void inorder(TreeNode* node, unordered_map<int,int>& m, int& mx) {
+		if(!node) return;
+		inorder(node->left,m,mx);
+		mx = max(mx,++m[node->val]);
+		inorder(node->right,m,mx);
+	}
+};
+
+*/
+class Solution {
+public:
+    vector<int> findMode(TreeNode* root) {
+        if (!root) return {};
+        vector<int> res;
+        TreeNode *p = root;
+        stack<TreeNode*> s;
+        unordered_map<int, int> m;
+        int mx = 0;
+        while (!s.empty() || p) {
+            while (p) {
+                s.push(p);
+                p = p->left;
+            }
+            p = s.top(); s.pop();
+            mx = max(mx, ++m[p->val]);
+            p = p->right;
+        }
+        for (auto a : m) {
+            if (a.second == mx) {
+                res.push_back(a.first);
+            }
+        }
+        return res;
+    }
+};
+
+
+*/
+class Solution {
+public:
+    vector<int> findMode(TreeNode* root) {
+        if (!root) return {};
+        vector<int> res;
+        TreeNode *p = root, *pre = NULL;
+        stack<TreeNode*> s;
+        int mx = 0, cnt = 1;;
+        while (!s.empty() || p) {
+            while (p) {
+                s.push(p);
+                p = p->left;
+            }
+            p = s.top(); s.pop();
+            if (pre) {
+                cnt = (p->val == pre->val) ? cnt + 1 : 1;
+            }
+            if (cnt >= mx) {
+                if (cnt > mx) res.clear();
+                res.push_back(p->val);
+                mx = cnt;
+            }
+            pre = p;
+            p = p->right;
+        }
+        return res;
+    }
+};
+
+*/python
+class Solution:
+	def findMode(self,root):
+		if not root:
+			return []
+		f = {}
+		def FindMid(node):
+			if node.val in f:
+				f[node.val] += 1
+			else:
+				f[node.val] = 1
+			if node.left:
+				FindMid(node.left)
+			if node.right:
+				FindMid(node.right)
+		FindMid(root)
+		res = []
+		maxf = max(f.values())
+		for item in f.keys():
+			if f[item] == maxf:
+				res.append(item)
+		return res
+*/
+class Solution:
+	def findMode(self,root):
+		if not root:
+			return []
+		nums = []
+		max_num,cur_num =1,1
+		def inorder(node):
+			if not node:
+				return 
+			inorder(node.left)
+			nums.append(node.val)
+			inorder(node.right)
+		inorder(root)
+		for i in range(1,len(nums)):
+			if nums[i] == nums[i-1]:
+				cur_num = cur_num + 1
+			else:
+				cur_num = 1
+			if cur_num > max_num:
+				ans = []
+				ans.append(nums[i])
+				max_num=cur_num
+		return ans
+		
+			
+

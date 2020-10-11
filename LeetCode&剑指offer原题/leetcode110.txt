@@ -1,0 +1,89 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isBalanced(TreeNode* root) {
+        if (!root) return true;
+        if(abs(getDepth(root->left)-getDepth(root->right)) > 1)
+            return false;
+        return isBalanced(root->left) && isBalanced(root->right);
+    }
+    
+    int getDepth(TreeNode *root) {
+        if (!root) return 0;
+        return 1 + max(getDepth(root->left),getDepth(root->right));
+ 
+    }
+};
+
+*/
+
+class Solution {
+public:    
+    bool isBalanced(TreeNode *root) {
+        if (checkDepth(root) == -1) return false;
+        else return true;
+    }
+    int checkDepth(TreeNode *root) {
+        if (!root) return 0;
+        int left = checkDepth(root->left);
+        if (left == -1) return -1;
+        int right = checkDepth(root->right);
+        if (right == -1) return -1;
+        int diff = abs(left - right);
+        if (diff > 1) return -1;
+        else return 1 + max(left, right);
+    }
+};
+
+*/Python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def isBalanced(self, root: TreeNode) -> bool:
+        return self.depth(root) != -1
+    
+    def depth(self,root):
+        if not root:
+            return 0
+        left = self.depth(root.left)
+        if left == -1:
+            return -1
+        right = self.depth(root.right)
+        if right == -1:
+            return -1
+        return max(left,right) + 1 if abs(left-right) < 2 else -1
+        
+*/
+  
+class Solution:
+    def  isBalanced(self,root):
+        if not root:
+            return True
+        return abs(self.depth(root.left)-self.depth(root.right)) <=1 and self.isBalanced(root.left) and self.isBalanced(root.right)
+    
+    def depth(self,root):
+        if not root:
+            return 0
+        return max(self.depth(root.left),self.depth(root.right)) + 1
+        
+        
+        
+        
+        
+
+
+
+

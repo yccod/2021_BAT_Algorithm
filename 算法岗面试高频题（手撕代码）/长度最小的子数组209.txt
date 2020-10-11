@@ -1,0 +1,35 @@
+o(n**2)
+class Solution:
+    def minSubArrayLen(self, s: int, nums: List[int]) -> int:
+        if not nums:
+            return 0
+        ans=float("inf")
+        num_sum=0
+        for i in range(len(nums)):
+            num_sum=0
+            for j in range(i,len(nums)):
+                num_sum+=nums[j]
+                if num_sum>=s:
+                    ans=min(ans,j-i+1)
+                    break
+        return ans if ans != float("inf") else 0
+
+
+
+o(n)
+class Solution:
+    def minSubArrayLen(self, s: int, nums: List[int]) -> int:
+        if not nums:
+            return 0
+        ans=float("inf")
+        num_sum=0
+        left=right=0
+        while right<len(nums):
+            num_sum+=nums[right]
+            while num_sum>=s:
+                ans=min(ans,right-left+1)
+                num_sum-=nums[left]
+                left+=1
+            right+=1
+        return ans if ans != float("inf") else 0
+        

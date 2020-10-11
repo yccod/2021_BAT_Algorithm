@@ -1,0 +1,33 @@
+*/c++
+class Solution {
+public:
+	vector<int> constructRectangle(int area) {
+		int r = sqrt(area);
+		while(area % r != 0) --r;
+		return {area/r,r};
+	}
+};
+
+
+*/
+class Solution {
+public:
+	vector<int> constructRectangle(int area) {
+		int r = 1;
+		for (int i = 1; i*i <= area; ++i) {
+			if(area % i == 0) r = i;
+		}
+		return {area/r,r};
+	}
+};
+
+
+
+*/python
+import math
+class Solution:
+	def constructRectangle(self,area):
+		w = int(math.sqrt(area))
+		while area % w != 0:
+			w -= 1
+		return [area//w,w]

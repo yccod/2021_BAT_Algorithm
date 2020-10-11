@@ -1,0 +1,59 @@
+*/ C++ 解法
+class Solution {
+public:
+    bool judgeSquareSum(int c) {
+        for (int i = sqrt(c); i>=0; --i){
+            if(i*i == c) return true;
+            int d = c - i*i, t = sqrt(d);
+            if (t*t == d) return true;
+            }
+            return false;
+        }
+};
+
+*/
+class Solution{
+public:
+    bool judgeSquareSum(int c) {
+        unordered_set<int> s;
+        for( int i = 0 ; i <= sqrt(c); ++i) {
+            s.insert(i*i);
+            if(s.count(c -i*i)) return true;
+        }
+        return false;
+    
+    }
+
+};
+
+*/
+class Solution{
+public:
+    bool judgeSquareSum(int c) {
+        long a = 0, b = sqrt(c);
+        while(a<=b) {
+            if (a*a + b*b == c) return true;
+            else if (a*a + b*b < c) ++a;
+            else --b;
+        }
+        return false;
+    }
+};
+
+*/ Python 解法
+class Solution:
+    def judgeSquareSum(self, c: int) -> bool:
+        if int(c**0.5) == c**0.5:
+            return True
+        else:
+            right = int (c**0.5)
+            left = 1
+        while left <= right:
+            if left**2 + right**2 > c:
+                right = right -1
+            elif left**2+right**2 < c:
+                left = left +1
+            else:
+                return True
+        return False
+            

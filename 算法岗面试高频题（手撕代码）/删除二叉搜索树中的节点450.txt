@@ -1,0 +1,22 @@
+class Solution:
+    def deleteNode(self, root: TreeNode, key: int) -> TreeNode:
+        if not root:
+            return None
+        if key>root.val:
+            root.right=self.deleteNode(root.right,key)
+            return root
+        elif key<root.val:
+            root.left=self.deleteNode(root.left,key)
+            return root
+        else:
+            if not root.left:
+                return root.right
+            if not root.right:
+                return root.left
+            left=root.left
+            right=root.right
+            node=right
+            while right.left:
+                right=right.left
+            right.left=left
+            return node

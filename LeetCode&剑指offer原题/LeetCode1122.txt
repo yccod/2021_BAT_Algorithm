@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<int> relativeSortArray(vector<int>& arr1, vector<int>& arr2) {
+		int temp[1001];
+		memset(temp,0,sizeof(int)*1001);
+		//统计arr1中的每个数数量
+		for(int i = 0 ; i<arr1.size(); i++){
+			temp[arr1[i]]++;
+		}
+		vector<int> result;
+		for(int i = 0; i < arr2.size(); i++){
+			//arr1元素存在于arr2中，temp对应值就会被减小为0
+			for(; temp[arr2[i]]>0 ; temp[arr2[i]]--){
+				result.push_back(arr2[i]);
+			
+			}
+	
+		}
+		
+        for (int i=0; i <1001; i++){
+			for (; temp[i]>0 ; temp[i]--){
+				result.push_back(i);
+			}
+		}
+		return result;
+    }
+};

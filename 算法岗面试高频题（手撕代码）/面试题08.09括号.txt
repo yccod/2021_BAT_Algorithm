@@ -1,0 +1,11 @@
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        if n==1:
+            return ["()"]
+        ans=set()
+        list_=self.generateParenthesis(n-1)
+        for i in range(len(list_)):
+            for j in range(len(list_[i])+1):
+                str1=list_[i][:j]+"()"+list_[i][j:]
+                ans.add(str1)
+        return list(ans)

@@ -1,0 +1,64 @@
+*/c++
+
+class Solution{
+public:
+	TreeNode* sortedArrayToBST(vector<int>& nums) {
+		return helper(nums,0,(int)nums.size()-1);
+	}
+	TreeNode* helper(vector<int>& nums, int left, int right){
+		if(left > right) return NULL;
+		int mid = left + (right-left) / 2;
+		TreeNode *cur = new TreeNode(nums[mid]);
+		cur->left = helper(nums,left,mid-1);
+		cur->right = helper(nums,mid+1,right);
+		return cur;
+	}
+};
+
+*/
+
+class Solution {
+public:
+	TreeNode* sortedArrayToBST(vector<int>& nums){
+		if(nums.empty()) return NULL;
+		int mid = nums.size()/2;
+		TreeNode *cur = new TreeNode(nums[mid]);
+		vector<int> left(nums.begin(),nums.begin()+mid),right(nums.begin()+mid+1,nums.end());
+		cur->left = sortedArrayToBST(left);
+		cur->right = sortedArrayToBST(right);
+		retur cur;
+	}
+};
+
+
+*/python 
+class Solution:
+	def sortedArrayToBST(self,nums):
+		"""
+		:type nums:list[int]
+		:rtype TreeNode
+		"""
+		if not nums:
+			return None
+		else:
+			mid=len(nums)//2
+			tn=TreeNode(nums[mid])
+			nums1=nums[0:mid]
+			nums2=nums[mid+1:len(nums)]
+			tn.left=self.sortedArrayToBST(nums1)
+			tn.right=self.sortedArrayToBST(nums2)
+		return tn
+		
+*/		
+class Solution:
+	def sortedArrayToBST(self,nums):
+		def helper(left,right):
+			if left > right:
+				return None
+			p = (left + right)//2
+			root = TreeNode(nums[p])
+			root.left = helper(left,p-1)
+			root.right= helper(p+1,right)
+			retrun root
+		return helper(0,len(nums)-1)
+		

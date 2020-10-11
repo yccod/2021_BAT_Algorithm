@@ -1,0 +1,99 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+        if(!root) return true;
+        return isSymmetric(root->left,root->right);
+        }
+    
+    bool isSymmetric(TreeNode *left,TreeNode *right) {
+        if(!left && !right) return true;
+        if(left && !right || !left && right || left->val != right->val) return false;
+        return isSymmetric(left->left,right->right) && isSymmetric(left->right,right->left);
+    
+    } 
+};
+
+
+*/
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+        if (!root) return true;
+        queue<TreeNode*> q1,q2;
+        q1.push(root->left);
+        q2.push(root->right);
+        while(!q1.empty() && !q2.empty()) {
+            TreeNode *node1 = q1.front(); q1.pop();
+            TreeNode *node2 = q2.front(); q2.pop();
+            if(!node1 && !node2) continue;
+            if((node1 && !node2) || (!node1 && node2) || (node1->val != node2->val)) return false;
+            q1.push(node1->left);
+            q1.push(node1->right);
+            q2.push(node2->right);
+            q2.push(node2->left);
+      }
+      return true;
+    }
+};
+
+
+
+*/python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def isSymmetric(self, root: TreeNode) -> bool:
+        def check(node1,node2):
+            if not node1 and not node2:
+                return True
+            if not node1 or not node2:
+                return False
+            if node1.val != node2.val:
+                return False
+            return check(node1.left,node2.right) and check(node1.right,node2.left)
+        return check(root,root)
+        
+        
+        
+*/
+class Solution:
+    def isSymmetric(self,root):
+        queue =[root]
+        while(queue):
+            next_queue =[]
+            layer = []
+            for node in queue:
+                if not node:
+                    layer.append(None)
+                    continue
+                next_queue.append(node.left)
+                next_queue.append(node.right)
+                
+                layer.append(node.val)
+            
+            if layer != layer[::-1]:
+                return False
+            queue = next_queue
+        return True
+        
+        
+                
+
+
+
+
+

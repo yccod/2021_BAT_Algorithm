@@ -1,0 +1,61 @@
+*/c++
+class Solution {
+public:
+	bool canConstruct(string ransomNote, string magazine) {
+		unordered_map<char,int> m;
+		for (char c : magazine) ++m[c];
+		for(char c : ransomNote) {
+			if(--m[c] < 0) return false;
+		}
+		return true;
+	}
+};
+
+*/
+class Solution {
+public:
+	bool canConstruct(string ransomNote, string magazine) {
+		int alpha[26] = {0};
+		for(char a1:magazine) alpha[a1-'a']++;
+		for(char a1:ransomNote) {
+			alpha[a1-'a']--;
+			if(alpha[a1-'a']<0) return false;
+		}
+		return true;
+	}
+};
+
+
+*/python
+class Solution:
+	def canConstruct(self,ransomNote,magazine):
+		ran = list(ransomNote)
+		mag = list(magazine)
+		for i in ran:
+			if i in mag:
+				mag.remove(i)
+			else:
+				return False
+		return True
+		
+		
+		
+*/
+class Solution:
+	def canConstruct(self,ransomNote,magazine):
+		magazine_dict ={}
+		for c in magazine:
+			if c in magazine_dict:
+				magazine_dict[c] += 1
+			else:
+				magazine_dict[c] = 1
+		for c in ransomNote:
+			if c in magazine_dict and magazine_dict[c] > 0:
+				magazine_dict[c] -= 1
+			else:
+				return False
+		return True
+		
+			
+		
+		

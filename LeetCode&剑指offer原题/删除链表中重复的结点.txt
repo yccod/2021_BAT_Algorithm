@@ -1,0 +1,138 @@
+class Solution {
+public:
+    ListNode* deleteDuplication(ListNode* pHead)
+    {
+    if (pHead==NULL)
+        return NULL;
+    if (pHead!=NULL && pHead->next==NULL)
+        return pHead;
+    ListNode* current;
+    if (pHead->next->val==pHead->val){
+        current=pHead->next->next;
+        while(current != NULL && current->val == pHead->val)
+            current=current->next;
+        return deleteDuplication(current);
+    }
+    else {
+        current=pHead->next;
+        pHead->next = deleteDuplication(current);
+        return pHead;
+     }
+
+    }
+};
+*/
+
+class Solution {
+public:
+    ListNode* deleteDuplication(ListNode* pHead)
+    {
+        ListNode *tmp;
+        bool flag = false;
+        ListNode **p = &pHead;
+        if(!pHead)
+            return NULL;
+        while(*p){
+            int val = (*p)->val;
+            flag = false;
+            tmp = (*p)->next;
+            while(tmp && tmp->val == val){
+                flag = true;
+                tmp = tmp->next;
+            }
+            //发生了重复 修改当前指向的结点为后面第一个不是val的结点
+            if(flag){
+                *p = tmp;
+            }
+            //没发生重复 修改p指向原本结点的next结点
+            else{
+                p = &((*p)->next);
+            }
+        }
+        return pHead;
+    }
+};
+    
+    
+    
+class Solution {
+public:
+    ListNode* deleteDuplication(ListNode* pHead){
+        ListNode* head = new ListNode(0);
+        ListNode* p = head;
+        ListNode* q = pHead;
+        while(q) {
+            while(q!=NULL&&q->next!=NULL&&q->next->val==q->val){
+                int tmp=q->val;
+                while(q!=NULL && q->val==tmp)
+                    q=q->next;
+            }
+            p->next=q;
+            p=p->next;
+            if (q)
+                q=q->next;
+                
+        }
+        return head->next;
+        
+    }
+};
+    
+    
+*/python 解法
+class Solution:
+    def deleteDuplication(self, pHead):
+        # write code here
+        if not pHead or not pHead.next:
+            return pHead
+        if pHead.val == pHead.next.val:
+            temp = pHead.next
+            while temp and temp.val == pHead.val:
+                temp = temp.next
+            return self.deleteDuplication(temp)
+        else:
+            pHead.next = self.deleteDuplication(pHead.next)
+            return pHead
+            
+            
+            
+*/
+class Solution:
+    def deleteDuplication(self,pHead):
+        res = []
+        while pHead:
+            res.append(pHead.val)
+            pHead=pHead.next
+        res = list(filter(lambda c:res.count(c) == 1,res))
+        dummy = ListNode(0)
+        pre = dummy
+        for i in res:
+            node = ListNode(i)
+            pre.next = node
+            pre = pre.next
+        return dummy.next
+        
+        
+*/
+class Solution:
+    def deleteDuplication(self, pHead):
+        # write code here
+        if not pHead:
+            return pHead
+        #为了防止头结点是重复的，定义一个新结点指向头结点
+        temp = ListNode(0)
+        temp.next = pHead
+        pre, nex = temp, pHead
+        while nex:
+            if nex.next and nex.next.val == nex.val:
+                #如果出现了和当前节点相同的值的时候，当前节点前移一位
+                while nex.next and nex.next.val == nex.val:
+                    nex = nex.next
+                pre.next = nex.next#只是指向，并没有动pre，相当于删除
+                nex = nex.next
+            else:
+                pre = pre.next
+                nex = nex.next
+        return temp.next
+            
+            

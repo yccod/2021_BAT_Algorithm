@@ -1,0 +1,61 @@
+输入: str1 = "abcde", str2 = "ace" 
+输出: 3  
+解释: 最长公共子序列是 "ace"，它的长度是 3
+
+递归
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+
+This is a temporary script file.
+"""
+
+#递归
+#def lcs(str1,str2):
+#	if len(str1)==0 or len(str2)==0:
+#		return 0
+#	if str1[-1] == str2[-1]:
+#		return 1+lcs(str1[:-1],str2[:-1])
+#	else:
+#		return max(lcs(str1[:-1],str2),lcs(str1,str2[:-1]))
+#    
+#    
+#    
+#    
+#def lcs_str(str1,str2):
+#	if len(str1)==0 or len(str2)==0:
+#		return ""
+#	if str1[-1] == str2[-1]:
+#		return str1[-1]+lcs_str(str1[:-1],str2[:-1])
+#	else:
+#		return lcs_str(str1[:-1],str2) if len(lcs_str(str1[:-1],str2))>len(lcs_str(str1,str2[:-1])) else lcs_str(str1,str2[:-1])
+    
+    
+    
+##DP
+#def lcs(str1,str2):
+#    m,n = len(str1),len(str2)
+#    dp=[[0]*(n+1) for _ in range(m+1)]
+#    for  i in range(1,m+1):
+#        for j in range(1,n+1):
+#            if str1[i-1] == str2[j-1]:
+#                dp[i][j] = 1+dp[i-1][j-1]
+#            else:
+#                dp[i][j] = max(dp[i-1][j],dp[i][j-1])
+#    return dp[m][n]
+#                
+#*/              
+def lcs_str(str1,str2):
+    m,n = len(str1),len(str2)
+    dp=[[""]*(n+1) for _ in range(m+1)]
+    for  i in range(1,m+1):
+        for j in range(1,n+1):
+            if str1[i-1] == str2[j-1]:
+                dp[i][j] = str1[i-1]+dp[i-1][j-1]
+            else:
+                dp[i][j] = dp[i-1][j]  if len(dp[i-1][j])>len(dp[i][j-1]) else dp[i][j-1]
+    return dp[m][n]
+                
+    
+
+	

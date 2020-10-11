@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int peakIndexInMountainArray(vector<int>& A) {
+		return max_element(A.begin(),A.end())-A.begin();
+    }
+};
+
+*/
+
+class Solution {
+public:
+    int peakIndexInMountainArray(vector<int>& A) {
+		for (int i = 1; i < (int)A.size()-1; ++i){
+			if(A[i] > A[i+1]) return i;
+		}
+        return 0;
+    }
+};
+
+
+*/
+class Solution {
+public:
+    int peakIndexInMountainArray(vector<int>& A) {
+		int n = A.size(), left = 0 , right = n -1;
+		while(left<=right) {
+			int mid = (left + right) /2;
+			if(A[mid] < A[mid+1]) 
+				left = mid + 1;
+			else
+				right = mid - 1;
+		}
+        return left;
+    }
+};

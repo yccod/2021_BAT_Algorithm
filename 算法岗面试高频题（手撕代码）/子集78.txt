@@ -1,0 +1,15 @@
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        if not nums:
+            return [[]]
+        return self.subsets(nums[:-1])+[[nums[-1]]+i for i in self.subsets(nums[:-1])]
+		
+		
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        if not nums:
+            return [[]]
+        ans=[[]]
+        for i in nums:
+            ans+=[[i]+j for j in ans]
+        return ans

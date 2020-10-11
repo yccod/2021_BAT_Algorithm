@@ -1,0 +1,131 @@
+*/C++解法
+*/二分查找
+class Solution {
+public:
+    int minNumberInRotateArray(vector<int> rotateArray) {
+        if (rotateArray.empty()) return 0;
+        int left = 0, right = rotateArray.size()-1;
+        while(left<=right){
+            if (rotateArray[left] < rotateArray[right]) return rotateArray[left];
+            int mid = (left+right)/2;
+            if (rotateArray[left] < rotateArray[mid])
+                left = mid + 1;
+            else if (rotateArray[mid] < rotateArray[right])
+                right = mid;
+            else
+                left++;
+        }
+        
+        return rotateArray[right];
+        
+    }
+};
+
+
+class Solution {
+public:
+    int minNumberInRotateArray(vector<int> rotateArray) {
+ 
+        //数组为空时
+        if(rotateArray.size() == 0)
+            return -1;
+        //前部分数据旋转
+        for(int i = 0; i < rotateArray.size() - 1; i++){
+            if (rotateArray[i] > rotateArray[i + 1])
+                return rotateArray[i + 1];
+        }
+ 
+        //全部数据旋转，相当于没有旋转，最小数即为第一个数
+        return rotateArray[0];
+    }
+};
+
+
+
+
+
+
+
+
+
+
+*/Python 解法
+
+class Solution:
+    def minNumberInRotateArray(self,rotateArray):
+        if not rotateArray:
+            return 0
+        else:
+            return min(rotateArray)
+            
+            
+            
+*/
+ class Solution:
+    def minNumberInRotateArray(self,rotateArray):
+        if not rotateArray:
+            return 0
+        else:
+            rotateArray.sort()
+            return rotateArray[0]
+            
+*/二分查找
+class Solution:
+    def minNumberInRotateArray(self,rotateArray):
+        length = len(rotateArray)
+        if length == 0:
+            return 0
+        else:
+            left = 0
+            right = length - 1
+            while left <= right:
+                mid = (left+right)//2
+                if rotateArray[mid] < rotateArray[right]:
+                    right = mid
+                elif rotateArray[mid] > rotateArray[left]:
+                    left = mid+1
+                else:
+                    left = left+1
+           
+        return rotateArray[right]
+                
+                
+                            
+                
+*/
+class Solution:
+    def minNumberInRotateArray(self,rotateArray):
+        length = len(rotateArray)
+        if length == 0:
+            return 0
+        if length == 1:
+            return rotateArray[0]
+            
+        if rotateArray[0]<rotateArray[-1]:
+            return rotateArray[0]
+        else:
+            for i in range(length-1):
+                if rotateArray[i] > rotateArray[i+1]:
+                    return rotateArray[i+1]
+         
+                    
+                
+                
+            
+            
+            
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+

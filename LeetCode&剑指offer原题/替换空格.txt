@@ -1,0 +1,78 @@
+*/Python 解法
+*/直接替换
+# -*- coding:utf-8 -*-
+class Solution:
+    # s 源字符串
+    def replaceSpace(self, s):
+        # write code here
+        return s.replace(" ","%20")
+
+*/正则表达式
+import re
+class Solution:
+    def replaceSpace(self,s):
+        s = re.sub(r" ","%20",s)
+        return s
+        
+*/C++ 解法
+class Solution {
+public:
+	void replaceSpace(char *str,int length) {
+        if (str==NULL || length < 0)
+            return ;
+        int i = 0;
+        int oldnumber = 0;
+        int replacenumber = 0;
+        while(str[i] != '\0'){
+            oldnumber++;
+            if(str[i]==' '){
+            replacenumber++;
+            }
+        i++;
+        }
+        int newlength=oldnumber+replacenumber*2;
+        if(newlength>length)
+            return;
+        int pOldlength = oldnumber;
+        int pNewlength = newlength;
+        while(pOldlength >= 0 && pNewlength > pOldlength){
+            if (str[pOldlength] == ' '){
+                str[pNewlength--]='0';
+                str[pNewlength--]='2';
+                str[pNewlength--]='%';
+            }
+            else{
+            str[pNewlength--]=str[pOldlength];
+            }
+            
+            pOldlength--;
+        }
+
+	}
+};
+
+*/C++解法
+class Solution {
+public:
+	void replaceSpace(char *str,int length) {
+        int count= 0;
+        for (int i = 0; i< length;i++){
+            if (str[i] == ' ')
+            count++;
+        }
+        for (int i = length-1;i>=0;i--){
+            if (str[i]!=' '){
+            str[i+2*count] = str[i];
+            }
+            else{
+                count--;
+                str[i+2*count]='%';
+                str[i+2*count+1]='2';
+                str[i+2*count+2]='0';
+                
+            }
+        
+        }
+        
+	}
+};

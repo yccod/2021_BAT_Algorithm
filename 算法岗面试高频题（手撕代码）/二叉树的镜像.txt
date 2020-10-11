@@ -1,0 +1,99 @@
+*/c++
+class Solution {
+public:
+	void Mirror(TreeNode *pRoot) {
+		if(pRoot==NULL)
+			return;
+		TreeNode *tmp = pRoot->left;
+		pRoot->left = pRoot->right;
+		pRoot->right = tmp;
+		Mirror(pRoot->left);
+		Mirror(pRoot->right);
+	}
+};
+
+*/
+class Solution {
+public:
+    void Mirror(TreeNode *p) {
+    if(p){
+            swap(p -> left, p -> right);
+            Mirror(p -> left);
+            Mirror(p -> right);
+        }
+    }
+};
+
+*/
+class Solution {
+public:
+	void Mirror(TreeNode *pRoot) {
+		if (pRoot == NULL) return;
+		stack<TreeNode*> st;
+		TreeNode* p =NULL;
+		st.push(pRoot);
+		while(st.size())
+		{
+			p = st.top();
+			st.pop();
+			swap(p->left,p->right);
+			if (p->right) st.push(p->right);
+			if (p->left)  st.push(p->left);
+		}
+	}
+
+};
+
+*/
+class Solution {
+public:
+	void Mirror(TreeNod *pRoot) {
+		if (pRoot == NULL) return ;
+		queue<TreeNod*> qu;
+		TreeNod* p = NULL;
+		qu.push(pRoot);
+		while(qu.size())
+		{
+			p = qu.front();
+			qu.pop();
+			swap(p->left,p->right);
+			if (p->left) qu.push(p->left);
+			if (p->right) qu.push(p->right);
+		}
+	}
+};
+    
+*/python		
+class Solution:
+	def Mirror(self,root):
+		if not root:
+			return root
+		node = root.right
+		root.right = root.left
+		root.left = node
+		self.Mirror(root.left)
+		self.Mirror(root.right)
+		return root
+		
+
+*/
+class Solution:
+	def Mirror(self,root):
+		if not root:
+			return root
+		tmp = []
+		tmp.append(root)
+		while tmp:
+			a = tmp.pop()
+			b = a.left
+			a.left = a.right
+			a.right = b
+			if a.right:
+				tmp.append(a.right)
+			if a.left:
+				tmp.append(a.left)
+
+
+
+
+

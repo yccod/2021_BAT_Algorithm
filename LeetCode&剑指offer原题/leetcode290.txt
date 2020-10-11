@@ -1,0 +1,73 @@
+*/C++
+class Solution {
+public:
+    bool wordPattern(string pattern, string str) {
+        unordered_map<char, string> m;
+        istringstream in(str);
+        int i = 0, n = pattern.size();
+        for (string word; in >> word; ++i) {
+            if (i == n) return false;
+            if (m.count(pattern[i])) {
+                if (m[pattern[i]] != word) return false;
+            } else {
+                for (auto a : m) {
+                    if (a.second == word) return false;
+                }
+                m[pattern[i]] = word;
+            }
+        }
+        return i == n;
+    }
+};
+
+
+*/
+class Solution {
+public:
+    bool wordPattern(string pattern, string str) {
+        unordered_map<char, int> m1;
+        unordered_map<string, int> m2;
+        istringstream in(str);
+        int i = 0, n = pattern.size();
+        for (string word; in >> word; ++i) {
+            if (i == n || m1[pattern[i]] != m2[word]) return false;
+            m1[pattern[i]] = m2[word] = i + 1;
+        }
+        return i == n;
+    }
+};
+
+*/python
+class Solution:
+	def wordPattern(self,pattern,str):
+		strs = str.split(' ')
+		if len(strs) != len(pattern):
+			return False
+		d1 = {}
+		d2 = {}
+		for i in range(0,len(strs)):
+			if strs[i] not in d1 and pattern[i] not in d2:
+				d1[strs[i]]=pattern[i]
+				d2[pattern[i]]=strs[i]
+			elif d1[strs[i]] != pattern[i] or d2[pattern[i]] != strs[i]:
+				return False
+		return True
+		
+*/
+	
+class Solution:
+	def wordPattern(self,pattern,str)
+		word_list = str.split(' ')
+		if len(pattern) != len(word_list):
+			return False
+		dic = {}
+		for i in range(len(pattern)):
+			if pattern[i] not in dic:
+				dic[pattern[i]] = word_list[i]
+			elif dic[pattern[i]] != word_list[i]:
+				return False
+		if len(set([dic[i] for i in dic]))==len(dct):
+			return True
+			
+				
+				

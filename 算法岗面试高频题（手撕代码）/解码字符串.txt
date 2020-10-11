@@ -1,0 +1,26 @@
+# HG[3|B[2|CA]]F
+# HGBCACABCACABCACAF
+# FG[3|ABC]
+# FGABCABCABC
+
+def decode_str(s):
+    stack=[]
+    for char in s:
+        if char != "]":
+            stack.append(char)
+        else:
+            temp=""
+            while stack and stack[-1]!="|":
+                temp=stack.pop()+temp
+            stack.pop()
+            num=""
+            while stack and stack[-1]!="[":
+                num=stack.pop()+num
+            stack.pop()
+            temp_str=temp*int(num)
+            stack.append(temp_str)
+    return "".join(stack)
+
+if __name__ == "__main__":
+    s="HG[3|B[2|CA]]F"
+    print(decode_str(s))

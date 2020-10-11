@@ -1,0 +1,52 @@
+
+class Solution(object):
+    def minNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: str
+        """
+        n=len(nums)
+        if n==0:
+            return ""
+        for i in range(n):
+            nums[i]=str(nums[i])
+        for i in range(n):
+            for j in range(i+1,n):
+                if nums[i]+nums[j]>nums[j]+nums[i]:
+                    nums[i],nums[j]=nums[j],nums[i]
+        return "".join(nums)
+		
+		
+		
+		
+class Solution:
+    def minNumber(self, nums: List[int]) -> str:
+        """快排"""
+        def is_bigger(x, y):
+            a, b = x+y, y+x
+            if b<a:
+                return True
+            return False
+        def partition(nums,left, right):
+            pivot = nums[left]
+            i=left+1
+            j=left+1
+            while i<=right:
+                if is_bigger(pivot, nums[i]):
+                    nums[j], nums[i] = nums[i], nums[j]
+                    j += 1
+                i+=1
+            nums[left], nums[j-1] = nums[j-1], nums[left]
+            return j-1
+        def quick_sort(nums,left, right):
+            if left<right:
+                mid = partition(nums,left, right)
+                quick_sort(nums,left, mid-1)
+                quick_sort(nums,mid+1, right)
+            return nums
+        nums = [str(n) for n in nums]
+        quick_sort(nums,0, len(nums)-1)
+        return "".join(nums)
+
+
+

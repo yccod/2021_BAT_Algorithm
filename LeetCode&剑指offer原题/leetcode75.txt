@@ -1,0 +1,84 @@
+*/ C++ 解法
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+    vector<int> colors(3);
+    for (int num : nums) ++colors[num];
+    for (int i = 0, cur = 0; i < 3; i++) {
+        for (int j = 0; j < colors[i]; j++){
+            nums[cur++] = i;
+          }
+        }
+    }  
+};
+
+*/
+class Solution {
+public:
+    void sortColors(vector<int>& nums){
+        int red = 0, blue = nums.size()-1;
+        for(int i = 0; i <= blue; i++){
+            if (nums[i] == 0){
+                swap(nums[i], nums[red++]);
+            } else if (nums[i] == 2){
+            
+            swap(nums[i--], nums[blue--]);
+            
+            }
+        }
+         
+    }
+};
+
+*/
+class Solution {
+public:
+    void sortColors(vector<int>& nums){
+        int left = 0, right = nums.size()-1, cur = 0;
+        while(cur<=right){
+            if (nums[cur] == 0) {
+                swap(nums[cur++], nums[left++]);
+            }else if (nums[cur] == 2) {
+                swap(nums[cur], nums[right--]);
+            }else {
+            cur++;
+            }
+        } 
+    }
+};
+
+*/Python 解法
+class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        c0, c1 ,c2 =0,0,0
+        for i in nums:
+            if i == 0:
+                c0 +=1
+            if i == 1:
+                c1 +=1
+            if i == 2:
+                c2 += 1
+        nums[:c0] = [0]*c0
+        nums[c0:c0+c1] = [1]*c1
+        nums[c0+c1:] = [2]*c2
+        
+*/
+class Solution:
+    def sortColors(sef,nums):
+        left = 0
+        right = len(nums)-1
+        i = 0
+        while i<= right:
+            if nums[i] == 2:
+                nums[i], nums[right] = nums[right], nums[i]
+                right -=1
+            elif nums[i] == 0:
+                nums[i], nums[left] = nums[left], nums[i]
+                left +=1
+                i +=1
+            else:
+                i+=1
+        

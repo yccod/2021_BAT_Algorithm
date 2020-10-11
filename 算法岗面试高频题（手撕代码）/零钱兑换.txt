@@ -1,0 +1,34 @@
+def coinChange(coins, amount):
+    """
+        1. dp问题: dp[i] = min(dp[i], dp[i-coins[j]] + 1)
+            0 < i < amount + 1, dp[i]代表最小的次数.
+            dp[i-coins[j]] + 1中, 1代表coins[j]满足为一次, dp[i-coins[j]]为剩余的次数
+        2. dp[i]均初始化为amount + 1, 为了判断.
+    """
+    dp = [amount + 1 for _ in range(amount + 1)]
+    dp[0] = 0
+    # 到amount总金额(金额当索引)
+    for i in range(1, amount + 1):
+        for j in range(len(coins)):
+            # 只有硬币小于当前金额, 才能进行递推
+            if coins[j] <= i:
+                # dp[i]要么等于自身(已经被计算过),
+                # 要么等于coins[j](一次) + (i - coins[j])的次数
+                dp[i] = min(dp[i], dp[i-coins[j]] + 1)
+    return -1 if dp[amount] > amount else dp[amount]
+
+print(coinChange([1,2,5], 11))
+
+#
+class Solution:
+	def coinChange(self,coins,amount):
+		dp = [amount+1 for _ in range(amount+1)]
+		dp[0]=0
+		for i in range(1,amount+1)：
+			for j in range(len(coins)):
+				if coins[j]<=i:
+					dp[i]=min(dp[i],dp[i-coins[j]]+1)
+		return -1 if dp[amount]>amount else dp[amount]
+		
+		
+

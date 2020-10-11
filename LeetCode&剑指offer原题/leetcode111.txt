@@ -1,0 +1,147 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int minDepth(TreeNode* root) {
+        if (!root) return 0;
+        if(!root->left) return 1+minDepth(root->right);
+        if(!root->right) return 1+minDepth(root->left);
+        return 1+min(minDepth(root->left),minDepth(root->right));
+    }
+};
+
+
+*/
+class Solution{
+public:
+    int minDepth(TreeNode* root) {
+        if(!root) return 0;
+        int res = 0;
+        queue<TreeNode*> q;
+        q.push(root);
+        while(!q.empty()) {
+            ++res;
+            for (int i=q.size();i>0;--i){
+                auto t = q.front(); q.pop();
+                if(!t->left && !t->right) return res;
+                if (t->left) q.push(t->left);
+                if(t->right) q.push(t->right);
+
+            }        
+        }
+    return -1;
+    }
+};
+
+
+*/python
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def minDepth(self, root: TreeNode) -> int:
+        if root:
+            if root.left and root.right:
+                return 1+min(self.minDepth(root.left),self.minDepth(root.right))
+            elif root.left:
+                return 1+self.minDepth(root.left)
+            elif root.right:
+                return 1+self.minDepth(root.right)
+            else:
+                return 1
+        else:
+            return 0
+            
+
+*/DFS 深度优先搜索递归
+class Solution:
+    def minDepth(self,root):
+        if not root:
+            return 0
+        children = [root.left,root.right]
+        if not any(children):
+            return 1
+        min_depth = float("inf")
+        for c in children:
+            if c:
+                min_depth = min(self.minDepth(c),min_depth)
+        return min_depth + 1
+            
+*/DFS 深度优先搜索栈迭代
+class Solution:
+    def minDepth(self,root):
+        if not root:
+            return 0
+        else:
+            stack, min_depth = [(1,root),] , float("inf")
+        
+        while stack:
+            depth, root = stack.pop()
+            children = [root.left,root.right]
+            if not any(children):
+                min_depth = min(depth,min_depth)
+            for c in children:
+                if c:
+                    stack.append((depth+1,c))
+        return min_depth
+        
+        
+*/宽度优先搜索迭代BFS
+from collections import deque
+class Solution:
+    def minDepth(self,root):
+        if not root:
+            return 0
+        else:
+            node_deque=deque([(1,root),])
+            
+        while node_deque:
+            depth, root = node_deque.popleft()
+            children=[root.left,root.right]
+            if not any(children):
+                return depth
+            for c in children:
+                if c:
+                    node_deque.append((depth+1,c))
+                    
+            
+
+        
+        
+        
+            
+        
+        
+
+         
+            
+
+            
+            
+
+
+
+    
+            
+
+            
+            
+            
+            
+            
+            
+
+                
+        

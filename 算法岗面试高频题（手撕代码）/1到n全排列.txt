@@ -1,0 +1,41 @@
+def premution(s):
+    res=[]
+    if not s:
+        return [[]]
+    for i in range(len(s)):
+        for char in premution(s[:i]+s[i+1:]):
+            res.append([s[i]]+char)
+    return res
+s=list(range(1,n))
+def premution(s):
+    res=[]
+    if not s:
+        return [[]]
+    for i in range(len(s)):
+        for char in premution(s[:i]+s[i+1:]):
+            res.append([s[i]]+char)
+    return res
+	
+	
+	
+import copy
+def full_arrange(n):
+    data=[]
+    res=[[1]]
+    if n==1:
+        return res
+    for i in range(2,n+1):
+        for j in range(len(res)):
+            for index in range(len(res[j])+1):
+                data=copy.copy(res[j])   #浅拷贝
+                data.insert(index,i)
+                res.append(data)
+        while True:
+            if len(res[0]) != i:
+                res.remove(res[0])
+            else:
+                break
+    return res
+	
+	
+	

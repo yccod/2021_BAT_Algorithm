@@ -1,0 +1,35 @@
+小Q在周末的时候和他的小伙伴来到大城市逛街，一条步行街上有很多高楼，共有n座高楼排成一行。
+小Q从第一栋一直走到了最后一栋，小Q从来都没有见到这么多的楼，所以他想知道他在每栋楼的位置处能看到多少栋楼呢？（当前面的楼的高度大于等于后面的楼时，后面的楼将被挡住） 
+输入
+6
+5 3 8 3 2 5
+
+输出
+3 3 5 4 4 4
+
+当小Q处于位置3时，他可以向前看到位置2,1处的楼，向后看到位置4,6处的楼，加上第3栋楼，共可看到5栋楼。当小Q处于位置4时，他可以向前看到位置3处的楼，向后看到位置5,6处的楼，加上第4栋楼，共可看到4栋楼。
+def temp(n,nums):
+    left=[0]*n
+    right=[0]*n
+    left_stack=[]
+    right_stack=[]
+    ans=[0]*n
+    for i in range(n):
+        left[i]=len(left_stack)
+        while left_stack and left_stack[-1]<=nums[i]:
+            left_stack.pop()
+        left_stack.append(nums[i])
+    for j in range(n-1,-1,-1):
+        right[j]=len(right_stack)
+        while right_stack and right_stack[-1]<=nums[j]:
+            right_stack.pop()
+        right_stack.append(nums[j])
+    for k in range(n):
+        ans[k]=1+left[k]+right[k]
+    return " ".join([str(num) for num in ans])
+
+
+if __name__ == "__main__":
+    nums=list(map(int,input().split()))
+    n=int(input())
+    print(temp(n,nums))

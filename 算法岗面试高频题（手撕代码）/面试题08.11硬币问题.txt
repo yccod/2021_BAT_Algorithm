@@ -1,0 +1,20 @@
+class Solution:
+    def waysToChange(self, n: int) -> int:
+        coins=[1,5,10,25]
+        dp=[[0]*(n+1)]*(len(coins)+1)
+        dp[0][0]=1
+        for i in range(1,n+1):
+            dp[0][i]=0
+        for j in range(1,len(coins)+1):
+            dp[j][0]=1
+        for i in range(1,len(coins)+1):
+            for j in range(1,n+1):
+                if j>=coins[i-1]:
+                    dp[i][j]=dp[i-1][j]+dp[i][j-coins[i-1]]
+                else:
+                    dp[i][j]=dp[i-1][j]
+        return dp[-1][-1]%1000000007
+		
+		
+		
+		

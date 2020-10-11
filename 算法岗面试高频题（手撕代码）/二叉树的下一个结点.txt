@@ -1,0 +1,57 @@
+*/c++
+class Solution {
+public:
+    TreeLinkNode* GetNext(TreeLinkNode* pNode)
+    {
+        if(pNode==NULL) return NULL;
+        if(pNode->right != NULL){
+            pNode = pNode->right;
+            while(pNode->left != NULL){
+                pNode=pNode->left;
+            }
+            return pNode;
+        }
+        while(pNode->next != NULL){
+            if(pNode->next->left == pNode){
+                return pNode->next;
+            }
+            pNode=pNode->next;
+        }
+        return NULL;
+    }
+};
+
+*/python
+class Solution:
+	def GetNext(self,pNode):
+		dummy = pNode
+		while dummy.next:
+			dummy=dummy.next
+		self.result = []
+		self.midTraversal(dummy)
+		if self.result.index(pNode) != len(self.result)-1:
+			return self.result[self.result.index(pNode)+1]
+		else:
+			return None
+	def midTraversal(self,root):
+		if not root:
+			return 
+		self.midTraversal(root.left)
+		self.result.append(root)
+		self.midTraversal(root.right)
+		
+		
+*/	
+class Solution:
+	def GetNext(self,pNode):
+		if pNode.right:
+			node = pNode.right
+			while node.left:
+				node = node.left
+			return node
+		while pNode.next:
+			if pNode == pNode.next.left:
+				return pNode.next
+			pNode = pNode.next
+		return None
+		

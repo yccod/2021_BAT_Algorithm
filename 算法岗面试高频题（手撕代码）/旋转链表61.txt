@@ -1,0 +1,60 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+
+# 环的方法
+class Solution:
+    def rotateRight(self, head: ListNode, k: int) -> ListNode:
+        if not head or not head.next:
+            return head
+        pre=head
+        length=1
+        while pre.next:
+            pre=pre.next
+            length+=1
+        pre.next=head
+        move=length-k%length
+        while move:
+            pre=pre.next
+            head=head.next
+            move -=1
+        pre.next=None
+        return head
+		
+		
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def rotateRight(self, head: ListNode, k: int) -> ListNode:
+        if k==0:
+            return head
+        if not head or not head.next:
+            return head
+        pre=head
+        length=1
+        while pre.next:
+            pre=pre.next
+            length+=1
+        if k%length==0:
+            return head
+        move=length-k%length
+        pre=head
+        while move:
+            before=pre
+            pre=pre.next
+            move-=1
+        before.next=None
+        newhead=pre
+        while pre.next:
+            pre=pre.next
+        pre.next=head
+        return newhead
+
+

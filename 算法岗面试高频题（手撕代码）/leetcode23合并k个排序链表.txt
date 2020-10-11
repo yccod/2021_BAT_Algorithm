@@ -1,0 +1,206 @@
+最近刚把探索里链表的专栏刷完，对linked list有了更深的理解，重新把四个月前写的题目再写了一遍
+思路就是分治时每次合并两个链表
+nlogk
+代码如下
+*/迭代写法
+class Solution:
+    def mergeKLists(self, lists):
+        length = len(lists)
+        if length == 0:
+            return None
+        interval = 1
+        while interval < length:
+            for i in range(0, length - interval, interval * 2):
+                lists[i] = self.merge2Lists(lists[i], lists[i + interval])
+            interval *= 2
+        return lists[0]
+
+
+    def merge2Lists(self, l1, l2):
+        pre = ListNode(-1)
+        p = pre
+        while l1 and l2:
+            if l1.val <= l2.val:
+                p.next = l1
+                l1 = l1.next
+            else:
+                p.next = l2
+                l2 = l2.next
+            p = p.next
+        p.next = l1 if l1 else l2
+        return pre.next
+
+
+class Solution:
+	def mergeKLists(self,lists):
+		length=len(lists)
+		if length==0:
+			return None
+		interval=1
+		while interval<length:
+			for i in range(0,length-interval,interval*2):
+				lists[i]=self.merge2Lists(lists[i],lists[i+interval])
+			interval=interval*2
+		return lists[0]
+		
+	def merge2Lists(self,l1,l2):
+		pre=ListNode(-1)
+		p=pre
+		while l1 and l2:
+			if l1.val<=l2.val:
+				p.next=l1
+				l1=l1.next
+			else:
+				p.next=l2
+				l2=l2.next
+			p=p.next
+		p.next=l1 or l2
+		return pre.next
+		
+
+*/递归写法
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+    
+class Solution:
+	def mergeKLists(self,lists):
+		n=len(lists)
+		if n==0:
+			return None
+		if n==1:
+			return lists[0]
+		if n==2:
+			return self.merge2Lists(lists[0],lists[1])
+		mid=n//2
+		return self.merge2Lists(self.mergeKLists(lists[:mid]),self.mergeKLists(lists[mid:n]))
+		
+
+
+		
+方法一：暴力法
+
+遍历所有链表，将所有节点的值放到一个数组中。
+将这个数组排序，然后遍历所有元素得到正确顺序的值。
+用遍历得到的值，创建一个新的有序链表。
+class Solution:
+    def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+        nodes = []
+        head = point = ListNode(0)
+        for l in lists:
+            while l:
+                nodes.append(l.val)
+                l = l.next
+        for x in sorted(nodes):
+            point.next = ListNode(x)
+            point = point.next
+        return head.next
+方法二：堆排序/优先队列
+利用python的heapq模块进行堆排序
+
+class Solution(object):
+    def mergeKLists(self, lists):
+        import heapq
+        head = point = ListNode(0)
+        heap = []
+        for l in lists:
+            while l:
+                heapq.heappush(heap, l.val)
+                l = l.next
+        while heap:
+            val = heapq.heappop(heap)
+            point.next = ListNode(val)
+            point = point.next
+        point.next = None
+        return head.next
+
+
+
+
+
+最暴力的做法是把N个数放到一个数组里，再一起排序，O(NlogN)。
+
+当然由于k个链表是有序的，我们实际上只需要维护k个指针从k个链表的头向尾滑动，每次选取k个链表的表头里的最小加入新的有序链表里。
+
+这里我们就可以借用最小堆(优先队列)维护k个链表的当前头位置的值。
+
+时间复杂度就变成O(N*logK)
+
+这里我利用python自带heapq实现最小堆的时候，直接把（node.value,node)组成元组放进队列里，结果leetcode编译器报错,显示<无法对LISTNode类型数据进行操作.....服了....
+
+class Solution(object):
+    def mergeKLists(self, lists):
+        import heapq
+        que = []
+        for node in (lists):
+            if node != None : 
+                heapq.heappush(que ,(node.val, node))
+        dummy_node = ListNode(-1)
+        cur = dummy_node
+        while que:
+            val, node =  heapq.heappop(que)
+            cur.next = node
+            cur = cur.next
+            if node.next != None:
+                heapq.heappush(que, (node.next.val, node.next))
+        return dummy_node.next
+
+
+class Solution(object):
+	def mergeKLists(self,lists):
+		import heapq
+		que=[]
+		for node in lists:
+			heapq.heappush(que,(node.val,node))
+		dummy_node=ListNode(-1)
+		cur = dummy_node
+		while que:
+			val,node=heapq.heappop(que)
+			cur.next=node
+			cur=cur.next
+			if node.next != None:
+				heapq.heappush(que,(node.next.val,node.next))
+		return dummy_node.next
+		
+		
+
+
+
+		
+class Solution:
+    def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+        import heapq
+        que , curs = [] , [] # curs存K个链表滑动的头指针
+        for index, node in enumerate(lists):
+                if node!=None:
+                    heapq.heappush(que ,(node.val, index))
+                curs.append(node)
+
+        dummy_node = ListNode(-1)
+        cur = dummy_node
+        while que:
+            val, index =  heapq.heappop(que)
+            cur.next = lists[index]
+            cur = cur.next
+            lists[index] = lists[index].next
+            if lists[index] != None:
+                heapq.heappush(que, (lists[index].val, index))
+        return dummy_node.next
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

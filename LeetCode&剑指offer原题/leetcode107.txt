@@ -1,0 +1,135 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> levelOrderBottom(TreeNode* root) {
+    if (!root)  return {};
+    vector<vector<int>> res;
+    queue<TreeNode*> q{{root}};
+    while(!q.empty()) {
+        vector<int> oneLevel;
+        for(int i = q.size();i>0;i--) {
+            TreeNode*t = q.front();q.pop();
+            oneLevel.push_back(t->val);
+            if (t->left) q.push(t->left);
+            if(t->right) q.push(t->right);
+        }
+        res.insert(res.begin(),oneLevel);
+    }
+     return res;
+    }
+};
+
+*/
+class Solution {
+public:
+    vector<vector<int>> levelOrderBottom(TreeNode* root) {
+        vector<vector<int>> res;
+        levelorder(root,0,res);
+        return vector<vector<int>>(res.rbegin(),res.rend());
+        }
+        
+    void levelorder(TreeNode* node, int level, vector<vector<int>> & res) {
+        if (!node) return ;
+        if(res.size() == level) res.push_back({});
+        res[level].push_back(node->val);
+        if(node->left) levelorder(node->left,level+1,res);
+        if(node->right) levelorder(node->right,level+1,res);
+    }
+};
+
+
+*/python 解法
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def levelOrderBottom(self, root):
+        queue = []                                                  # 结果列表
+        cur = [root]                                                # 接下来要循环的当前层节点，存的是节点
+        while cur:                                                  # 当前层存在结点时
+            cur_layer_val = []                                      # 初始化当前层结果列表为空，存的是val
+            next_layer_node = []                                    # 初始化下一层结点列表为空
+            for node in cur:                                        # 遍历当前层的每一个结点
+                if node:                                            # 如果该结点不为空，则进行记录
+                    cur_layer_val.append(node.val)                  # 将该结点的值加入当前层结果列表的末尾
+                    next_layer_node.extend([node.left, node.right]) # 将该结点的左右孩子结点加入到下一层结点列表
+            if cur_layer_val:                                       # 只要当前层结果列表不为空
+                queue.insert(0, cur_layer_val)                      # 则把当前层结果列表插入到队列首端
+            cur = next_layer_node                                   # 下一层的结点变成当前层，接着循环
+        return queue                 
+
+        
+*/
+class Solution:
+    def levelOrderBottom(self,root):
+        ans = []
+        self.level(root,ans,0)
+        return ans[::-1]
+        
+    def level(self,root,ans,depth):
+        if not root:
+            return 
+        if len(ans) == depth:
+            ans.append([])
+        ans[depth].append(root.val)
+        self.level(root.left,ans,depth+1)
+        self.level(root.right,ans,depth+1)
+        
+*/
+class Solution:
+    def levelOrderBottom(self,root):
+        res = []
+        def helper(root,depth):
+            if not root:
+                return 
+            if depth == len(res):
+                res.append([])
+            res[depth].append(root.val)
+            helper(root.left,depth+1)
+            helper(root.right,depth+1)
+        helper(root,0)
+        return res[::-1]
+        
+*/
+class Solution:
+    def levelOrderBottom(self,root):
+        array = []
+        result = []
+        if root == None:
+            return result
+        array.append(root)
+        while array:
+            templist = []
+            for i in range(len(array)):
+                newNode = array.pop(0)
+                templist.append(newNode.val)
+                if newNode.left != None:
+                    array.append(newNode.left)
+                if newNode.right != None:
+                    array.append(newNode.right)
+            result.append(templist)
+        result.reverse()
+        return result
+        
+        
+                
+        
+        
+       
+
+
+
+        
+        

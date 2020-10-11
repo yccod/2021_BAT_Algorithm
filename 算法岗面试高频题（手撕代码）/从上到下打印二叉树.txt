@@ -1,0 +1,56 @@
+*/c++
+class Solution {
+public:
+	vector<int> PrintFromTopToBottom(TreeNode* root) {
+		vector<int> res;
+		if(root == NULL)
+			return res;
+		queue<TreeNode*> q;
+		q.push(root);
+		while(!q.empty()){
+			res.push_back(q.front()->val);
+			if(q.front()->left != NULL)
+				q.push(q.front()->left);
+			if (q.front()->right!=NULL)
+				q.push(q.front()->right);
+			q.pop();
+		}
+		return res;
+	}
+};
+*/
+class Solution {
+public:
+	vector<int> PrintFromTopToBottom(TreeNode *root) {
+		vector<int> res;
+		vector<TreeNode*> array;
+		if(root == NULL) return res;
+		array.push_back(root);
+		int p = 0;
+		while(p < array.size()){
+			TreeNode *temp = array[p++];
+			if(temp->left) array.push_back(temp->left);
+			if(temp->right)array.push_back(temp->right);
+			res.push_back(temp->val);
+		}
+		return res;
+	}
+};
+
+*/python		
+class Solution:
+	def PrintFromTopToBottom(self,root):
+		if not root:
+			return []
+		queue = []
+		result = []
+		queue.append(root)
+		while queue:
+			node = queue.pop(0)
+			result.append(node.val)
+			if node.left:
+				queue.append(node.left)
+			if node.right:
+				queue.append(node.right)
+		return result
+		

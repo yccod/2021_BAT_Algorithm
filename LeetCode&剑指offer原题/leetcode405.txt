@@ -1,0 +1,61 @@
+*/c++
+class Solution {
+public:
+	string toHex(int num) {
+		string res = "";
+		for(int i = 0; num && i < 8; ++i) {
+			int t = num & 0xf;
+			if (t >= 10) res = char('a'+t-10)+res;
+			else res = char('0'+ t)+res;
+			num >>= 4;
+		}
+		return res.empty()? "0":res;
+	}
+};
+
+
+*/
+class Solution {
+public:
+	string toHex(int num) {
+		string res = "",str = "0123456789abcdef";
+		int cnt = 0;
+		while(num!=0 && cnt++ < 8) {
+			res = str[(num & 0xf)] + res;
+			num >>= 4;
+		}
+		return res.empty() ? "0" : res;
+	}
+};
+
+
+*/python
+class Solution:
+	def toHex(self,num):
+		return hex(num&0xFFFFFFFF)[2:]
+		
+*/
+class Solution:
+	def toHex(self,num):
+		num &= 0xFFFFFFFF
+		s = "0123456789abcdef"
+		res = ""
+		mask = 0b1111
+		while num > 0:
+			res += s[ num & mask]
+			num >>= 4
+		return res[::-1] if res else "0"
+		
+		
+*/
+class Solution:
+	def toHex(self,num):
+		result = ""
+		alpha = "0123456789abcdef"
+		if num == 0:
+			return '0'
+		while num!=0 and len(result)<8:
+			result += alpha[num & 0xf]
+			num = num >> 4
+		return result[::-1]
+		

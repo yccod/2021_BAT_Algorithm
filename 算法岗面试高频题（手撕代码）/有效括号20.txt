@@ -1,0 +1,18 @@
+class Solution:
+    def isValid(self, s: str) -> bool:
+        dict1={"(":")","[":"]","{":"}"}
+        if not s:
+            return True
+        if s[0] not in dict1:
+            return False
+        stack=[s[0]]
+        i=1
+        while i<len(s):            
+            if s[i] in dict1:
+                stack.append(s[i])
+            elif not stack or s[i] != dict1[stack[-1]]:
+                return False
+            else:
+                stack.pop()
+            i+=1
+        return len(stack)==0

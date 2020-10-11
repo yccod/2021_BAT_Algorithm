@@ -1,0 +1,18 @@
+class Solution:
+
+    def knightProbability(self, N: int, K: int, r: int, c: int) -> float:
+        @functools.lru_cache(None)
+        def dfs(r, c, counts):
+            if r < 0 or r > N - 1 or c < 0 or c > N - 1:
+                return 0
+            if counts == K:
+                return 1
+
+            step = [(-2, 1), (-1, 2), (1, 2), (2, 1), (2, -1), (1, -2), (-1, -2), (-2, -1)]
+            ans=0
+            for i, j in step:
+                ans += dfs(r + i, c + j, counts + 1)
+
+            return ans/8
+        
+        return dfs(r,c,0)

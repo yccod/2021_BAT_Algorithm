@@ -1,0 +1,20 @@
+二叉树最近公共祖先
+class class Solution:
+    def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
+        # 思路：找就近的祖先节点，采用递归方法，考虑3种边界情况，
+        #     边界情况：
+        #       1. p,q在左右两边
+        #       2. p,q都在左子树或右子树
+        #       3. p或q有一个是根节点
+        #       递归结束：如果not root， 找到节点为p或q，return root
+        #       当前层递归：
+        #       返回值：在左子树和右子树进行递归，并判断如果左子树返回值为空，则说明左子树不存在，则返回右子树，同理右子树； 如果左右子树同时存在值则返回 root为最近祖先节点
+        if not root or root==p or root == q: return root
+        left = self.lowestCommonAncestor(root.left, p, q)
+        right = self.lowestCommonAncestor(root.right, p, q)
+        if not left: return right
+        if not right: return left
+        return root # 如果left 和 right都不为空，则返回根节点
+
+
+https://leetcode-cn.com/problems/er-cha-shu-de-zui-jin-gong-gong-zu-xian-lcof/solution/mian-shi-ti-68-ii-er-cha-shu-de-zui-jin-gong-gon-7/

@@ -1,0 +1,102 @@
+*/C++
+class Solution {
+public:
+    static bool cmp(int a,int b){
+        string A="";
+        string B="";
+        A+=to_string(a);
+        A+=to_string(b);
+        B+=to_string(b);
+        B+=to_string(a);
+        
+        return A<B;
+    }
+    string PrintMinNumber(vector<int> numbers) {
+        string answer="";
+        sort(numbers.begin(),numbers.end(),cmp);
+        for (int i=0;i<numbers.size();i++){
+            answer+=to_string(numbers[i]);
+        }
+        return answer;
+    }
+};
+
+
+
+class Solution {
+public:
+    string PrintMinNumber(vector<int> numbers){
+        string ret;
+        vector<string> numbers_str;
+        for(int i = 0; i < numbers.size(); ++i)
+            numbers_str.push_back(to_string(numbers[i]));       
+        sort(numbers_str.begin(), numbers_str.end(), MyCompare);
+        for(int i = 0; i < numbers_str.size(); ++i)
+            ret += numbers_str[i];       
+        return ret;
+    }
+private:
+    static bool MyCompare(const string &str1, const string &str2){
+        return str1 + str2 < str2 + str1;
+    }
+};
+
+
+
+class Solution {
+public:
+    string PrintMinNumber(vector<int> numbers) {
+        sort(numbers.begin(),numbers.end(),[](const int& a ,const int& b){
+        return to_string(a)+to_string(b)<to_string(b)+to_string(a);});
+        string res;
+        for(auto c:numbers)
+            res += to_string(c);
+        return res;
+    }
+};
+
+
+
+class Solution {
+public:
+    static bool compare( const string &st1,const string &st2){
+        string s1 = st1+st2;
+        string s2 = st2+st1;
+        return s1<s2;
+    }
+    string PrintMinNumber(vector<int> numbers) {
+         string result;
+        if(numbers.size()<=0){
+            return result;
+        }
+        vector<string> strNum;
+        for(int i=0;i<numbers.size();i++ ){
+           stringstream ss;
+            ss<<numbers[i];
+            string s = ss.str();
+            strNum.push_back(s);
+        }
+        sort(strNum.begin(),strNum.end(),compare);
+        
+        for(int i=0;i<strNum.size();i++){
+            result.append(strNum[i]);
+        }
+        return result;
+         
+    }
+};
+
+
+*/Python ½â·¨
+# -*- coding:utf-8 -*-
+class Solution:
+    def PrintMinNumber(self, numbers):
+        # write code here
+        if not numbers:
+            return ""
+        numbers = list(map(str,numbers))
+        numbers.sort(cmp=lambda x,y:cmp(x+y,y+x))
+        return "".join(numbers).lstrip('0') or "0"
+        
+
+

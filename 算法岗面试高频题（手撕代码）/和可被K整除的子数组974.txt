@@ -1,0 +1,42 @@
+class Solution:
+    def subarraysDivByK(self, A: List[int], K: int) -> int:
+        ans=0
+        for i in range(len(A)):
+            sum_=0
+            for j in range(i,len(A)):
+                sum_+=A[j]
+                if sum_%K==0:
+                    ans+=1
+        return ans
+
+
+class Solution:
+    def subarraysDivByK(self, A: List[int], K: int) -> int:
+        ans=0
+        dict1={0:1}
+        sum_=0
+        for i in range(len(A)):
+            sum_+=A[i]
+            if dict1:
+                for key in dict1:
+                    if (sum_-key)%K==0:
+                        ans+=dict1[key]
+            dict1[sum_]=dict1.get(sum_,0)+1
+        return ans
+		
+		
+
+
+
+class Solution:
+    def subarraysDivByK(self, A: List[int], K: int) -> int:
+        ans=0
+        dict1={0:1}
+        pre=0
+        for i in range(len(A)):
+            pre+=A[i]
+            pre=pre%K 
+            dict1[pre]=dict1.get(pre,0)+1
+        for k in dict1:
+            ans+=(dict1[k]*(dict1[k]-1))//2
+        return ans

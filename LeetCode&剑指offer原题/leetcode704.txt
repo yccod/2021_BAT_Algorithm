@@ -1,0 +1,38 @@
+*/C++解法
+
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        int left = 0, right = nums.size()-1;
+        while(left<=right){
+            int mid = (left+right)/2;
+            if(nums[mid] == target) return mid;
+            else if (nums[mid] < target) left = mid + 1;
+            else right = mid -1;
+        }
+        return -1;
+    }
+};
+
+*/ Python 解法
+
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        try:
+            return nums.index(target)
+        except:
+            return -1
+    
+*/    
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        left = 0, right = len(nums)-1
+        while left<=right:
+            mid = (left + right) //2
+            if nums[mid] == target:
+                return mid
+            elif nums[mid] < target:
+                left = mid +1
+            else:
+                right = mid -1
+        return -1

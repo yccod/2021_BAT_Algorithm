@@ -1,0 +1,53 @@
+*/C++解法
+class Solution {
+public:
+    bool IsPopOrder(vector<int> pushV,vector<int> popV) {
+        if(pushV.size() == 0) return false;
+        vector<int> stack;
+        for(int i = 0, j = 0; i < pushV.size();){
+            stack.push_back(pushV[i++]);
+            while(j < popV.size() && stack.back() == popV[j]){
+                stack.pop_back();
+                j++;       
+            }
+        }
+        return stack.empty();
+    }
+};
+
+
+*/
+class Solution {
+public:
+    bool IsPopOrder(vector<int> pushV,vector<int> popV) {
+        if(pushV.size() == 0) return false;
+        stack<int> stack1;
+        for(int i = 0, j = 0; i < pushV.size();){
+            stack1.push(pushV[i++]);
+            while(j < popV.size() && stack1.top() == popV[j]){
+                stack1.pop();
+                j++;       
+            }
+        }
+        return stack1.empty();
+    }
+};
+
+
+
+
+*/Python 解法
+# -*- coding:utf-8 -*-
+class Solution:
+    def IsPopOrder(self, pushV, popV):
+        # write code here
+        stack = []
+        j = 0
+        for i in pushV:
+            stack.append(i)
+            while len(stack) >0 and popV[j] == stack[-1]:
+                stack.pop()
+                j += 1
+        return len(stack)==0
+        
+        

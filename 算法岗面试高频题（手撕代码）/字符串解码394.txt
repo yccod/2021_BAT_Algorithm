@@ -1,0 +1,18 @@
+class Solution:
+    def decodeString(self, s: str) -> str:
+        stack=[]
+        ans=""
+        num=0
+        for c in s:
+            if "0"<=c<="9":
+                num=num*10+int(c)
+            elif c=="[":
+                stack.append([num,ans])
+                num=0
+                ans=""
+            elif c=="]":
+                top=stack.pop()
+                ans=top[1]+top[0]*ans
+            else:
+                ans+=c
+        return ans

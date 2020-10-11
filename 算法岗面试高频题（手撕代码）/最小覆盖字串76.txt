@@ -1,0 +1,29 @@
+class Solution:
+    def minWindow(self, s: 'str', t: 'str') -> 'str':
+        dict1={}
+        count=0
+        for char in t:
+            dict1[char]=dict1.get(char,0)+1
+        left=0
+        right=0
+        ans=""
+        min_len=float("inf")
+        while right<len(s):
+            if s[right] not in dict1:
+                right+=1
+                continue
+            dict1[s[right]]-=1
+            if dict1[s[right]]==0:
+                count+=1
+            while s[left] not in dict1 or dict1[s[left]]<0:
+                if s[left] in dict1:
+                    dict1[s[left]]+=1
+                left+=1
+            if count==len(dict1) and min_len>right-left+1:
+                min_len=right-left+1
+                ans=s[left:right+1]
+            right+=1
+        return ans
+
+
+

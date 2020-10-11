@@ -1,0 +1,50 @@
+*/C++解法
+class Solution
+{
+public:
+    void push(int node) {
+        stack1.push(node);
+        
+    }
+    int pop() {
+            int a;
+            if (stack2.empty()){
+                while(!stack1.empty()){
+                    a = stack1.top();
+                    stack2.push(a);
+                    stack1.pop();
+                }
+            }
+            a = stack2.top();
+            stack2.pop();
+            return a;
+    }
+
+private:
+    stack<int> stack1;
+    stack<int> stack2;
+};
+
+
+*/python 解法
+
+# -*- coding:utf-8 -*-
+class Solution:
+    def __init__(self):
+        self.stackA = []
+        self.stackB = []
+    def push(self, node):
+        # write code here
+        self.stackA.append(node)
+    def pop(self):
+        # return xx
+        if self.stackB:
+            return self.stackB.pop()
+        elif not self.stackA:
+            return None
+        else:
+            while self.stackA:
+                self.stackB.append(self.stackA.pop())
+            return self.stackB.pop()
+            
+            

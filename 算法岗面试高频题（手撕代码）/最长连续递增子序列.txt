@@ -1,0 +1,20 @@
+import sys
+def temp(arr):
+    dp=[[i] for i in range(len(arr))]
+    max_len=1
+    index=0
+    for i in range(len(arr)):
+        for j in range(i):
+            if arr[i]==arr[j]+1 and len(dp[i])<len(dp[j])+1:
+                dp[i]=dp[j]+[i]
+        if len(dp[i])>max_len:
+            max_len=len(dp[i])
+            index=i
+    return dp[index]
+
+
+
+if __name__ =="__main__":
+    line=sys.stdin.readline().strip()
+    arr=list(map(int,line.split()))
+    print(temp(arr))

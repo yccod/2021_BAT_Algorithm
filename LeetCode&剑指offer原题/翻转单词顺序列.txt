@@ -1,0 +1,25 @@
+*/C++解法
+
+class Solution {
+public:
+    string ReverseSentence(string str) {
+        string res ="",tmp = "";
+        for(int i=0;i<str.size();i++){
+            if(str[i] == ' ') res=" "+tmp+res,tmp="";
+            else tmp +=str[i];
+        }
+        if(tmp.size()) res = tmp + res;
+        return res;
+    }
+};
+
+
+
+*/Python 解法
+
+# -*- coding:utf-8 -*-
+class Solution:
+    def ReverseSentence(self, s):
+        # write code here
+        return " ".join(s.split()[::-1]) if s.strip() !="" else s
+        

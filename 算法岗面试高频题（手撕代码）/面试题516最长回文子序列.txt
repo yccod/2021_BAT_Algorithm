@@ -1,0 +1,21 @@
+class Solution:
+    def longestPalindromeSubseq(self, s: str) -> int:
+        # <1.创建dp表（初始化）>
+        dp = [[0 for i in range(len(s))] for j in range(len(s))]
+        for i in range(len(s)):
+            dp[i][i] = 1
+        
+        # <2.循环修改dp表>
+        for i in range(len(s)-1, -1, -1): # 对i要反向遍历
+            for j in range(i+1, len(s)):  # 对j正向遍历且避开j小于i的情况
+            
+                # <3.如果相等>则在上一个回文子序列长度上加上两个字符的长度
+                if s[j] == s[i]:
+                    dp[i][j] = dp[i+1][j-1] + 2
+                    
+                # <4.如果不相等>则对比哪边的回文子序列更长
+                elif s[j] != s[i]:
+                    dp[i][j] = max(dp[i][j-1], dp[i+1][j])
+        
+        return dp[0][len(s)-1] # 返回dp[0...len(s)-1]的最长回文子序列
+

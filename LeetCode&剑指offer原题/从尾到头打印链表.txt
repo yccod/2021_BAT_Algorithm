@@ -1,0 +1,174 @@
+'''
+输入一个链表，按链表从尾到头的顺序返回一个ArrayList。
+'''
+*/C++ 解法
+/**
+*  struct ListNode {
+*        int val;
+*        struct ListNode *next;
+*        ListNode(int x) :
+*              val(x), next(NULL) {
+*        }
+*  };
+*/
+*/栈思路
+class Solution {
+public:
+    vector<int> printListFromTailToHead(ListNode* head) {
+        vector <int> value;
+        ListNode *p=NULL;
+        p = head;
+        stack<int> stk;
+        while(p!=NULL){
+            stk.push(p->val);
+            p = p->next;
+        }
+        while(!stk.empty()){
+            value.push_back(stk.top());
+            stk.pop();
+        }
+        return value;
+    }
+};
+
+*/数组翻转
+class Solution {
+public:
+    vector<int> printListFromTailToHead(ListNode* head){
+        vector <int> value;
+        ListNode *p = NULL;
+        p = head;
+        while(p!=NULL){
+            value.push_back(p->val);
+            p = p->next;
+        }
+    // reverse(value.begin(),value.end()); //C++自带的翻转函数
+    int temp = 0;
+    int i =0, j = value.size()-1;
+    while(i<j){
+        temp = value[i];
+        value[i] = value[j];
+        value[j] = temp;
+        i++;
+        j--;
+    }
+    return value;
+    }
+};
+
+*/递归思路
+class Solution {
+public:
+    vector<int> value;
+    vector <int> printListFromTailToHead(ListNode* head){
+        ListNode *p = NULL;
+        p = head;
+        if(p!=NULL){
+            if (p->next != NULL){
+                printListFromTailToHead(p->next);
+            }
+        value.push_back(p->val);
+        }
+    return value;
+    
+    }
+};
+
+
+*/前插法
+class Solution {
+public :
+    vector<int> printListFromTailToHead(ListNode* head){
+        vector<int> value;
+        if (head != NULL)
+        {
+            value.insert(value.begin(),head->val);
+            while(head->next != NULL){
+                value.insert(value.begin(),head->next->val);
+                head = head->next;
+            }
+        
+        }
+    return value;
+    }
+};
+
+
+
+class Solution {
+public : 
+    vector<int> printListFromTailToHead(struct ListNode *head){
+        vector<int> v;
+        while(head!=NULL){
+            v.insert(v.begin(),head->val);
+            head = head->next;
+        }
+    return v;
+    }
+};
+
+
+
+*/反向迭代器
+class Solution {
+public:
+    vector<int> printListFromTailToHead(ListNode* head){
+        vector<int> v;
+        ListNode *p = head;
+        while( p != NULL) {
+            v.push_back(p->val);
+            p = p->next;
+        }
+    //反向迭代器创建临时对象
+    return vector<int>(v.rbegin(),v.rend());
+   
+    }
+};
+
+
+
+*/Python 解法
+# -*- coding:utf-8 -*-
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+'''递归
+'''
+class Solution:
+    # 返回从尾部到头部的列表值序列，例如[1,2,3]
+    def printListFromTailToHead(self, listNode):
+        # write code here
+        if listNode is None:
+            return []
+        return self.printListFromTailToHead(listNode.next) + [listNode.val]
+        
+        
+        
+        
+*/逆序输出
+class Solution :
+    def printListFromTailToHead(self,listNode):
+        result = []
+        if listNode is None:
+            return result
+        while listNode.next is not None:
+            result.append(listNode.val)
+            listNode = listNode.next
+        result.append(listNode.val)
+        return result[::-1]
+       
+*/栈
+class Solution :
+    def printListFromTailToHead(self,listNode):
+        lst, lst_bak = [], []
+        if not listNode:
+            return lst
+        while listNode:
+            lst.append(listNode.val)
+            listNode = listNode.next
+        while lst:
+            lst_bak.append(lst.pop())
+        return lst_bak
+       
+        

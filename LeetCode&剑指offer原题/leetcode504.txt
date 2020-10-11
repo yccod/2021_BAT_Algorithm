@@ -1,0 +1,37 @@
+*/C++解法
+class Solution {
+public:
+    string convertToBase7(int num) {
+        if (num == 0) return "0";
+        string res = "";
+        bool positive = num > 0;
+        while (num != 0) {
+            res = to_string(abs(num % 7)) + res;
+            num /= 7;
+        }
+        return positive ? res :"-" + res;
+    }
+};
+
+*/
+class Solution {
+public:
+    string convertToBase7(int num) {
+        if(num < 0) return "-" + convertToBase7(-num);
+        if(num < 7) return to_string(num);
+        return convertToBase7(num /7) + to_string(num%7);
+    }
+};
+
+*/Python解法
+class Solution:
+    def convertToBase7(self, num: int) -> str:
+        if num == 0:
+            return "0"
+        res =""
+        n = abs(num)
+        while n:
+            res = str(n%7) + res
+            n//=7
+        return res if num>0 else "-"+res
+        

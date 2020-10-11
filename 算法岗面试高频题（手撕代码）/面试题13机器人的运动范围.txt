@@ -1,0 +1,41 @@
+class Solution:
+	def movingCount(self,m,n,k):
+		def sum_bit(num):
+			temp=0
+			while num>0:
+				temp+=num%10
+				num//=10
+			return temp
+		def check(i,j):
+			count=0
+			if i>=0 and i<m and j>=0 and j<n and not visited[i][j] and sum_bit(i)+sum_bit(j)<=k:
+				visited[i][j]=1
+				count=1+check(i,j+1)+check(i,j-1)+check(i-1,j)+check(i+1,j)
+			return count
+			
+		
+		visited = [[0]*n for _ in range(m)]
+		return check(0,0)
+		
+class Solution:
+    def movingCount(self,m,n,k):
+        def sum_bit(num):
+            temp=0
+            while num>0:
+                temp+=num%10
+                num//=10
+            return temp
+        def check(i,j):
+            nonlocal count
+            if i>=0 and i<m and j>=0 and j<n and not visited[i][j] and sum_bit(i)+sum_bit(j)<=k:
+                visited[i][j]=1
+                count+=1
+                check(i,j+1)
+                check(i,j-1)
+                check(i-1,j)
+                check(i+1,j)
+            
+        count=0
+        visited = [[0]*n for _ in range(m)]
+        check(0,0)
+        return count

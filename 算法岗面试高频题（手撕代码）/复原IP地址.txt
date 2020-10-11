@@ -1,0 +1,20 @@
+class Solution:
+    def restoreIpAddresses(self, s: str) -> List[str]:
+        if len(s)>12:
+            return None
+        self.res=[]
+        def dfs(s,tmp):
+            if len(s)==0 and len(tmp)==4:
+                self.res.append('.'.join(tmp))
+                return 
+            if s:
+                for i in range(1,4):
+                    s1=s[:i]
+                    s2=s[i:]
+                    if 0 <= int(s1) and int(s1)<=255 and str(int(s1))==s1:
+                        dfs(s2,tmp+[s1])
+
+
+
+        dfs(s,[])
+        return list(set(self.res))

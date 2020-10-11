@@ -1,0 +1,95 @@
+*/C++解法
+class Solution {
+public:
+    string reverseVowels(string s) {
+        int left = 0, right = s.size()-1;
+        while (left<right){
+            if (isVowel(s[left]) && isVowel(s[right])) {
+                    swap(s[left++],s[right--]);
+            }else if (isVowel(s[left])) {
+                --right;
+            }else {
+            ++left;
+            }
+        }
+    return s;
+    }
+    
+    bool isVowel(char c) {
+        return c == 'a' || c == 'e' || c == 'i'||c == 'o' ||c == 'u' ||c == 'A' ||c == 'E' ||c == 'I' || c == 'O'||c == 'U';
+    } 
+};
+
+
+
+
+
+class Solution {
+public:
+    string reverseVowels(string s)  {
+        int i=0, j=s.size()-1;
+        string tool = "aeiouAEIOU";
+        while(i<j){
+            while(tool.find(s[i]) == -1&&i<j)
+                ++i;
+            while(tool.find(s[j])==-1&&i<j)
+                --j;
+            if (i<j)
+                swap(s[i++],s[j--]);
+        }
+        return s;
+    }
+};
+
+
+*/Python 解法
+class Solution:
+    def reverseVowels(self,s):
+        y_list = ['a','e','i','o','u','A','E','I','O','U']
+        ss = list(s)
+        ys = [c for c in ss if c in y_list]
+        ys.reverse()
+        index = 0
+        for i in range(0,len(ss)):
+            if ss[i] in y_list:
+                ss[i] = ys[index]
+                index +=1
+        return ''.join(ss)
+        
+        
+
+class Solution:
+    def reverseVowels(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        
+        word = 'aeiouAEIOU'
+        filter_word = [i for i in s if i in word]
+
+        ret = list(s)
+        for idx, val in enumerate(ret):
+            if val in word:
+                ret[idx] = filter_word.pop()
+
+        return ''.join(ret)
+        
+        
+class Solution:
+    def reverseVowels(self,s):
+        word = 'aeiouAEIOU'
+        left = 0
+        right = len(s)-1
+        s_str = list(s)
+        while left < right:
+            if s_str[left] in word and s_str[right] in word:
+                s_str[left],s_str[right]=s_str[right],s_str[left]
+                left +=1
+                right -=1
+            elif s_str[left] in word and s_str[right] not in word:
+                right -=1
+            else:
+                left +=1
+        return ''.join(s_str)
+        

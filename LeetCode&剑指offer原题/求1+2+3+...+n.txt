@@ -1,0 +1,66 @@
+*/C++
+
+class Solution {
+public:
+    int Sum_Solution(int n) {
+        int ans = n;
+        ans && (ans += Sum_Solution(n-1));
+        return ans;
+    }
+};
+
+*/
+class Solution {
+public:
+    int Sum_Solution(int n) {
+        bool a[n][n+1];
+        return sizeof(a)>>1;
+    }
+};
+
+
+
+*/
+class Solution{
+public:
+    int multi(int a, int b) {
+        int res = 0;
+        (a&1) && (res += b);
+        a >>= 1; b <<= 1;
+        a && (res += multi(a,b));
+        return res;
+    }
+    
+    int Sum_Solution(int n){
+        return multi(n,n+1)>>1;
+    }
+};
+
+
+
+*/
+class Solution {
+public:
+    int Sum_Solution(int n) {
+        return ((int)pow(n,2) + n) >> 1;
+    }
+};
+
+
+
+
+
+
+*/Python ½â·¨
+# -*- coding:utf-8 -*-
+class Solution:
+    def Sum_Solution(self, n):
+        # write code here
+        return n and n + self.Sum_Solution(n-1)
+        
+        
+*/
+class Solution:
+    def Sum_Solution(self,n):
+        return sum(list(range(1,n+1)))
+        

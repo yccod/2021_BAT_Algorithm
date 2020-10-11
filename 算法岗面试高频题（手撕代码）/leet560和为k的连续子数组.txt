@@ -1,0 +1,75 @@
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        prefixSumArray = {0:1}
+        count = 0
+        prefixSum = 0
+        
+        for ele in nums:
+            prefixSum += ele
+            subArray = prefixSum - k
+            
+            if subArray in prefixSumArray:
+                count += prefixSumArray[subArray]
+            '''
+            prefixSumArray.get(prefixSum, 0)
+            在hash table里查找key，如果有返回对应的value，反之返回0 
+            '''
+            prefixSumArray[prefixSum] = prefixSumArray.get(prefixSum, 0) + 1
+        
+        return count
+                    
+时间复杂度O(n) 空间复杂度O(n)
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        pre_sum=0
+        count=0
+        sum_dic={0:1}
+        for num in nums:
+            pre_sum+=num
+            diff=pre_sum-k
+            if diff in sum_dic:
+                count+=sum_dic[diff]
+            sum_dic[pre_sum]=sum_dic.get(pre_sum,0)+1
+        return count
+
+
+
+
+https://leetcode-cn.com/problems/subarray-sum-equals-k/solution/hot-100-he-wei-kde-zi-shu-zu-python3-cong-bao-li-j/
+o(n**3)
+def subarraySum(num,k):
+	count=0
+	for i in range(len(num)):
+		for j in range(i,len(num))：
+			if sum(num[i:j])==k:
+				count+=1
+	return count
+
+o(n**2)
+def subarraySum(num,k):
+	count=0
+	for i in range(len(num)):
+		sum=0
+		for j in range(i,len(num))：
+			sum+=num[j]
+			if sum == k:
+				count+=1
+	return count
+	
+
+
+和大于等于k的最短连续子数组
+def subarraySum(num,k):
+	min_len=float("inf")
+	res=[]
+	for i in range(len(num)):
+		sum=0
+		for j in range(i,len(num))：
+			sum+=num[j]
+			if sum>=k and j-i+1 < min_len:
+				res=num[i:j+1]
+				min_len=j-i+1
+				break		
+	return res
+	
+

@@ -1,0 +1,20 @@
+class Solution {
+public:
+	int dayOfYear(string date){
+		int days[] = {31,28,31,30,31,30,31,31,30,31,30,31};
+		int i;
+		const char* s;
+		s = date.c_str();
+		int year = atoi(s);
+		int month = atoi(s+5);
+		int day = atoi(s+8);
+		if (((year%4==0)  && (year%100!=0)) ||(year%400==0)){
+			days[1]=29;
+		}
+		for (i=0; i < month-1 ; i++){
+			day += days[i];
+		}
+		
+		return day;
+	}
+};

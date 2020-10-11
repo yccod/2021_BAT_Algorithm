@@ -1,0 +1,18 @@
+class Solution:
+    def getKth(self, lo: int, hi: int, k: int) -> int:
+        dict1={}
+        def helper(num):
+            count=0
+            while num !=1:
+                if num%2:
+                    num=3*num+1
+                    count+=1
+                else:
+                    num=num//2
+                    count+=1
+            return count
+        for i in range(lo,hi+1):
+            count=helper(i)
+            dict1[i]=count
+        a=sorted(dict1.items(),key=lambda x:(x[1],x[0]))
+        return a[k-1][0]

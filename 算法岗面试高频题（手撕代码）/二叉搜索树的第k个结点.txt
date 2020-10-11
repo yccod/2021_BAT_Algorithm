@@ -1,0 +1,39 @@
+*/c++
+class Solution {
+public:
+    //中序遍历的结果就是有序序列，第K个元素就是vec[K-1]存储的节点指针；
+    TreeNode* KthNode(TreeNode* pRoot, unsigned int k)
+    {
+        if(pRoot==NULL||k<=0) return NULL;
+        vector<TreeNode*> vec;
+        Inorder(pRoot,vec);
+        if(k>vec.size())
+            return NULL;
+        return vec[k-1];
+    }
+    //中序遍历，将节点依次压入vector中
+    void Inorder(TreeNode* pRoot,vector<TreeNode*>& vec)
+    {
+        if(pRoot==NULL) return;
+        Inorder(pRoot->left,vec);
+        vec.push_back(pRoot);
+        Inorder(pRoot->right,vec);
+    } 
+};
+
+
+*/python		
+class Solution:
+	def KthNode(self,pRoot,k):
+		self.res = []
+		self.dfs(pRoot)
+		return self.res[k-1] if 0<k<=len(self.res) else None
+		
+	def dfs(self,root):
+		if not root:
+			return 
+		self.dfs(root.left)
+		self.res.append(root)
+		self.dfs(root.right)
+		
+	

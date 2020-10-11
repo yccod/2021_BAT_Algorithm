@@ -1,0 +1,4 @@
+class Solution:
+    def repeatedSubstringPattern(self, s: str) -> bool:
+        temp_str=s*2
+        return s in temp_str[1:-1]
