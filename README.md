@@ -1,3 +1,3 @@
 # 2021 BAT算法岗面经汇总
-涵盖LeetCode、剑指offer、手撕代码高频算法题、ML重点知识点以及概率智力题等(Author by yc 2020.10.11)
-欢迎star
+# 涵盖LeetCode、剑指offer、手撕代码高频算法题、ML重点知识点以及概率智力题等(Author by yc 2020.10.11)
+# 欢迎star
